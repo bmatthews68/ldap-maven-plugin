@@ -1,10 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.btmatthews.mojo</groupId>
 	<artifactId>ldap-maven-plugin</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.0</version>
 	<packaging>maven-plugin</packaging>
 	<build>
         <extensions>
@@ -216,14 +214,8 @@
          </snapshotRepository>
     </distributionManagement>
 	<scm>
-		<connection>
-			scm:svn:http://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/trunk
-		</connection>
-		<developerConnection>
-			scm:svn:https://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/trunk
-		</developerConnection>
-		<url>
-			http://ldap-plugin.svn.sourceforge.net/viewvc/ldap-plugin/ldap-maven-plugin/trunk
-		</url>
+		<connection>scm:svn:http://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/tags/ldap-maven-plugin-1.0</connection>
+		<developerConnection>scm:svn:https://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/tags/ldap-maven-plugin-1.0</developerConnection>
+		<url>http://ldap-plugin.svn.sourceforge.net/viewvc/ldap-plugin/ldap-maven-plugin/tags/ldap-maven-plugin-1.0</url>
 	</scm>
 </project>
