@@ -1,0 +1,17 @@
+dn: uid=bsimpson,ou=People,dc=btmatthews,dc=com
+changetype: delete
+
+dn: uid=lsimpson,ou=People,dc=btmatthews,dc=com
+changetype: delete
+
+dn: uid=msimpson1,ou=People,dc=btmatthews,dc=com
+changetype: delete
+
+dn: uid=hsimpson,ou=People,dc=btmatthews,dc=com
+changetype: delete
+
+dn: uid=msimpson,ou=People,dc=btmatthews,dc=com
+changetype: delete
+
+dn: ou=People,dc=btmatthews,dc=com
+changetype: delete
