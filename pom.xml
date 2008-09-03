@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.btmatthews.mojo</groupId>
 	<artifactId>ldap-maven-plugin</artifactId>
-	<version>1.0</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	<build>
         <extensions>
@@ -214,8 +214,8 @@
          </snapshotRepository>
     </distributionManagement>
 	<scm>
-		<connection>scm:svn:http://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/tags/ldap-maven-plugin-1.0</connection>
-		<developerConnection>scm:svn:https://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/tags/ldap-maven-plugin-1.0</developerConnection>
-		<url>http://ldap-plugin.svn.sourceforge.net/viewvc/ldap-plugin/ldap-maven-plugin/tags/ldap-maven-plugin-1.0</url>
+		<connection>scm:svn:http://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/trunk</connection>
+		<developerConnection>scm:svn:https://ldap-plugin.svn.sourceforge.net/svnroot/ldap-plugin/ldap-maven-plugin/trunk</developerConnection>
+		<url>http://ldap-plugin.svn.sourceforge.net/viewvc/ldap-plugin/ldap-maven-plugin/trunk</url>
 	</scm>
 </project>
