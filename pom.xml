@@ -206,11 +206,11 @@
 		</site>
 	    <repository>
             <id>repository.btmatthews.com</id>
-            <url>ftp://ftp.btmatthews.com/${username}/repository</url>
+            <url>ftp://ftp.btmatthews.com/bmatthews68/repository</url>
          </repository>
          <snapshotRepository>
             <id>snapshot.btmatthews.com</id>
-            <url>ftp://ftp.btmatthews.com/${username}/snapshot</url>
+            <url>ftp://ftp.btmatthews.com/bmatthews68/snapshot</url>
          </snapshotRepository>
     </distributionManagement>
 	<scm>
