@@ -1,5 +1,5 @@
 /*
- * Copyright 2008 Brian Thomas Matthews
+ * Copyright 2008-2011 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,89 +30,81 @@ import netscape.ldap.LDAPException;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @version 1.0
  */
-public abstract class AbstractLDAPMojo
-    extends AbstractMojo
-{
-    /**
-     * The default LDAP protocol version.
-     */
-    private static final int DEFAULT_VERSION = 3;
+public abstract class AbstractLDAPMojo extends AbstractMojo {
+	/**
+	 * The default LDAP protocol version.
+	 */
+	private static final int DEFAULT_VERSION = 3;
 
-    /**
-     * The default host name.
-     */
-    private static final String DEFAULT_HOST = "localhost";
+	/**
+	 * The default host name.
+	 */
+	private static final String DEFAULT_HOST = "localhost";
 
-    /**
-     * The default port number for LDAP servers.
-     */
-    private static final int DEFAULT_PORT = 389;
+	/**
+	 * The default port number for LDAP servers.
+	 */
+	private static final int DEFAULT_PORT = 389;
 
-    /**
-     * The LDAP protocol version. Defaults to 3.
-     * 
-     * @parameter default-value="3"
-     */
-    private int version = AbstractLDAPMojo.DEFAULT_VERSION;
+	/**
+	 * The LDAP protocol version. Defaults to 3.
+	 * 
+	 * @parameter default-value="3"
+	 */
+	private int version = AbstractLDAPMojo.DEFAULT_VERSION;
 
-    /**
-     * The host name of the LDAP server. Defaults to localhost.
-     * 
-     * @parameter default-value="localhost"
-     */
-    private String host = AbstractLDAPMojo.DEFAULT_HOST;
+	/**
+	 * The host name of the LDAP server. Defaults to localhost.
+	 * 
+	 * @parameter default-value="localhost"
+	 */
+	private String host = AbstractLDAPMojo.DEFAULT_HOST;
 
-    /**
-     * The port number of the LDAP server. Defaults to 389.
-     * 
-     * @parameter default-value="389"
-     */
-    private int port = AbstractLDAPMojo.DEFAULT_PORT;
+	/**
+	 * The port number of the LDAP server. Defaults to 389.
+	 * 
+	 * @parameter default-value="389"
+	 */
+	private int port = AbstractLDAPMojo.DEFAULT_PORT;
 
-    /**
-     * The distinguished name used if authentication is required.
-     * 
-     * @parameter
-     */
-    private String authDn;
+	/**
+	 * The distinguished name used if authentication is required.
+	 * 
+	 * @parameter
+	 */
+	private String authDn;
 
-    /**
-     * The password used if authentication is required.
-     * 
-     * @parameter
-     */
-    private String passwd;
+	/**
+	 * The password used if authentication is required.
+	 * 
+	 * @parameter
+	 */
+	private String passwd;
 
-    /**
-     * The default constructor.
-     */
-    public AbstractLDAPMojo()
-    {
-    }
+	/**
+	 * The default constructor.
+	 */
+	public AbstractLDAPMojo() {
+	}
 
-    /**
-     * Connect to the LDAP directory server.
-     * 
-     * @return The connection object.
-     * @throws MojoExecutionException
-     *             If the connection to the LDAP directory server failed.
-     */
-    protected final LDAPConnection connect()
-        throws MojoExecutionException
-    {
-        try
-        {
-            final LDAPConnection connection = new LDAPConnection();
-            connection.connect(this.version, this.host, this.port, this.authDn,
-                this.passwd);
-            return connection;
-        }
-        catch (LDAPException e)
-        {
-            final String message = "Could not connect to LDAP Server ("
-                + this.host + ":" + this.port + ")";
-            this.getLog().error(message, e);
-            throw new MojoExecutionException(message, e);
-        }
-    }
+	/**
+	 * Connect to the LDAP directory server.
+	 * 
+	 * @return The connection object.
+	 * @throws MojoExecutionException
+	 *             If the connection to the LDAP directory server failed.
+	 */
+	protected final LDAPConnection connect() throws MojoExecutionException {
+		try {
+			final LDAPConnection connection = new LDAPConnection();
+			connection.connect(this.version, this.host, this.port, this.authDn,
+					this.passwd);
+			return connection;
+		} catch (LDAPException e) {
+			final String message = "Could not connect to LDAP Server ("
+					+ this.host + ":" + this.port + ")";
+			this.getLog().error(message, e);
+			throw new MojoExecutionException(message, e);
+		}
+	}
 }
