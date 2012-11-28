@@ -6,7 +6,7 @@
  2008-06-24
  ------
 
-~~ Copyright 2008 Brian Thomas Matthews
+~~ Copyright 2008-2012 Brian Thomas Matthews
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -23,9 +23,13 @@
 
 LDAP Maven Plugin
 
-  This plugin provides the goals to load records into or dump records from an LDAP directory. Records
-  can be dumped to {{{http://en.wikipedia.org/wiki/LDIF}LDIF}} or
-  {{{http://en.wikipedia.org/wiki/Directory_Service_Markup_Language}DSML}} formats. 
+  This plugin provides the goals to:
+
+  * Load records into or dump records from an LDAP directory. Records can be dumped to
+    {{{http://en.wikipedia.org/wiki/LDIF}LDIF}} or
+    {{{http://en.wikipedia.org/wiki/Directory_Service_Markup_Language}DSML}} formats.
+
+  * Start and stop an embedded ApacheDS server
 
 * Goals Overview
 
@@ -36,6 +40,10 @@ LDAP Maven Plugin
   * {{{ldif-dump-mojo.html}ldap:ldif-dump}} Dump directory entries to LDIF format.
 
   * {{{dsml-dump-mojo.html}ldap:ldif-dump}} Dump directory entries to DSML format.
+
+  * {{{run-mojo.html}ldap:run}} Run an embedded ApacheDS server.
+
+  * {{{stop-mojo.html}ldap:stop}} Stop an embedded ApacheDS server.
 
 * Usage
 
@@ -51,3 +59,5 @@ LDAP Maven Plugin
   * {{{examples/ldif-dump.html}Dump entries to LDIF file}}
   
   * {{{examples/dsml-load.html}Dump entries to DSML file}}
+
+  * {{examples/integration.html}Using the embedded ApacheDS server for integration testing}}

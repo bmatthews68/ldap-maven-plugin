@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2011 Brian Thomas Matthews
+ * Copyright 2012 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,30 @@
  * limitations under the License.
  */
 
-package com.btmatthews.maven.plugins.ldap.mojos;
+package com.btmatthews.maven.plugins.ldap.mojo;
 
-import org.apache.maven.plugin.AbstractMojo;
+import com.btmatthews.utils.monitor.Monitor;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
 
 /**
- * This Mojo implements the stop-server goal which terminates an embedded LDAP
- * server.
- * 
- * @goal stop-server
+ * This Mojo implements the stop-apache goal which terminates an embedded LDAP
+ * apache.
+ *
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
  * @version 1.0
  */
-public class StopServerMojo extends AbstractMojo {
+@Mojo(name = "stop")
+public final class StopServerMojo extends AbstractServerMojo {
 
+    /**
+     * Stop a running ApacheDS server by sending a {@code stop} command to the monitor that is controlling that server.
+     *
+     * @throws MojoFailureException If there was an error stopping the embedded ApacheDS server.
+     */
+    @Override
     public void execute() throws MojoFailureException {
+        final Monitor monitor = new Monitor(getMonitorKey(), getMonitorPort());
+        monitor.sendCommand("stop", this);
     }
 }

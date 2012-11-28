@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?> 
 <!-- 
-    Copyright 2008 Brian Thomas Matthews
+    Copyright 2008-2012 Brian Thomas Matthews
 	
 	Licensed under the Apache License, Version 2.0 (the "License");
 	you may not use this file except in compliance with the License.
@@ -15,9 +15,10 @@
 	limitations under the License.
 -->
 <project name="${project.name}">
-	<bannerLeft>
+    <googleAnalyticsAccountId>UA-5713196-9</googleAnalyticsAccountId>
+    <bannerLeft>
 		<name>LDAP Maven Plugin</name>  
-		<href>http://ldap-plugin.btmatthews.com</href>  
+		<href>http://ldap-maven-plugin.btmatthews.com</href>
 	</bannerLeft>  
 	<publishDate format="dd MMM yyyy" position="left" />  
     <version position="left" />  
@@ -34,7 +35,8 @@
 		<menu name="Examples">
 			<item name="Loading to LDIF" href="examples/ldif-load.html" /> 
 			<item name="Dumping to LDIF" href="examples/ldif-dump.html" /> 
-			<item name="Dumping to DSML" href="examples/dsml-dump.html" /> 
+			<item name="Dumping to DSML" href="examples/dsml-dump.html" />
+            <item name="Integration testing" href="examples/integration.html" />
 		</menu>
 		${reports}
 	</body>
