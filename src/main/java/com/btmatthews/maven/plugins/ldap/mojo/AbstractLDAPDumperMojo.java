@@ -56,7 +56,7 @@ public abstract class AbstractLDAPDumperMojo extends AbstractLDAPMojo {
     /**
      * The target output directory.
      */
-    @Parameter(property = "project.outputDirectory", required = true)
+    @Parameter(defaultValue = "${project.build.directory}", required = true)
     private File outputDirectory;
 
     /**

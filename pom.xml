@@ -11,7 +11,7 @@
     <packaging>maven-plugin</packaging>
     <name>LDAP Maven Plugin</name>
     <description>Parse and load LDIF records to an LDAP directory server. Dump records from an LDAP directory server to
-        LDIF or DSML formats.
+        LDIF or DSML formats. Start or stop an embedded LDAP server.
     </description>
     <inceptionYear>2008</inceptionYear>
     <licenses>
@@ -112,7 +112,10 @@
                     <pomIncludes>
                         <pomInclude>*/pom.xml</pomInclude>
                     </pomIncludes>
+                    <showErrors>true</showErrors>
                     <debug>true</debug>
+                    <streamLogs>true</streamLogs>
+                    <showVersion>true</showVersion>
                     <settingsFile>src/it/settings.xml</settingsFile>
                     <localRepositoryPath>${project.build.directory}/local-repo</localRepositoryPath>
                 </configuration>
@@ -123,7 +126,7 @@
                         <goals>
                             <goal>install</goal>
                             <goal>run</goal>
-                            <goal>report</goal>
+                            <!--goal>report</goal-->
                         </goals>
                     </execution>
                 </executions>
@@ -197,9 +200,6 @@
             <plugin>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.9</version>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>

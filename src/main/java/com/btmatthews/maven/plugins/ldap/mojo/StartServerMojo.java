@@ -50,7 +50,7 @@ public final class StartServerMojo extends AbstractServerMojo {
     /**
      * An optional LDIF file that can be used to seed the embedded LDAP server.
      */
-    @Parameter(property = "ldap.ldif")
+    @Parameter(property = "ldap.ldif", required = false)
     private File ldifFile;
 
     /**

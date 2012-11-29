@@ -26,12 +26,6 @@
                 <groupId>com.btmatthews.maven.plugins</groupId>
                 <artifactId>ldap-maven-plugin</artifactId>
                 <version>@project.version@</version>
-                <configuration>
-                    <monitorPort>11389</monitorPort>
-                    <monitorKey>ldap</monitorKey>
-                    <rootDn>dc=btmatthews,dc=com</rootDn>
-                    <ldapPort>10389</ldapPort>
-                </  configuration>
                 <executions>
                     <execution>
                         <id>start-server</id>
@@ -39,6 +33,28 @@
                         <goals>
                             <goal>run</goal>
                         </goals>
+                        <configuration>
+                            <monitorPort>11389</monitorPort>
+                            <monitorKey>ldap</monitorKey>
+                            <rootDn>dc=btmatthews,dc=com</rootDn>
+                            <ldapPort>10389</ldapPort>
+                            <ldifFile>initial.ldif</ldifFile>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>dump</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>ldif-dump</goal>
+                        </goals>
+                        <configuration>
+                            <host>localhost</host>
+                            <port>10389</port>
+                            <authDn>uid=admin,ou=system</authDn>
+                            <passwd>secret</passwd>
+                            <searchBase>dc=btmatthews,dc=com</searchBase>
+                            <filename>dump.ldif</filename>
+                        </configuration>
                     </execution>
                     <execution>
                         <id>stop-server</id>
@@ -46,6 +62,10 @@
                         <goals>
                             <goal>stop</goal>
                         </goals>
+                        <configuration>
+                            <monitorPort>11389</monitorPort>
+                            <monitorKey>ldap</monitorKey>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
