@@ -31,7 +31,7 @@
                     <monitorKey>ldap</monitorKey>
                     <rootDn>dc=btmatthews,dc=com</rootDn>
                     <ldapPort>10389</ldapPort>
-                </  configuration>
+                </configuration>
                 <executions>
                     <execution>
                         <id>start-server</id>
