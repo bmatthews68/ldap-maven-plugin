@@ -27,7 +27,9 @@ import java.util.TimerTask;
 
 import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Monitor;
+import com.btmatthews.utils.monitor.MonitorObserver;
 import com.btmatthews.utils.monitor.Server;
+import com.btmatthews.utils.monitor.mojo.StopMojo;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -55,6 +57,12 @@ public class TestStopMojo {
     private Logger logger;
 
     /**
+     * Mock the observer.
+     */
+    @Mock
+    private MonitorObserver observer;
+
+    /**
      * Prepare for test case execution by initialising the mocks.
      */
     @Before
@@ -63,7 +71,7 @@ public class TestStopMojo {
     }
 
     /**
-     * Start a mock server and verify that the {@link StopServerMojo} signals it to shutdown.
+     * Start a mock server and verify that the {@link StopMojo} signals it to shutdown.
      *
      * @throws Exception If the test case failed.
      */
@@ -72,14 +80,8 @@ public class TestStopMojo {
         final Server server = Mockito.mock(Server.class);
         final Logger logger = Mockito.mock(Logger.class);
         final Monitor monitor = new Monitor("ldap", 12389);
-        final Thread monitorThread = new Thread(new Runnable() {
-            public void run() {
-                server.start(logger);
-                monitor.runMonitor(server, logger);
-            }
-        });
-        monitorThread.start();
-        final StopServerMojo mojo = new StopServerMojo();
+        final Thread monitorThread = monitor.runMonitorDaemon(server, logger, observer);
+        final StopMojo mojo = new StopMojo();
         ReflectionUtils.setVariableValueInObject(mojo, "monitorPort", 12389);
         ReflectionUtils.setVariableValueInObject(mojo, "monitorKey", "ldap");
         final Timer timer = new Timer();
@@ -96,7 +98,7 @@ public class TestStopMojo {
         monitorThread.join(15000L);
         verify(server).start(same(logger));
         verify(logger).logInfo(eq("Waiting for command from client"));
-        verify(logger).logInfo(eq("Recieving command from client"));
+        verify(logger).logInfo(eq("Receiving command from client"));
         verify(server).stop(same(logger));
         validateMockitoUsage();
 

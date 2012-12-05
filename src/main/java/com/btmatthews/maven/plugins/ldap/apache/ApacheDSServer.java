@@ -20,8 +20,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.btmatthews.utils.monitor.AbstractServer;
 import com.btmatthews.utils.monitor.Logger;
-import com.btmatthews.utils.monitor.Server;
 import org.apache.directory.server.core.DefaultDirectoryService;
 import org.apache.directory.server.core.DirectoryService;
 import org.apache.directory.server.core.authn.AuthenticationInterceptor;
@@ -47,7 +47,7 @@ import org.apache.directory.shared.ldap.name.LdapDN;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.0
  */
-public final class ApacheDSServer implements Server {
+public final class ApacheDSServer extends AbstractServer {
 
     /**
      * The LDAP directory service.
@@ -80,39 +80,29 @@ public final class ApacheDSServer implements Server {
     private int serverPort;
 
     /**
-     * Set the root DN of the LDAP directory.
+     * Used to configure the root DN of the LDAP directory, the working directory used by the directory service to
+     * store the directory data, the LDIF file used to seed the directory or the TCP port number on which the server
+     * will listening for LDAP traffic.
      *
-     * @param dn The root DN.
+     * @param name   The name of the property to configure.
+     * @param value  The value of the property being configured.
+     * @param logger Used to log error and information messages.
      */
-    public void setRoot(final String dn) {
-        this.root = dn;
-    }
-
-    /**
-     * Set the working directory used by the LDAP directory service to store directory data.
-     *
-     * @param directory The working directory.
-     */
-    public void setWorkingDirectory(final File directory) {
-        workingDirectory = directory;
-    }
-
-    /**
-     * Set the LDIF file used to seed the LDAP directory.
-     *
-     * @param file The file.
-     */
-    public void setLdifFile(final File file) {
-        ldifFile = file;
-    }
-
-    /**
-     * Set the TCP port number on which the server will listening for LDAP traffic.
-     *
-     * @param port The TCP port number.
-     */
-    public void setLdapPort(final int port) {
-        serverPort = port;
+    @Override
+    public void configure(final String name, final Object value, final Logger logger) {
+        if ("root".equals(name)) {
+            root = (String)value;
+            logger.logInfo("Configured root DN for ApacheDS: " + root);
+        } else if ("workingDirectory".equals(name)) {
+            workingDirectory = (File)value;
+            logger.logInfo("Configured working directory for ApacheDS: " + workingDirectory);
+        } else if ("ldifFile".equals(name)) {
+            ldifFile = (File)value;
+            logger.logInfo("Configured LDIF seed data source for ApacheDS: " + ldifFile);
+        } else if ("ldapPort".equals(name)) {
+            serverPort = (Integer)value;
+            logger.logInfo("Configured TCP port for ApacheDS: " + serverPort);
+        }
     }
 
     /**

@@ -73,10 +73,10 @@ public abstract class AbstractLDAPMojoTest {
     public void setUp() throws Exception {
         initMocks(this);
         server = new ApacheDSServer();
-        server.setRoot("dc=btmatthews,dc=com");
-        server.setLdapPort(10389);
-        server.setWorkingDirectory(workingDir.getRoot());
-        server.setLdifFile(getFile("/initial.ldif"));
+        server.configure("root", "dc=btmatthews,dc=com", logger);
+        server.configure("ldapPort", Integer.valueOf(10389), logger);
+        server.configure("workingDirectory", workingDir.getRoot(), logger);
+        server.configure("ldifFile", getFile("/initial.ldif"), logger);
         server.start(logger);
     }
 
