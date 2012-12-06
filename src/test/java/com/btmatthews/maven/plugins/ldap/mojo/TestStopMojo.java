@@ -29,7 +29,6 @@ import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Monitor;
 import com.btmatthews.utils.monitor.MonitorObserver;
 import com.btmatthews.utils.monitor.Server;
-import com.btmatthews.utils.monitor.mojo.StopMojo;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -71,7 +70,7 @@ public class TestStopMojo {
     }
 
     /**
-     * Start a mock server and verify that the {@link StopMojo} signals it to shutdown.
+     * Start a mock server and verify that the {@link StopLDAPMojo} signals it to shutdown.
      *
      * @throws Exception If the test case failed.
      */
@@ -81,7 +80,7 @@ public class TestStopMojo {
         final Logger logger = Mockito.mock(Logger.class);
         final Monitor monitor = new Monitor("ldap", 12389);
         final Thread monitorThread = monitor.runMonitorDaemon(server, logger, observer);
-        final StopMojo mojo = new StopMojo();
+        final StopLDAPMojo mojo = new StopLDAPMojo();
         ReflectionUtils.setVariableValueInObject(mojo, "monitorPort", 12389);
         ReflectionUtils.setVariableValueInObject(mojo, "monitorKey", "ldap");
         final Timer timer = new Timer();

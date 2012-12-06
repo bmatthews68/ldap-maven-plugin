@@ -17,11 +17,23 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-    <artifactId>HellowWorld</artifactId>
+    <artifactId>HelloWorld</artifactId>
     <version>1.0.0</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <build>
         <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.12.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
             <plugin>
                 <groupId>com.btmatthews.maven.plugins</groupId>
                 <artifactId>ldap-maven-plugin</artifactId>
@@ -29,6 +41,7 @@
                 <configuration>
                     <monitorPort>11389</monitorPort>
                     <monitorKey>ldap</monitorKey>
+                    <daemon>true</daemon>
                     <rootDn>dc=btmatthews,dc=com</rootDn>
                     <ldapPort>10389</ldapPort>
                 </configuration>
@@ -51,4 +64,18 @@
             </plugin>
         </plugins>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>ldapsdk</groupId>
+            <artifactId>ldapsdk</artifactId>
+            <version>4.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.11</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>

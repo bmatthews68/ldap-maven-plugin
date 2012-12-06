@@ -24,10 +24,10 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * This Mojo implements the dsml-dump goal which dumps content from the LDAP
- * directory apache in DSML format.
+ * directory server in DSML format.
  *
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
- * @version 1.0
+ * @since 1.0.0
  */
 @Mojo(name = "dsml-dump")
 public final class DSMLDumperMojo extends AbstractLDAPDumperMojo {
@@ -38,6 +38,7 @@ public final class DSMLDumperMojo extends AbstractLDAPDumperMojo {
      * @param writer The writer for the target output stream.
      * @return The LDAP writer.
      */
+    @Override
     protected LDAPWriter openLDAPWriter(final PrintWriter writer) {
         writer.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
         writer.print("<dsml:dsml xmlns:dsml=\"http://www.dsml.org/DSML\">\n");
@@ -50,6 +51,7 @@ public final class DSMLDumperMojo extends AbstractLDAPDumperMojo {
      * @param writer     The writer for the target output stream.
      * @param ldapWriter The LDAP writer.
      */
+    @Override
     protected void closeLDAPWriter(final PrintWriter writer,
                                    final LDAPWriter ldapWriter) {
         writer.print("</dsml:dsml>\n");

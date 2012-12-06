@@ -133,7 +133,7 @@ public final class ApacheDSServer extends AbstractServer {
             service.startup();
 
             server = new LdapServer();
-            server.setTransports(new TcpTransport(serverPort));
+            server.setTransports(new TcpTransport("localhost", serverPort));
             server.setDirectoryService(service);
             server.start();
 

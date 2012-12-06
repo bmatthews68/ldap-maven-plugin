@@ -33,12 +33,12 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * This is the abstract base class for all Mojos in the ldap-maven-plugin plugin
- * that dump content from the directory apache. Concrete classes must implement
+ * that dump content from the directory server. Concrete classes must implement
  * the getLDAPWriter() method to return the writer that will format the output
  * appropriately.
  *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
- * @version 1.0
+ * @since 1.0.0
  */
 public abstract class AbstractLDAPDumperMojo extends AbstractLDAPMojo {
     /**
@@ -50,8 +50,8 @@ public abstract class AbstractLDAPDumperMojo extends AbstractLDAPMojo {
     /**
      * The search filter.
      */
-    @Parameter(defaultValue = "(objectclass=*", required = true)
-    private String searchFilter = "(objectclass=*)";
+    @Parameter(defaultValue = "(objectclass=*)", required = true)
+    private String searchFilter;
 
     /**
      * The target output directory.
@@ -108,7 +108,7 @@ public abstract class AbstractLDAPDumperMojo extends AbstractLDAPMojo {
     /**
      * Search the LDAP directory and dump the contents to a file.
      *
-     * @param connection The connection to the LDAP directory apache.
+     * @param connection The connection to the LDAP directory server.
      * @param writer     The writer that is used to dump the content.
      * @throws MojoExecutionException If an error occurred generating the output file content.
      */

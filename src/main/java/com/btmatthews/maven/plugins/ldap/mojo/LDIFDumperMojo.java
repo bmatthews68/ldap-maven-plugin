@@ -24,10 +24,10 @@ import org.apache.maven.plugins.annotations.Mojo;
 
 /**
  * This Mojo implements the dsml-dump goal which dumps content from the LDAP
- * directory apache in LDIF format.
+ * directory server in LDIF format.
  *
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
- * @version 1.0
+ * @since 1.0.0
  */
 @Mojo(name = "ldif-dump")
 public final class LDIFDumperMojo extends AbstractLDAPDumperMojo {
@@ -38,6 +38,7 @@ public final class LDIFDumperMojo extends AbstractLDAPDumperMojo {
      * @param writer The writer for the target output stream.
      * @return The LDAP writer.
      */
+    @Override
     protected LDAPWriter openLDAPWriter(final PrintWriter writer) {
         return new LDIFWriter(writer);
     }
@@ -48,6 +49,7 @@ public final class LDIFDumperMojo extends AbstractLDAPDumperMojo {
      * @param writer     The writer for the target output stream.
      * @param ldapWriter The LDAP writer.
      */
+    @Override
     protected void closeLDAPWriter(final PrintWriter writer,
                                    final LDAPWriter ldapWriter) {
     }

@@ -64,7 +64,7 @@ public class TestRunMojo {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
-        mojo = new RunMojo();
+        mojo = new RunLDAPMojo();
         ReflectionUtils.setVariableValueInObject(mojo, "monitorPort", 11389);
         ReflectionUtils.setVariableValueInObject(mojo, "rootDn", "dc=btmatthews,dc=com");
         ReflectionUtils.setVariableValueInObject(mojo, "ldapPort", 10389);

@@ -24,11 +24,11 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 /**
  * This is the abstract base class for all Mojos in this the ldap-maven-plugin
- * plugin. It defines the properties for the LDAP directory apache connection
- * and provides a method to connect to the LDAP directory apache.
+ * plugin. It defines the properties for the LDAP directory server connection
+ * and provides a method to connect to the LDAP directory server.
  *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
- * @version 1.0
+ * @since 1.0.0
  */
 public abstract class AbstractLDAPMojo extends AbstractMojo {
     /**
@@ -53,13 +53,13 @@ public abstract class AbstractLDAPMojo extends AbstractMojo {
     private int version = AbstractLDAPMojo.DEFAULT_VERSION;
 
     /**
-     * The host name of the LDAP apache. Defaults to localhost.
+     * The host name of the LDAP directory server. Defaults to localhost.
      */
     @Parameter(defaultValue = "localhost")
     private String host = AbstractLDAPMojo.DEFAULT_HOST;
 
     /**
-     * The port number of the LDAP apache. Defaults to 389.
+     * The port number of the LDAP directory server. Defaults to 389.
      */
     @Parameter(defaultValue = "389")
     private int port = AbstractLDAPMojo.DEFAULT_PORT;
@@ -67,32 +67,49 @@ public abstract class AbstractLDAPMojo extends AbstractMojo {
     /**
      * The distinguished name used if authentication is required.
      */
-    @Parameter
+    @Parameter(required = true)
     private String authDn;
 
     /**
      * The password used if authentication is required.
      */
-    @Parameter
+    @Parameter(required = true)
     private String passwd;
 
     /**
-     * Connect to the LDAP directory apache.
+     * The connection timeout.
+     */
+    @Parameter(defaultValue = "5")
+    private int connectionTimeout;
+
+    /**
+     * The maximum number of connection attempts before failing.
+     */
+    @Parameter(defaultValue = "3")
+    private int connectionRetries;
+
+    /**
+     * Connect to the LDAP directory server. The connection attempt will be retried {@link #connectionRetries} times
+     * and the connection time is set to {@link #connectionTimeout}.
      *
      * @return The connection object.
-     * @throws MojoExecutionException If the connection to the LDAP directory apache failed.
+     * @throws MojoExecutionException If the connection to the LDAP directory server failed.
      */
     protected final LDAPConnection connect() throws MojoExecutionException {
-        try {
-            final LDAPConnection connection = new LDAPConnection();
-            connection.connect(this.version, this.host, this.port, this.authDn,
-                    this.passwd);
-            return connection;
-        } catch (LDAPException e) {
-            final String message = "Could not connect to LDAP Server ("
-                    + this.host + ":" + this.port + ")";
-            this.getLog().error(message, e);
-            throw new MojoExecutionException(message, e);
+        final LDAPConnection connection = new LDAPConnection();
+        connection.setConnectTimeout(connectionTimeout);
+        for (int i = 0; i < connectionRetries; i++) {
+            try {
+                connection.connect(version, host, port, authDn, passwd);
+                break;
+            } catch (final LDAPException e) {
+                if (i == connectionRetries - 1) {
+                    final String message = "Could not connect to LDAP Server (" + host + ":" + port + ")";
+                    this.getLog().error(message, e);
+                    throw new MojoExecutionException(message, e);
+                }
+            }
         }
+        return connection;
     }
 }

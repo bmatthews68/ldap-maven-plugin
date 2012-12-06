@@ -30,10 +30,10 @@ import org.apache.maven.plugins.annotations.Parameter;
  * server using Apache Directory Server.
  *
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
- * @version 1.0
+ * @since 1.1.0
  */
-@Mojo(name = "run", defaultPhase = LifecyclePhase.TEST_COMPILE)
-public final class RunMojo extends AbstractRunMojo {
+@Mojo(name = "run", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST)
+public final class RunLDAPMojo extends AbstractRunMojo {
 
     /**
      * The root DN for the LDAP server.

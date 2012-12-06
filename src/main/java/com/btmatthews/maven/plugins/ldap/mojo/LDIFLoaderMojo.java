@@ -66,7 +66,7 @@ public final class LDIFLoaderMojo extends AbstractLDAPMojo {
      * @throws MojoExecutionException If something unexpected happens.
      */
     public void execute() throws MojoExecutionException {
-        // Connect to the LDAP apache
+        // Connect to the LDAP directory server
 
         final LDAPConnection connection = this.connect();
 
@@ -120,7 +120,7 @@ public final class LDIFLoaderMojo extends AbstractLDAPMojo {
      * Process a parsed LDIF record. Delegate to the appropriate handler for
      * each operation.
      *
-     * @param connection The connection to the LDAP apache.
+     * @param connection The connection to the LDAP directory server.
      * @param record     The parsed record.
      * @throws LDAPException If there was an LDAP error.
      */
@@ -150,13 +150,14 @@ public final class LDIFLoaderMojo extends AbstractLDAPMojo {
     /**
      * Handle an LDIF add record.
      *
-     * @param connection The connection to the LDAP apache.
+     * @param connection The connection to the LDAP directory server.
      * @param entryDn    The distinguished name of the record being added.
      * @param attributes The attributes.
      * @throws LDAPException If the operation failed.
      */
     private void addEntry(final LDAPConnection connection,
-                          final String entryDn, final LDAPAttribute[] attributes) throws LDAPException {
+                          final String entryDn,
+                          final LDAPAttribute[] attributes) throws LDAPException {
         this.getLog().info("Add Entry: " + entryDn);
         final LDAPAttributeSet attributeSet = new LDAPAttributeSet(attributes);
         final LDAPEntry entry = new LDAPEntry(entryDn, attributeSet);
@@ -166,7 +167,7 @@ public final class LDIFLoaderMojo extends AbstractLDAPMojo {
     /**
      * Handle an LDIF delete record.
      *
-     * @param connection The connection to the LDAP apache.
+     * @param connection The connection to the LDAP directory server.
      * @param entryDn    The distinguished name of the record to be deleted.
      * @throws LDAPException If the operation failed.
      */
@@ -179,13 +180,14 @@ public final class LDIFLoaderMojo extends AbstractLDAPMojo {
     /**
      * Handle an LDIF modification record.
      *
-     * @param connection The connection to the LDAP apache.
+     * @param connection The connection to the LDAP directory server.
      * @param entryDn    The distinguished name of the record being modified.
      * @param content    The details of the modification operation.
      * @throws LDAPException If the operation failed.
      */
     private void modifyEntry(final LDAPConnection connection,
-                             final String entryDn, final LDIFModifyContent content) throws LDAPException {
+                             final String entryDn,
+                             final LDIFModifyContent content) throws LDAPException {
         this.getLog().info("Modify Entry: " + entryDn);
         connection.modify(entryDn, content.getModifications());
     }
@@ -193,13 +195,14 @@ public final class LDIFLoaderMojo extends AbstractLDAPMojo {
     /**
      * Handle a LDIF distinguished name change operation.
      *
-     * @param connection The connection to the LDAP apache.
+     * @param connection The connection to the LDAP directory server.
      * @param entryDn    The distinguished name of the record being renamed.
      * @param content    The details of the name change operation.
      * @throws LDAPException If the operation failed.
      */
     private void renameEntry(final LDAPConnection connection,
-                             final String entryDn, final LDIFModDNContent content) throws LDAPException {
+                             final String entryDn,
+                             final LDIFModDNContent content) throws LDAPException {
         this.getLog().info("Rename Entry: " + entryDn);
         connection.rename(entryDn, content.getRDN(), content.getNewParent(), content.getDeleteOldRDN());
     }
