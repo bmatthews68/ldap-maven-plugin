@@ -6,7 +6,7 @@
     </prerequisites>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
     <name>LDAP Maven Plugin</name>
     <description>Parse and load LDIF records to an LDAP directory server. Dump records from an LDAP directory server to
