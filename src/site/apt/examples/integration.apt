@@ -66,11 +66,11 @@ Using the embedded ApacheDS server for integration testing
           <executions>
 +-----+
 
-  The embedded LDAP directory server is configured to run as a daemon by setting <daemon/> to true. This will run
+  The embedded LDAP directory server is configured to run as a daemon by setting \<daemon/\> to true. This will run
   the embedded LDAP directory server in the background while the build proceeds. The embedded LDAP directory server
-  is controlled by a monitor thread which listens for the stop signal on the port specified by <monitorPort/>. The
-  stop command must also be accompanied by a key specified by <monitorKey/> to ensure that stop signal is being sent
-  to the correct instance.
+  is controlled by a monitor thread which listens for the stop signal on the port specified by \<monitorPort/\>.
+  The stop command must also be accompanied by a key specified by \<monitorKey/\> to ensure that stop signal is
+  being sent to the correct instance.
 
 +-----+
             <execution>
@@ -82,10 +82,10 @@ Using the embedded ApacheDS server for integration testing
             </execution>
 +-----+
 
-  The above execution will invoke the {{{run-mojo.html}ldap:run}} goal during the pre-integration-test phase of the
-  build life cycle. The embedded LDAP directory server is created listening on the port specified by <ldapPort/> and
-  an empty repository is created with at the DN specified by <rootDn>. Then the repository is seeded with data in
-  the LDIF file specified by <ldifFile/>.
+  The above execution will invoke the {{{../run-mojo.html}ldap:run}} goal during the <<pre-integration-test>> phase of
+  the build life cycle. The embedded LDAP directory server is created listening on the port specified by \<ldapPort/\>
+  and an empty repository is created with at the DN specified by \<rootDn/\>. Then the repository is seeded with
+  data in the LDIF file specified by \<ldifFile/\>.
 
 +-----+
             <execution>
@@ -97,9 +97,9 @@ Using the embedded ApacheDS server for integration testing
             </execution>
 +-----+
 
-  The above execution will invoke the {{{stop-mojo.html}ldap:stop}} goal during the post-integration-test phase of the
-  build life cycle. This achieved by sending the stop command to the monitor controlling the embedded LDAP directory
-  server.
+  The above execution will invoke the {{{../stop-mojo.html}ldap:stop}} goal during the post-integration-test phase of
+  the build life cycle. This achieved by sending the stop command to the monitor controlling the embedded LDAP
+  directory server.
 
 +-----+
           </executions>

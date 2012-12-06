@@ -80,13 +80,13 @@ public abstract class AbstractLDAPMojo extends AbstractMojo {
      * The connection timeout.
      */
     @Parameter(defaultValue = "5")
-    private int connectionTimeout;
+    private int connectionTimeout = 5;
 
     /**
      * The maximum number of connection attempts before failing.
      */
     @Parameter(defaultValue = "3")
-    private int connectionRetries;
+    private int connectionRetries = 3;
 
     /**
      * Connect to the LDAP directory server. The connection attempt will be retried {@link #connectionRetries} times
@@ -96,19 +96,25 @@ public abstract class AbstractLDAPMojo extends AbstractMojo {
      * @throws MojoExecutionException If the connection to the LDAP directory server failed.
      */
     protected final LDAPConnection connect() throws MojoExecutionException {
+        String lastMessage = null;
+        LDAPException lastError = null;
         final LDAPConnection connection = new LDAPConnection();
         connection.setConnectTimeout(connectionTimeout);
-        for (int i = 0; i < connectionRetries; i++) {
+        int i = 0;
+        while (i < connectionRetries) {
             try {
+                this.getLog().info("Attempting to connect ot LDAP Server (" + host + ":" + port + ")");
                 connection.connect(version, host, port, authDn, passwd);
                 break;
             } catch (final LDAPException e) {
-                if (i == connectionRetries - 1) {
-                    final String message = "Could not connect to LDAP Server (" + host + ":" + port + ")";
-                    this.getLog().error(message, e);
-                    throw new MojoExecutionException(message, e);
-                }
+                i++;
+                lastError = e;
+                lastMessage = "Could not connect to LDAP Server (" + host + ":" + port + ")";
+                this.getLog().error(lastMessage, lastError);
             }
+        }
+        if (i >= connectionRetries) {
+            throw new MojoExecutionException(lastMessage, lastError);
         }
         return connection;
     }

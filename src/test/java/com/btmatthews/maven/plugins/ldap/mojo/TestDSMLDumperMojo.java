@@ -16,10 +16,13 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
+
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Rule;
 import org.junit.Test;
@@ -45,6 +48,7 @@ public final class TestDSMLDumperMojo extends AbstractLDAPMojoTest {
     @Test
     public void testDSMLDumper() throws Exception {
         final DSMLDumperMojo mojo = new DSMLDumperMojo();
+        mojo.setLog(new SystemStreamLog());
         ReflectionUtils.setVariableValueInObject(mojo, "outputDirectory", outputDirectory.getRoot());
         ReflectionUtils.setVariableValueInObject(mojo, "host", LOCALHOST);
         ReflectionUtils.setVariableValueInObject(mojo, "port", Integer.valueOf(PORT));

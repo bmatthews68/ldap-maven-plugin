@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,7 +37,6 @@ public final class TestLDIFDumperMojo extends AbstractLDAPMojoTest {
     @Rule
     public TemporaryFolder outputDirectory = new TemporaryFolder();
 
-
     /**
      * Test the configuration for the dsml-dump goal.
      *
@@ -45,6 +45,7 @@ public final class TestLDIFDumperMojo extends AbstractLDAPMojoTest {
     @Test
     public void testDSMLDumper() throws Exception {
         final LDIFDumperMojo mojo = new LDIFDumperMojo();
+        mojo.setLog(new SystemStreamLog());
         ReflectionUtils.setVariableValueInObject(mojo, "outputDirectory", outputDirectory.getRoot());
         ReflectionUtils.setVariableValueInObject(mojo, "host", "localhost");
         ReflectionUtils.setVariableValueInObject(mojo, "port", Integer.valueOf(10389));

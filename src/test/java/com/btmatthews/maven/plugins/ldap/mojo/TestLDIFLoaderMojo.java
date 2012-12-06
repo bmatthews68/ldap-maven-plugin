@@ -18,6 +18,7 @@ package com.btmatthews.maven.plugins.ldap.mojo;
 
 import java.io.File;
 
+import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,6 +36,7 @@ public final class TestLDIFLoaderMojo extends AbstractLDAPMojoTest {
     @Before
     public void setUp() throws Exception {
         super.setUp();
+        mojo.setLog(new SystemStreamLog());
         ReflectionUtils.setVariableValueInObject(mojo, "host", "localhost");
         ReflectionUtils.setVariableValueInObject(mojo, "port", Integer.valueOf(10389));
         ReflectionUtils.setVariableValueInObject(mojo, "authDn", "uid=admin,ou=system");
