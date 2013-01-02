@@ -3,10 +3,10 @@
  ------
  Brian Matthews
  ------
- 2008-06-24
+ 2013-01-02
  ------
 
-~~ Copyright 2012 Brian Thomas Matthews
+~~ Copyright 2012-2013 Brian Thomas Matthews
 ~~
 ~~ Licensed under the Apache License, Version 2.0 (the "License");
 ~~ you may not use this file except in compliance with the License.
@@ -52,9 +52,9 @@ Using the embedded ApacheDS server for integration testing
 
 +-----+
         <plugin>
-          <groupId>com.btmatthews.maven.plugins</groupId>
-          <artifactId>ldap-maven-plugin</artifactId>
-          <version>1.1.0</version>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>${project.artifactId}</artifactId>
+          <version>${project.version}</version>
           <configuration>
             <monitorPort>11389</monitorPort>
             <monitorKey>ldap</monitorKey>

@@ -1,0 +1,162 @@
+ ------
+ Usage
+ ------
+ Brian Matthews
+ ------
+ 2013-01-02
+ ------
+
+~~ Copyright 2008-2013 Brian Thomas Matthews
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+
+
+Usage
+
+  The following examples describe the basic usage of the LDAP Maven Plugin.
+
+* Basic Configuration
+
+  The recommended basic configuration is as follows.
+
+-------------------
+<project>
+  ...  
+  <build>
+    <plugins>
+      ...
+      <plugin>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <configuration>
+          <version>2|3</version>
+          <host>somehost</host>
+          <port>someport</port>
+          <authDn>somedn</authDn>
+          <passwd>somepasswd</passwd>
+          <continueOnError>true|false</continueOnError>
+          ...
+        </configuration>
+        <executions>
+          <execution>
+            <goal>ldif-load|ldif-dump|dsml-dump</goal>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+-------------------
+
+* Configuring {Load}
+
+  When loading records to the LDAP server a list of LDAP files
+  should be specified in the \<ldapFiles/\> element.
+
+  Example:
+  
+-------------------
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      ...
+        <groupId>com.btmatthews</groupId>
+        <artifactId>ldap-maven-plugin</artifactId>
+        <configuration>
+          <version>3</version>
+          <host>localhost</host>
+          <port>10389</port>
+          <authDn>uid=admin,ou=system</authDn>
+          <passwd>secret</passwd>
+          ...
+          <ldapFiles>
+            <ldapFile>${basedir}/load.ldif</ldapFile>
+            ...
+          </ldapFiles>
+        </configuration>
+        <executions>
+          <execution>
+            <goal>ldif-load</goal>
+          </execution>
+        </executions>
+    </plugins>
+  </build>
+</project>
+-------------------
+
+* Configuring {Dump}
+
+  When dumping records from the LDAP server a target file should
+  be specified using the filename element.
+
+  Example:
+  
+-------------------
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      ...
+        <groupId>com.btmatthews</groupId>
+        <artifactId>ldap-maven-plugin</artifactId>
+        <configuration>
+          <version>3</version>
+          <host>localhost</host>
+          <port>10389</port>
+          <authDn>uid=admin,ou=system</authDn>
+          <passwd>secret</passwd>
+          ...
+          <filename>${basedir}/dump.ldif</filename>
+        </configuration>
+        <executions>
+          <execution>
+            <goal>ldif-dump</goal>
+          </execution>
+        </executions>
+    </plugins>
+  </build>
+</project>
+-------------------
+
+  Example:
+  
+-------------------
+<project>
+  ...
+  <build>
+    ...
+    <plugins>
+      ...
+        <groupId>com.btmatthews</groupId>
+        <artifactId>ldap-maven-plugin</artifactId>
+        <configuration>
+          <version>3</version>
+          <host>localhost</host>
+          <port>10389</port>
+          <authDn>uid=admin,ou=system</authDn>
+          <passwd>secret</passwd>
+          ...
+          <filename>${basedir}/dump.dsml</filename>
+        </configuration>
+        <executions>
+          <execution>
+            <goal>dsml-dump</goal>
+          </execution>
+        </executions>
+    </plugins>
+  </build>
+</project>
+-------------------
