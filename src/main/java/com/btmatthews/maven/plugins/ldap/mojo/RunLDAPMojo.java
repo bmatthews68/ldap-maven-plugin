@@ -36,6 +36,16 @@ import org.apache.maven.plugins.annotations.Parameter;
 public final class RunLDAPMojo extends AbstractRunMojo {
 
     /**
+     * The server can be one of:
+     * <ul>
+     * <li>apacheds</li>
+     * <li>opendj</li>
+     * <li>unboundid</li>
+     * </ul>
+     */
+    @Parameter(property = "ldap.type", defaultValue = "apacheds")
+    private String serverType;
+    /**
      * The root DN for the LDAP server.
      */
     @Parameter(property = "ldap.root", required = true)
@@ -61,7 +71,7 @@ public final class RunLDAPMojo extends AbstractRunMojo {
 
     @Override
     public String getServerType() {
-        return "apacheds";
+        return serverType;
     }
 
     @Override
