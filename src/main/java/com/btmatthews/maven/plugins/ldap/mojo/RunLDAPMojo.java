@@ -45,6 +45,19 @@ public final class RunLDAPMojo extends AbstractRunMojo {
      */
     @Parameter(property = "ldap.type", defaultValue = "apacheds")
     private String serverType;
+
+    /**
+     * The identity of the admin account for tbe directory server.
+     */
+    @Parameter(property = "ldap.authDn", defaultValue = "uid=admin,ou=system")
+    private String authDn;
+
+    /**
+     * The credentials for the admin account of the directory server.
+     */
+    @Parameter(property = "ldap.passwd", defaultValue = "secret")
+    private String passwd;
+
     /**
      * The root DN for the LDAP server.
      */
@@ -81,6 +94,8 @@ public final class RunLDAPMojo extends AbstractRunMojo {
         config.put("workingDirectory", new File(outputDirectory, "ldap"));
         config.put("ldifFile", ldifFile);
         config.put("ldapPort", Integer.valueOf(ldapPort));
+        config.put("authDn", authDn);
+        config.put("passwd", passwd);
         return config;
     }
 }
