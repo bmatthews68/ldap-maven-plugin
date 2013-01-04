@@ -66,9 +66,10 @@ public class TestRunMojo {
         initMocks(this);
         mojo = new RunLDAPMojo();
         ReflectionUtils.setVariableValueInObject(mojo, "monitorPort", 11389);
+        ReflectionUtils.setVariableValueInObject(mojo, "monitorKey", "ldap");
+        ReflectionUtils.setVariableValueInObject(mojo, "serverType", "apacheds");
         ReflectionUtils.setVariableValueInObject(mojo, "rootDn", "dc=btmatthews,dc=com");
         ReflectionUtils.setVariableValueInObject(mojo, "ldapPort", 10389);
-        ReflectionUtils.setVariableValueInObject(mojo, "monitorKey", "ldap");
         ReflectionUtils.setVariableValueInObject(mojo, "outputDirectory", outputDirectory.getRoot());
     }
 
