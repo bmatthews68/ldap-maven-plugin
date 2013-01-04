@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Brian Thomas Matthews
+ * Copyright 2012-2013 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.btmatthews.maven.plugins.ldap.AbstractLDAPServer;
 import com.btmatthews.utils.monitor.AbstractServer;
 import com.btmatthews.utils.monitor.Logger;
 import org.apache.directory.server.core.DefaultDirectoryService;
@@ -47,7 +48,7 @@ import org.apache.directory.shared.ldap.name.LdapDN;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.0
  */
-public final class ApacheDSServer extends AbstractServer {
+public final class ApacheDSServer extends AbstractLDAPServer {
 
     /**
      * The LDAP directory service.
@@ -58,52 +59,6 @@ public final class ApacheDSServer extends AbstractServer {
      * The server that listens for LDAP requests and forwards them to the directory service.
      */
     private LdapServer server;
-
-    /**
-     * The root DN of the LDAP directory.
-     */
-    private String root;
-
-    /**
-     * The working directory used by the LDAP directory service to store directory data.
-     */
-    private File workingDirectory;
-
-    /**
-     * The LDIF file used to seed the LDAP directory.
-     */
-    private File ldifFile;
-
-    /**
-     * The TCP port on which the server is listening for LDAP traffic.
-     */
-    private int serverPort;
-
-    /**
-     * Used to configure the root DN of the LDAP directory, the working directory used by the directory service to
-     * store the directory data, the LDIF file used to seed the directory or the TCP port number on which the server
-     * will listening for LDAP traffic.
-     *
-     * @param name   The name of the property to configure.
-     * @param value  The value of the property being configured.
-     * @param logger Used to log error and information messages.
-     */
-    @Override
-    public void configure(final String name, final Object value, final Logger logger) {
-        if ("root".equals(name)) {
-            root = (String)value;
-            logger.logInfo("Configured root DN for ApacheDS: " + root);
-        } else if ("workingDirectory".equals(name)) {
-            workingDirectory = (File)value;
-            logger.logInfo("Configured working directory for ApacheDS: " + workingDirectory);
-        } else if ("ldifFile".equals(name)) {
-            ldifFile = (File)value;
-            logger.logInfo("Configured LDIF seed data source for ApacheDS: " + ldifFile);
-        } else if ("ldapPort".equals(name)) {
-            serverPort = (Integer)value;
-            logger.logInfo("Configured TCP port for ApacheDS: " + serverPort);
-        }
-    }
 
     /**
      * Configure and start the embedded ApacheDS server creating the root DN and loading the LDIF seed data.
@@ -124,8 +79,8 @@ public final class ApacheDSServer extends AbstractServer {
             list.add(new SubentryInterceptor());
             final JdbmPartition partition = new JdbmPartition();
             partition.setId("rootPartition");
-            partition.setSuffix(root);
-            service.setWorkingDirectory(workingDirectory);
+            partition.setSuffix(getRoot());
+            service.setWorkingDirectory(getWorkingDirectory());
             service.addPartition(partition);
             service.setExitVmOnShutdown(false);
             service.setShutdownHookEnabled(false);
@@ -133,12 +88,12 @@ public final class ApacheDSServer extends AbstractServer {
             service.startup();
 
             server = new LdapServer();
-            server.setTransports(new TcpTransport("localhost", serverPort));
+            server.setTransports(new TcpTransport("localhost", getServerPort()));
             server.setDirectoryService(service);
             server.start();
 
             createRoot(partition);
-            if (ldifFile != null) {
+            if (getLdifFile() != null) {
                 loadLdifFile();
             }
             logger.logInfo("Started ApacheDS server");
@@ -174,8 +129,8 @@ public final class ApacheDSServer extends AbstractServer {
         try {
             service.getAdminSession().lookup(partition.getSuffixDn());
         } catch (final LdapNameNotFoundException e) {
-            final LdapDN dn = new LdapDN(root);
-            final String dc = root.substring(3, root.indexOf(','));
+            final LdapDN dn = new LdapDN(getRoot());
+            final String dc = getRoot().substring(3, getRoot().indexOf(','));
             final ServerEntry entry = service.newEntry(dn);
             entry.add("objectClass", "top", "domain", "extensibleObject");
             entry.add("dc", dc);
@@ -189,7 +144,7 @@ public final class ApacheDSServer extends AbstractServer {
      * @throws Exception If there was an error.
      */
     private void loadLdifFile() throws Exception {
-        final LdifFileLoader loader = new LdifFileLoader(service.getAdminSession(), ldifFile.getAbsolutePath());
+        final LdifFileLoader loader = new LdifFileLoader(service.getAdminSession(), getLdifFile().getAbsolutePath());
         loader.execute();
     }
 }
