@@ -111,19 +111,19 @@ public final class DSMLLoaderMojo extends AbstractLDAPMojo {
                         final LDAPEntry entry = new LDAPEntry(dn, attributeSet);
                         connection.add(entry);
                     }
-                } catch (LDAPException e) {
+                } catch (final LDAPException e) {
                     if (!this.continueOnError) {
                         throw new MojoExecutionException("Error processing: " + this.dsmlFiles[i], e);
                     } else {
                         this.getLog().warn("Ignoring error processing: " + this.dsmlFiles[i], e);
                     }
-                } catch (FileNotFoundException e) {
+                } catch (final FileNotFoundException e) {
                     if (!this.continueOnError) {
                         throw new MojoExecutionException("File not found: " + this.dsmlFiles[i], e);
                     } else {
                         this.getLog().warn("Skipping missing file: " + this.dsmlFiles[i], e);
                     }
-                } catch (IOException e) {
+                } catch (final IOException e) {
                     if (!this.continueOnError) {
                         throw new MojoExecutionException("Error reading from: " + this.dsmlFiles[i], e);
                     } else {
