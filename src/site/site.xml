@@ -34,9 +34,10 @@
 			<item name="Usage" href="usage.html" /> 
 		</menu>
 		<menu name="Examples">
-			<item name="Loading to LDIF" href="examples/ldif-load.html" /> 
-			<item name="Dumping to LDIF" href="examples/ldif-dump.html" /> 
-			<item name="Dumping to DSML" href="examples/dsml-dump.html" />
+			<item name="Loading from LDIF" href="examples/ldif-load.html" />
+			<item name="Dumping to LDIF" href="examples/ldif-dump.html" />
+            <item name="Loading from DSML" href="examples/dsml-load.html" />
+            <item name="Dumping to DSML" href="examples/dsml-dump.html" />
             <item name="Integration testing" href="examples/integration.html" />
 		</menu>
 		${reports}

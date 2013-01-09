@@ -31,11 +31,11 @@ LDAP Maven Plugin
 
   * Launch and shutdown one of the following embedded directory server within the Maven build life-cycle:
 
-  ** {{{}ApacheDS}
+    * {{{http://directory.apache.org/apacheds/}ApacheDS}}
 
-  ** {{{}OpenDJ}}
+    * {{{http://opendj.forgerock.org/}OpenDJ}}
 
-  ** {{{}UnboundID}}
+    * {{{https://www.unboundid.com/products/directory-server.php}UnboundID}}
 
 
 * Goals Overview
