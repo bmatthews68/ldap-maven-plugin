@@ -18,6 +18,7 @@ package com.btmatthews.maven.plugins.ldap.mojo;
 
 import java.io.File;
 
+import com.btmatthews.maven.plugins.ldap.TestUtils;
 import org.apache.maven.plugin.logging.SystemStreamLog;
 import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
@@ -45,21 +46,21 @@ public final class TestLDIFLoaderMojo extends AbstractLDAPMojoTest {
 
     @Test
     public void testAddLDIF() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "ldapFiles", new File[]{ getFile("/add.ldif") });
+        ReflectionUtils.setVariableValueInObject(mojo, "ldapFiles", new File[]{ TestUtils.getFile("add.ldif") });
         ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 
     @Test
     public void testModifyLDIF() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "ldapFiles", new File[]{ getFile("/modify.ldif") });
+        ReflectionUtils.setVariableValueInObject(mojo, "ldapFiles", new File[]{ TestUtils.getFile("modify.ldif") });
         ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 
     @Test
     public void testDeleteLDIF() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "ldapFiles", new File[]{ getFile("/delete.ldif") });
+        ReflectionUtils.setVariableValueInObject(mojo, "ldapFiles", new File[]{ TestUtils.getFile("delete.ldif") });
         ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }

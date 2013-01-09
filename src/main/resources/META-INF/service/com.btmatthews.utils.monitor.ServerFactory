@@ -1,2 +1,3 @@
 com.btmatthews.maven.plugins.ldap.apache.ApacheDSServerFactory
+com.btmatthews.maven.plugins.ldap.opendj.OpenDJServerFactory
 com.btmatthews.maven.plugins.ldap.unboundid.UnboundIDServerFactory

@@ -19,8 +19,10 @@ package com.btmatthews.maven.plugins.ldap.mojo;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 import java.io.File;
+import java.net.URISyntaxException;
 import java.net.URL;
 
+import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.maven.plugins.ldap.apache.ApacheDSServer;
 import com.btmatthews.utils.monitor.Logger;
 import org.junit.After;
@@ -76,7 +78,7 @@ public abstract class AbstractLDAPMojoTest {
         server.configure("root", "dc=btmatthews,dc=com", logger);
         server.configure("ldapPort", Integer.valueOf(10389), logger);
         server.configure("workingDirectory", workingDir.getRoot(), logger);
-        server.configure("ldifFile", getFile("/initial.ldif"), logger);
+        server.configure("ldifFile", TestUtils.getFile("initial.ldif"), logger);
         server.start(logger);
     }
 
@@ -84,11 +86,5 @@ public abstract class AbstractLDAPMojoTest {
     public void tearDown() {
         server.stop(logger);
         workingDir.delete();
-    }
-
-    protected final File getFile(final String filename) {
-        final URL url = getClass().getResource(filename);
-        final String path = url.getFile();
-        return new File(path);
     }
 }
