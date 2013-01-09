@@ -1,0 +1,127 @@
+ ------
+ Load entries from LDIF file
+ ------
+ Brian Matthews
+ ------
+ 2013-01-02
+ ------
+
+~~ Copyright 2008-2013 Brian Thomas Matthews
+~~
+~~ Licensed under the Apache License, Version 2.0 (the "License");
+~~ you may not use this file except in compliance with the License.
+~~ You may obtain a copy of the License at
+~~
+~~     http://www.apache.org/licenses/LICENSE-2.0
+~~
+~~ Unless required by applicable law or agreed to in writing, software
+~~ distributed under the License is distributed on an "AS IS" BASIS,
+~~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~~ See the License for the specific language governing permissions and
+~~ limitations under the License.
+
+
+Load entries from DSML file
+
+  The following example demonstrates how to use the LDAP Maven Plugin to load directory
+  contents from DSML format before integration tests are performed.
+
+  * LDAP Directory Server
+
+  In this example we are assuming that {{{http://directory.apache.org}Apache Directory Server}}
+  is being used and is installed locally on port 10389 with the default admininstration account
+  (uid=admin,ou=system) and password (secret). Furthermore, we are assuming that the base DN
+  has not been modified from the default (o=sevenSeas).
+  
+* Create DSML file
+
+  Create a file called load.dif with the following contents:
+  
++-----+
+<?xml version="1.0" encoding="UTF-8"?>
+<dsml:dsml>
+  <dsml:directory-entries>
+    <dsml:entry dn="ou=People,o=sevenSeas">
+      <dsml:objectclass><dsml:oc-value>organizationalUnit</dsml:oc-value></dsml:objectclass>
+      <dsml:attr name="ou"><dsml:value>People</dsml:value></dsml:attr>
+    </dsml:entry>
+    <dsml:entry dn="cn=Bart Simpson,ou=People,o=sevenSeas">
+      <dsml:objectclass><dsml:oc-value>inetOrgPerson</dsml:oc-value></dsml:objectclass>
+      <dsml:attr name="cn"><dsml:value>Bart Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="sn"><dsml:value>Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="givenName"><dsml:value>Bart</dsml:value></dsml:attr>
+      <dsml:attr name="uid"><dsml:value>bsimpson</dsml:value></dsml:attr>
+    </dsml:entry>
+    <dsml:entry dn="cn=Lisa Simpson,ou=People,o=sevenSeas">
+      <dsml:objectclass><dsml:oc-value>inetOrgPerson</dsml:oc-value></dsml:objectclass>
+      <dsml:attr name="cn"><dsml:value>Lisa Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="sn"><dsml:value>Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="givenName"><dsml:value>Lisa</dsml:value></dsml:attr>
+      <dsml:attr name="uid"><dsml:value>lsimpson</dsml:value></dsml:attr>
+      <dsml:attr name="title"><dsml:value>Kid</dsml:value></dsml:attr>
+    </dsml:entry>
+    <dsml:entry dn="cn=Maggie simpson,ou=People,o=sevenSeas">
+      <dsml:objectclass><dsml:oc-value>inetOrgPerson</dsml:oc-value></dsml:objectclass>
+      <dsml:attr name="cn"><dsml:value>Maggie Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="sn"><dsml:value>Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="givenName"><dsml:value>Maggie</dsml:value></dsml:attr>
+      <dsml:attr name="uid"><dsml:value>msimpson1</dsml:value></dsml:attr>
+      <dsml:attr name="title"><dsml:value>Baby</dsml:value></dsml:attr>
+    </dsml:entry>
+    <dsml:entry dn="cn=Homer Simpson,ou=People,o=sevenSeas">
+      <dsml:objectclass><dsml:oc-value>inetOrgPerson</dsml:oc-value></dsml:objectclass>
+      <dsml:attr name="cn"><dsml:value>Homer Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="sn"><dsml:value>Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="givenName"><dsml:value>Homer</dsml:value></dsml:attr>
+      <dsml:attr name="uid"><dsml:value>hsimpson</dsml:value></dsml:attr>
+      <dsml:attr name="title"><dsml:value>Parent</dsml:value></dsml:attr>
+    </dsml:entry>
+    <dsml:entry dn="cn=Marge Simpson,ou=People,o=sevenSeas">
+      <dsml:objectclass><dsml:oc-value>inetOrgPerson</dsml:oc-value></dsml:objectclass>
+      <dsml:attr name="cn"><dsml:value>Marge Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="sn"><dsml:value>Simpson</dsml:value></dsml:attr>
+      <dsml:attr name="givenName"><dsml:value>Marge</dsml:value></dsml:attr>
+      <dsml:attr name="uid"><dsml:value>msimpson</dsml:value></dsml:attr>
+      <dsml:attr name="title"><dsml:value>Parent</dsml:value></dsml:attr>
+    </dsml:entry>
+  </dsml:directory-entries>
+</dsml:dsml>
++-----+
+
+* Configure a POM
+
+  Add the following configuration to your project POM to load the data during test preparation:
+  
++-----+
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  ...
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <executions>
+          <execution>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>dsml-load</goal>
+            </goals>
+            <configuration>
+              <version>3</version>
+              <host>localhost</host>
+              <port>10389</port>
+              <authDn>uid=admin,ou=system</authDn>
+              <passwd>secret</passwd>
+              <continueOnError>true</continueOnError>
+              <dsmlFiles>
+                <dsmlFile>load.ldif</dsmlFile>
+              </dsmlFiles>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
++-----+
