@@ -25,7 +25,9 @@
 	<body>
 		<links>
 			<item name="Maven 2" href="http://maven.apache.org/" />
-            <item name="ApacheDS" href="http://directory.apache.org" />
+            <item name="ApacheDS" href="http://directory.apache.org/apacheds" />
+            <item name="OpenDJ" href="http://opendj.forgerock.org" />
+            <item name="UnboundID" href="https://www.unboundid.com/products/directory-server.php" />
 			<item name="LDAP SDK" href="http://www.mozilla.org/directory/" />
 		</links>
 		<menu name="Overview">
