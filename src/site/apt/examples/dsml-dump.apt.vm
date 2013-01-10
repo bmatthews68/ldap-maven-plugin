@@ -29,7 +29,7 @@ Dump entries to DSML file
   * LDAP Directory Server
 
   In this example we are assuming that {{{http://directory.apache.org}Apache Directory Server}}
-  is being used and is installed locally on port 10389 with the default admininstration account
+  is being used and is installed locally on port 10389 with the default administration account
   (uid=admin,ou=system) and password (secret). Furthermore, we are assuming that the base DN
   has not been modified from the default (o=sevenSeas).
 
