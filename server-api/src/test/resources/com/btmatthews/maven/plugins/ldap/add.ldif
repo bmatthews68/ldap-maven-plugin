@@ -1,0 +1,7 @@
+dn: uid=msimpson1,ou=People,dc=btmatthews,dc=com
+cn: Maggie Simpson
+sn: Simpson
+givenName: Maggie
+uid: msimpson1
+title: Baby
+objectclass: inetOrgPerson

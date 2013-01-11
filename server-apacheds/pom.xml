@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <prerequisites>
+        <maven>3.0.4</maven>
+    </prerequisites>
+    <parent>
+        <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.2.0-SNAPSHOT</version>
+    </parent>
+    <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+    <artifactId>server-apacheds</artifactId>
+    <version>1.2.0-SNAPSHOT</version>
+    <name>LDAP Maven Plugin - ApacheDS Server</name>
+    <description>ApacheDS directory server implementation</description>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>server-api</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-server-jndi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-core-entry</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-protocol-ldap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-protocol-shared</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.shared</groupId>
+            <artifactId>shared-ldap</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.utils</groupId>
+            <artifactId>monitor</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>server-api</artifactId>
+        </dependency>
+    </dependencies>
+</project>

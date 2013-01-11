@@ -1,9 +1,0 @@
-dn: cn=Bart Simpson,ou=People,dc=btmatthews,dc=com
-changetype: modrdn
-newrdn: uid=bsimpson
-deleteoldrdn: 0
-
-dn: uid=bsimpson,ou=People,dc=btmatthews,dc=com
-changetype: modify
-add: title
-title: Kid

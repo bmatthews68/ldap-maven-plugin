@@ -12,7 +12,9 @@ can:
   directory servers:
 
   * [ApacheDS](http://directory.apache.org/apacheds/)
+
   * [OpenDJ](http://opendj.forgerock.org/)
+
   * [UnboundID](https://www.unboundid.com/products/ldap-sdk/)
 
 Importing or exporting data
@@ -34,6 +36,56 @@ Running an LDAP Server in the build life-cycle
 ----------------------------------------------
 
 ### pom.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="
+    http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>com.btmatthews.maven.plugins</groupId>
+          <artifactId>ldap-maven-plugin</artifactId>
+          <version>1.2.0</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>com.btmatthews.maven.plugins</groupId>
+        <artifactId>ldap-maven-plugin</artifactId>
+        <version>1.2.0</version>
+        <configuration>
+          <monitorPort>11389</monitorPort>
+          <monitorKey>ldap</monitorKey>
+          <daemon>true</daemon>
+        </configuration>
+        <executions>
+          <execution>
+            <id>start-ldap</id>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <phase>pre-integration-test</phase>
+          </execution>
+          <execution>
+            <id>stop-ldap</id>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+            <phase>post-integration-test</phase>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>
+```
 
 ### Connecting in Java
 
