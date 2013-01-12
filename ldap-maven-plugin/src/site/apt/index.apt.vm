@@ -42,33 +42,33 @@ LDAP Maven Plugin
 
 ~~  General Information about the goals.
 
-  * {{{./ldap-maven-plugin/ldif-load-mojo.html}ldap:ldif-load}} Load directory entries from LDIF format.
+  * {{{./ldif-load-mojo.html}ldap:ldif-load}} Load directory entries from LDIF format.
 
-  * {{{./ldap-maven-plugin/ldif-dump-mojo.html}ldap:ldif-dump}} Dump directory entries to LDIF format.
+  * {{{./ldif-dump-mojo.html}ldap:ldif-dump}} Dump directory entries to LDIF format.
 
-  * {{{./ldap-maven-plugin/dsml-load-mojo.html}ldap:dsml-load}} Load directory entries from DSML format.
+  * {{{./dsml-load-mojo.html}ldap:dsml-load}} Load directory entries from DSML format.
 
-  * {{{./ldap-maven-plugin/dsml-dump-mojo.html}ldap:dsml-dump}} Dump directory entries to DSML format.
+  * {{{./dsml-dump-mojo.html}ldap:dsml-dump}} Dump directory entries to DSML format.
 
-  * {{{./ldap-maven-plugin/run-mojo.html}ldap:run}} Run an embedded ApacheDS server.
+  * {{{./run-mojo.html}ldap:run}} Run an embedded ApacheDS server.
 
-  * {{{./ldap-maven-plugin/stop-mojo.html}ldap:stop}} Stop an embedded ApacheDS server.
+  * {{{./stop-mojo.html}ldap:stop}} Stop an embedded ApacheDS server.
 
 * Usage
 
-  Instructions on how to use the LDAP Maven Plugin can be found {{{./ldap-maven-plugin/usage.html}here}}.
+  Instructions on how to use the LDAP Maven Plugin can be found {{{./usage.html}here}}.
 
 * Examples
 
   To provide you with better understanding of some usages of the LDAP
   Maven Plugin, you can take a look into the following examples:
 
-  * {{{./ldap-maven-plugin/examples/ldif-load.html}Load entries from LDIF file}}
+  * {{{./examples/ldif-load.html}Load entries from LDIF file}}
   
-  * {{{./ldap-maven-plugin/examples/ldif-dump.html}Dump entries to LDIF file}}
+  * {{{./examples/ldif-dump.html}Dump entries to LDIF file}}
 
-  * {{{./ldap-maven-plugin/examples/dsml-load.html}Load entries from DSML file}}
+  * {{{./examples/dsml-load.html}Load entries from DSML file}}
   
-  * {{{./ldap-maven-plugin/examples/dsml-dump.html}Dump entries to DSML file}}
+  * {{{./examples/dsml-dump.html}Dump entries to DSML file}}
 
-  * {{{./ldap-maven-plugin/examples/integration.html}Using the embedded ApacheDS server for integration testing}}
+  * {{{./examples/integration.html}Using the embedded ApacheDS server for integration testing}}

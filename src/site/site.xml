@@ -32,17 +32,18 @@
 		</links>
 		<menu name="Overview">
 			<item name="Introduction" href="index.html" /> 
-			<item name="Goals" href="plugin-info.html" /> 
-			<item name="Usage" href="usage.html" /> 
+			<item name="Goals" href="ldap-maven-plugin/plugin-info.html" />
+			<item name="Usage" href="ldap-maven-plugin/usage.html" />
 		</menu>
 		<menu name="Examples">
-			<item name="Loading from LDIF" href="examples/ldif-load.html" />
-			<item name="Dumping to LDIF" href="examples/ldif-dump.html" />
-            <item name="Loading from DSML" href="examples/dsml-load.html" />
-            <item name="Dumping to DSML" href="examples/dsml-dump.html" />
-            <item name="Integration testing" href="examples/integration.html" />
+			<item name="Loading from LDIF" href="ldap-maven-plugin/examples/ldif-load.html" />
+			<item name="Dumping to LDIF" href="ldap-maven-plugin/examples/ldif-dump.html" />
+            <item name="Loading from DSML" href="ldap-maven-plugin/examples/dsml-load.html" />
+            <item name="Dumping to DSML" href="ldap-maven-plugin/examples/dsml-dump.html" />
+            <item name="Integration testing" href="ldap-maven-plugin/examples/integration.html" />
 		</menu>
-		${reports}
+		<menu ref="reports" />
+        <menu ref="modules" />
 	</body>
     <poweredBy>
         <logo name="Maven" href="http://maven.apache.org/" img="http://maven.apache.org/images/logos/maven-feather.png"/>

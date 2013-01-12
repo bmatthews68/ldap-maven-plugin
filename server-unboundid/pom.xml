@@ -10,10 +10,8 @@
         <artifactId>parent</artifactId>
         <version>1.2.0-SNAPSHOT</version>
     </parent>
-    <groupId>com.btmatthews.maven.plugins.ldap</groupId>
     <artifactId>server-unboundid</artifactId>
-    <version>1.2.0-SNAPSHOT</version>
-    <name>LDAP Maven Plugin - UnboundID Server</name>
+    <name>UnboundID Server</name>
     <description>UnboundID directory server implementation</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -24,10 +22,6 @@
             <artifactId>unboundid-ldapsdk</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.btmatthews.utils</groupId>
-            <artifactId>monitor</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-api</artifactId>
         </dependency>
@@ -35,16 +29,6 @@
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-api</artifactId>
             <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
