@@ -20,10 +20,17 @@
         <dependency>
             <groupId>com.unboundid</groupId>
             <artifactId>unboundid-ldapsdk</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.utils</groupId>
+            <artifactId>monitor</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-api</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>

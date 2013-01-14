@@ -1,0 +1,170 @@
+/*
+ * Copyright 2013 Brian Thomas Matthews
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.btmatthews.maven.plugins.ldap.dsml;
+
+import com.btmatthews.maven.plugins.ldap.FormatHandler;
+import com.btmatthews.maven.plugins.ldap.FormatLogger;
+import com.unboundid.ldap.sdk.*;
+import org.custommonkey.xmlunit.XMLUnit;
+import org.hamcrest.BaseMatcher;
+import org.hamcrest.Description;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+import org.mockito.Mock;
+import org.xml.sax.InputSource;
+
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
+
+import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.argThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
+
+/**
+ * Created with IntelliJ IDEA.
+ * User: Brian
+ * Date: 13/01/13
+ * Time: 12:11
+ * To change this template use File | Settings | File Templates.
+ */
+public class TestDSMLFormatHandler {
+
+    @Rule
+    public TemporaryFolder outputFolder = new TemporaryFolder();
+    private FormatHandler formatHandler;
+    @Mock
+    private LDAPInterface connection;
+    @Mock
+    private FormatLogger logger;
+
+    @Before
+    public void setUp() {
+        initMocks(this);
+        formatHandler = new DSMLFormatHandler();
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+        XMLUnit.setIgnoreAttributeOrder(true);
+    }
+
+    @Test
+    public void loadFully() throws Exception {
+        final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("load.dsml");
+        try {
+            formatHandler.load(connection, inputStream, false, logger);
+        } finally {
+            inputStream.close();
+        }
+        verify(connection).add(argThat(new AddRequestMatcher(new Entry("ou=People,dc=btmatthews,dc=com"))));
+        verify(connection).add(argThat(new AddRequestMatcher(new Entry("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com"))));
+    }
+
+    @Test
+    public void loadIgnoresErrors() throws Exception {
+        final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("haserrors.dsml");
+        try {
+            formatHandler.load(connection, inputStream, true, logger);
+        } finally {
+            inputStream.close();
+        }
+    }
+
+    @Test
+    public void loadStopsUponError() throws Exception {
+        final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("haserrors.dsml");
+        try {
+            formatHandler.load(connection, inputStream, false, logger);
+        } finally {
+            inputStream.close();
+        }
+    }
+
+    @Test
+    public void noDataInDump() throws Exception {
+        final SearchResult results = new SearchResult(0, ResultCode.SUCCESS,
+                null, null,
+                null,
+                null /* entries */,
+                null,
+                0 /* numentries */, 0,
+                null);
+
+        when(connection.search(any(SearchRequest.class))).thenReturn(results);
+
+        final File outputFile = outputFolder.newFile();
+        final OutputStream outputStream = new FileOutputStream(outputFile);
+        formatHandler.dump(connection, "dc=btmatthews,dc=com", "(objectclass=*)", outputStream, logger);
+        final InputStream expected = TestDSMLFormatHandler.class.getResourceAsStream("empty.dsml");
+        assertXMLEqual(new InputSource(expected), new InputSource(new FileInputStream(outputFile)));
+    }
+
+    private Entry createEntry(final String dn, final String... nv) {
+        final List<Attribute> attributes = new LinkedList<Attribute>();
+        for (int i = 0; i < nv.length; i += 2) {
+            attributes.add(new Attribute(nv[i], nv[i + 1]));
+        }
+        return new Entry(dn, attributes);
+    }
+
+    private SearchResultEntry createSearchResultEntry(final String dn, final String... nv) {
+        final Entry entry = createEntry(dn, nv);
+        return new SearchResultEntry(entry);
+    }
+
+    @Test
+    public void oneItemInDump() throws Exception {
+        final List<SearchResultEntry> entries = new LinkedList<SearchResultEntry>();
+        entries.add(createSearchResultEntry("ou=People,dc=btmatthews,dc=com", "ou", "People", "objectclass", "organizationalUnit"));
+        final SearchResult result = new SearchResult(0, ResultCode.SUCCESS, null, null, null, entries, null, 1, 0, null);
+        when(connection.search(any(SearchRequest.class))).thenReturn(result);
+
+        final File outputFile = outputFolder.newFile();
+        final OutputStream outputStream = new FileOutputStream(outputFile);
+        formatHandler.dump(connection, "dc=btmatthews,dc=com", "(objectclass=*)", outputStream, logger);
+        final InputStream expected = TestDSMLFormatHandler.class.getResourceAsStream("one.dsml");
+        assertXMLEqual(new InputSource(expected), new InputSource(new FileInputStream(outputFile)));
+    }
+
+    class AddRequestMatcher extends BaseMatcher<AddRequest> {
+
+        private Entry expected;
+
+        public AddRequestMatcher(final Entry entry) {
+            expected = entry;
+        }
+
+        @Override
+        public boolean matches(final Object item) {
+            if (item instanceof AddRequest) {
+                final AddRequest request = (AddRequest) item;
+                if (expected.getDN().equals(request.getDN())) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public void describeTo(final Description description) {
+        }
+    }
+}

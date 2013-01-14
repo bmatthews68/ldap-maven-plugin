@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ds:dsml xmlns:ds="http://www.dsml.org/DSML">
+    <ds:directory-entries>
+        <ds:entry dn="uid=msimpson1,ou=People,dc=btmatthews,dc=com">
+            <ds:objectclass><ds:oc-value>inetOrgPerson</ds:oc-value></ds:objectclass>
+            <ds:attr name="cn"><ds:value>Maggie Simpson</ds:value></ds:attr>
+            <ds:attr name="sn"><ds:value>Simpson</ds:value></ds:attr>
+            <ds:attr name="givenName"><ds:value>Maggie</ds:value></ds:attr>
+            <ds:attr name="uid"><ds:value>msimpson1</ds:value></ds:attr>
+            <ds:attr name="title"><ds:value>Baby</ds:value></ds:attr>
+        </ds:entry>
+    </ds:directory-entries>
+</ds:dsml>

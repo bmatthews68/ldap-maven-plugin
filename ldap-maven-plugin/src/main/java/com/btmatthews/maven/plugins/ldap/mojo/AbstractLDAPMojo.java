@@ -16,8 +16,11 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
-import netscape.ldap.LDAPConnection;
-import netscape.ldap.LDAPException;
+import com.btmatthews.maven.plugins.ldap.FormatHandler;
+import com.btmatthews.maven.plugins.ldap.FormatLogger;
+import com.unboundid.ldap.sdk.LDAPConnection;
+import com.unboundid.ldap.sdk.LDAPException;
+import com.unboundid.ldap.sdk.LDAPInterface;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -30,58 +33,40 @@ import org.apache.maven.plugins.annotations.Parameter;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.0.0
  */
-public abstract class AbstractLDAPMojo extends AbstractMojo {
-    /**
-     * The default LDAP protocol version.
-     */
-    private static final int DEFAULT_VERSION = 3;
-
+public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLogger {
     /**
      * The default host name.
      */
     private static final String DEFAULT_HOST = "localhost";
-
     /**
      * The default port number for LDAP servers.
      */
     private static final int DEFAULT_PORT = 389;
-
-    /**
-     * The LDAP protocol version. Defaults to 3.
-     */
-    @Parameter(defaultValue = "3")
-    private int version = AbstractLDAPMojo.DEFAULT_VERSION;
-
     /**
      * The host name of the LDAP directory server. Defaults to localhost.
      */
     @Parameter(defaultValue = "localhost")
     private String host = AbstractLDAPMojo.DEFAULT_HOST;
-
     /**
      * The port number of the LDAP directory server. Defaults to 389.
      */
     @Parameter(defaultValue = "389")
     private int port = AbstractLDAPMojo.DEFAULT_PORT;
-
     /**
      * The distinguished name used if authentication is required.
      */
     @Parameter(required = true)
     private String authDn;
-
     /**
      * The password used if authentication is required.
      */
     @Parameter(required = true)
     private String passwd;
-
     /**
      * The connection timeout.
      */
     @Parameter(defaultValue = "5")
     private int connectionTimeout = 5;
-
     /**
      * The maximum number of connection attempts before failing.
      */
@@ -99,23 +84,42 @@ public abstract class AbstractLDAPMojo extends AbstractMojo {
         String lastMessage = null;
         LDAPException lastError = null;
         final LDAPConnection connection = new LDAPConnection();
-        connection.setConnectTimeout(connectionTimeout);
         int i = 0;
         while (i < connectionRetries) {
             try {
-                this.getLog().info("Attempting to connect ot LDAP Server (" + host + ":" + port + ")");
-                connection.connect(version, host, port, authDn, passwd);
+                this.getLog().info("Attempting to connect ot LDAP directory server (" + host + ":" + port + ")");
+                connection.connect(host, port, connectionTimeout);
                 break;
             } catch (final LDAPException e) {
                 i++;
                 lastError = e;
-                lastMessage = "Could not connect to LDAP Server (" + host + ":" + port + ")";
+                lastMessage = "Could not connect to LDAP directory server (" + host + ":" + port + ")";
                 this.getLog().error(lastMessage, lastError);
             }
         }
         if (i >= connectionRetries) {
             throw new MojoExecutionException(lastMessage, lastError);
         }
+        try {
+            connection.bind(authDn, passwd);
+        } catch (final LDAPException e) {
+            throw new MojoExecutionException("Could not bind to LDAP directory server as " + authDn, e);
+        }
         return connection;
+    }
+
+    @Override
+    public void logInfo(final String message) {
+        getLog().info(message);
+    }
+
+    @Override
+    public void logError(final String message) {
+        getLog().error(message);
+    }
+
+    @Override
+    public void logError(final String message, final Throwable exception) {
+        getLog().error(message, exception);
     }
 }

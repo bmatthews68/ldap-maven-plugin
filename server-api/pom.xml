@@ -30,4 +30,11 @@
             </plugin>
         </plugins>
     </build>
+    <dependencies>
+        <dependency>
+            <groupId>com.btmatthews.utils</groupId>
+            <artifactId>monitor</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

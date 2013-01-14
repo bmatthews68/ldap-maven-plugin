@@ -49,7 +49,7 @@
                         <id>dump</id>
                         <phase>integration-test</phase>
                         <goals>
-                            <goal>ldif-dump</goal>
+                            <goal>dump</goal>
                         </goals>
                         <configuration>
                             <host>localhost</host>
@@ -58,6 +58,7 @@
                             <passwd>secret</passwd>
                             <searchBase>dc=btmatthews,dc=com</searchBase>
                             <filename>dump.ldif</filename>
+                            <format>ldif</format>
                         </configuration>
                     </execution>
                     <execution>

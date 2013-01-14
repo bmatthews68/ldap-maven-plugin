@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsml:dsml xmlns:dsml="http://www.dsml.org/DSML">
+    <dsml:directory-entries>
+        <dsml:entry dn="ou=People,dc=btmatthews,dc=com">
+            <dsml:objectclass>
+                <dsml:oc-value>organizationalUnit</dsml:oc-value>
+            </dsml:objectclass>
+            <dsml:attr name="ou">
+                <dsml:value>People</dsml:value>
+            </dsml:attr>
+        </dsml:entry>
+
+        <dsml:entry dn="cn=Bart Simpson,ou=People,dc=btmatthews,dc=com">
+            <dsml:objectclass>
+                <dsml:oc-value>inetOrgPerson</dsml:oc-value>
+            </dsml:objectclass>
+            <dsml:attr name="cn">
+                <dsml:value>Bart Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="sn">
+                <dsml:value>Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="givenName">
+                <dsml:value>Bart</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="uid">
+                <dsml:value>bsimpson</dsml:value>
+            </dsml:attr>
+        </dsml:entry>
+
+        <dsml:entry dn="uid=lsimpson,ou=People,dc=btmatthews,dc=com">
+            <dsml:objectclass>
+                <dsml:oc-value>inetOrgPerson</dsml:oc-value>
+            </dsml:objectclass>
+            <dsml:attr name="cn">
+                <dsml:value>Lisa Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="sn">
+                <dsml:value>Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="givenName">
+                <dsml:value>Lisa</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="uid">
+                <dsml:value>lsimpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="title">
+                <dsml:value>Kid</dsml:value>
+            </dsml:attr>
+        </dsml:entry>
+
+        <dsml:entry dn="uid=hsimpson,ou=People,dc=btmatthews,dc=com">
+            <dsml:objectclass>
+                <dsml:oc-value>inetOrgPerson</dsml:oc-value>
+            </dsml:objectclass>
+            <dsml:attr name="cn">
+                <dsml:value>Homer Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="sn">
+                <dsml:value>Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="givenName">
+                <dsml:value>Homer</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="uid">
+                <dsml:value>hsimpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="title">
+                <dsml:value>Parent</dsml:value>
+            </dsml:attr>
+        </dsml:entry>
+
+        <dsml:entry dn="uid=msimpson,ou=People,dc=btmatthews,dc=com">
+            <dsml:objectclass>
+                <dsml:oc-value>inetOrgPerson</dsml:oc-value>
+            </dsml:objectclass>
+            <dsml:attr name="cn">
+                <dsml:value>Marge Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="sn">
+                <dsml:value>Simpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="givenName">
+                <dsml:value>Marge</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="uid">
+                <dsml:value>msimpson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="title">
+                <dsml:value>Parent</dsml:value>
+            </dsml:attr>
+        </dsml:entry>
+
+        <dsml:entry dn="uid=ccarlson,ou=People,dc=btmatthews,dc=com">
+            <dsml:objectclass>
+                <dsml:oc-value>inetOrgPerson</dsml:oc-value>
+            </dsml:objectclass>
+            <dsml:attr name="cn">
+                <dsml:value>Carl Carlson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="sn">
+                <dsml:value>Carlson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="givenName">
+                <dsml:value>Carl</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="uid">
+                <dsml:value>ccarlson</dsml:value>
+            </dsml:attr>
+            <dsml:attr name="title">
+                <dsml:value>Worker</dsml:value>
+            </dsml:attr>
+        </dsml:entry>
+    </dsml:directory-entries>
+</dsml:dsml>

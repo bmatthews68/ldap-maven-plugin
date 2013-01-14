@@ -30,9 +30,9 @@ import java.io.File;
  * @author <a href="mailto:brian.matthews@terranua.com">Brian Matthews</a>
  * @version 1.0
  */
-public final class TestDSMLLoaderMojo extends AbstractLDAPMojoTest {
+public final class TestLoadMojo extends AbstractLDAPMojoTest {
 
-    private DSMLLoaderMojo mojo = new DSMLLoaderMojo();
+    private LoadMojo mojo = new LoadMojo();
 
     @Before
     public void setUp() throws Exception {
@@ -46,14 +46,35 @@ public final class TestDSMLLoaderMojo extends AbstractLDAPMojoTest {
 
     @Test
     public void loadDSMLWithNamespace() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "dsmlFiles", new File[]{TestUtils.getFile("com/btmatthews/maven/plugins/ldap/add.dsml")});
+        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add.dsml")});
         ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 
     @Test
     public void loadDSMLWithoutNamespace() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "dsmlFiles", new File[]{TestUtils.getFile("com/btmatthews/maven/plugins/ldap/add1.dsml")});
+        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add1.dsml")});
+        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        mojo.execute();
+    }
+
+    @Test
+    public void testAddLDIF() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{ new Ldif("classpath:com/btmatthews/maven/plugins/ldap/add.ldif") });
+        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        mojo.execute();
+    }
+
+    @Test
+    public void testModifyLDIF() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{ new Ldif("classpath:com/btmatthews/maven/plugins/ldap/modify.ldif") });
+        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        mojo.execute();
+    }
+
+    @Test
+    public void testDeleteLDIF() throws Exception {
+        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{ new Ldif("classpath:com/btmatthews/maven/plugins/ldap/delete.ldif") });
         ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }

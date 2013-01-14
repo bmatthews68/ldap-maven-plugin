@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dsml:dsml xmlns:dsml="http://www.dsml.org/DSML">
+    <dsml:directory-entries>
+        <dsml:entry dn="ou=People,dc=btmatthews,dc=com">
+            <dsml:objectclass>
+                <dsml:oc-value>organizationalUnit</dsml:oc-value>
+            </dsml:objectclass>
+            <dsml:attr name="ou">
+                <dsml:value>People</dsml:value>
+            </dsml:attr>
+        </dsml:entry>
+   </dsml:directory-entries>
+</dsml:dsml>

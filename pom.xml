@@ -29,6 +29,9 @@
         <module>server-apacheds</module>
         <module>server-opendj</module>
         <module>server-unboundid</module>
+        <module>format-api</module>
+        <module>format-dsml</module>
+        <module>format-ldif</module>
         <module>ldap-maven-plugin</module>
     </modules>
     <build>
@@ -245,6 +248,21 @@
         <dependencies>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                <artifactId>format-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                <artifactId>format-dsml</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                <artifactId>format-ldif</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.btmatthews.maven.plugins.ldap</groupId>
                 <artifactId>server-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -298,11 +316,6 @@
                 <groupId>jaxen</groupId>
                 <artifactId>jaxen</artifactId>
                 <version>1.1.4</version>
-            </dependency>
-            <dependency>
-                <groupId>ldapsdk</groupId>
-                <artifactId>ldapsdk</artifactId>
-                <version>4.1</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
@@ -376,13 +389,14 @@
                 <artifactId>commons-io</artifactId>
                 <version>2.4</version>
             </dependency>
+            <dependency>
+                <groupId>xmlunit</groupId>
+                <artifactId>xmlunit</artifactId>
+                <version>1.3</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
-        <dependency>
-            <groupId>com.btmatthews.utils</groupId>
-            <artifactId>monitor</artifactId>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

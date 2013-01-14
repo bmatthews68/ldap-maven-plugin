@@ -39,10 +39,6 @@ import org.mockito.Mock;
  * @version 1.0
  */
 public abstract class AbstractLDAPMojoTest {
-    /**
-     * The LDAP protocol version.
-     */
-    protected static final int VERSION = 3;
 
     /**
      * The host name of the LDAP apache.

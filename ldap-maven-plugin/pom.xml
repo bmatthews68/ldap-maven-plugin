@@ -77,14 +77,30 @@
             <artifactId>jaxen</artifactId>
         </dependency>
         <dependency>
-            <groupId>ldapsdk</groupId>
-            <artifactId>ldapsdk</artifactId>
+            <groupId>com.unboundid</groupId>
+            <artifactId>unboundid-ldapsdk</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.utils</groupId>
+            <artifactId>monitor</artifactId>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-api</artifactId>
             <classifier>tests</classifier>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>format-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>format-ldif</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>format-dsml</artifactId>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
