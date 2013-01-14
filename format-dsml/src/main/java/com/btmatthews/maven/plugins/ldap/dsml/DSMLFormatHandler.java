@@ -27,6 +27,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+/**
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.2.0
+ */
 public final class DSMLFormatHandler extends AbstractFormatHandler {
     /**
      * Create the LDAP writer that will dump LDAP entries to a DSML file.

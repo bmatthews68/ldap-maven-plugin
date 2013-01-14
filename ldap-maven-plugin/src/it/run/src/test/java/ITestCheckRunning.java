@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Brian Thomas Matthews
+ * Copyright 2012-2013 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,8 +16,8 @@
 
 import static org.junit.Assert.assertTrue;
 
-import netscape.ldap.LDAPConnection;
-import netscape.ldap.LDAPException;
+import com.unboundid.ldap.sdk.LDAPConnection;
+import com.unboundid.ldap.sdk.LDAPException;
 import org.junit.Test;
 
 /**
@@ -36,17 +36,17 @@ public class ITestCheckRunning {
     @Test
     public void testLDAPRunning() throws Exception {
         final LDAPConnection connection = new LDAPConnection();
-        connection.setConnectTimeout(5);
         int i = 0;
         while (i < 3) {
             try {
-                connection.connect(3, "localhost", 10389, "uid=admin,ou=system", "secret");
+                connection.connect("localhost", 10389, 5000);
                 break;
             } catch (LDAPException e) {
                 i++;
             }
         }
         assertTrue(i < 3);
-        connection.disconnect();
+        connection.bind("uid=admin,ou=system", "secret");
+        connection.close();
     }
 }

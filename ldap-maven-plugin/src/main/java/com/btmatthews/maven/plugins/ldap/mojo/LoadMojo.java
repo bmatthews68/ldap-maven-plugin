@@ -24,7 +24,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -37,7 +36,13 @@ import java.io.InputStream;
 @Mojo(name = "load")
 public final class LoadMojo extends AbstractLDAPMojo {
 
-    private  final FormatHandler dsmlFormatHandler = new DSMLFormatHandler();
+    /**
+     * Handler used to load LDAP directory entries from DSML files.
+     */
+    private final FormatHandler dsmlFormatHandler = new DSMLFormatHandler();
+    /**
+     * Handler used to load LDAP directory entries from LDIF files.
+     */
     private final FormatHandler ldifFormatHandler = new LDIFFormatHandler();
     /**
      * The LDIF and DSML files to be processed.
@@ -51,6 +56,12 @@ public final class LoadMojo extends AbstractLDAPMojo {
     @Parameter(defaultValue = "false")
     private boolean continueOnError;
 
+    /**
+     * Execute the plugin goal iterating over the list of source files and loading the LDAP directory entries from
+     * each file using the appropriate handler.
+     *
+     * @throws MojoExecutionException If there was an error executing the plugin goal.
+     */
     public void execute() throws MojoExecutionException {
         final LDAPConnection connection = connect();
         try {
@@ -60,7 +71,7 @@ public final class LoadMojo extends AbstractLDAPMojo {
                     final FormatHandler handler = getFormatHandler(source);
                     if (handler == null) {
                         getLog().warn("No handler for input source: " + source);
-                   } else {
+                    } else {
                         final InputStream inputStream = source.open();
                         if (inputStream == null) {
                             if (!this.continueOnError) {
@@ -86,7 +97,14 @@ public final class LoadMojo extends AbstractLDAPMojo {
         }
     }
 
-    protected FormatHandler getFormatHandler(final Source source) {
+    /**
+     * Determine which format handler to use for a source file. If the source file is DSML then {@link #dsmlFormatHandler}
+     * will be used and if it is LDIF then {@link #ldifFormatHandler}.
+     *
+     * @param source Describes the source file.
+     * @return The appropriate format handler or {@code null} if the source is not supported.
+     */
+    private FormatHandler getFormatHandler(final Source source) {
         if (source instanceof Dsml) {
             return dsmlFormatHandler;
         } else if (source instanceof Ldif) {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2012 Brian Thomas Matthews
+ * Copyright 2008-2013 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,7 +37,13 @@ import java.io.*;
  */
 @Mojo(name = "dump")
 public class DumpMojo extends AbstractLDAPMojo {
+    /**
+     * Handler used to dump LDAP directory entries to DSML files.
+     */
     private final FormatHandler dsmlFormatHandler = new DSMLFormatHandler();
+    /**
+     * Handler used to dump LDAP directory entries to LDIF files.
+     */
     private final FormatHandler ldifFormatHandler = new LDIFFormatHandler();
     /**
      * The search base.
@@ -59,11 +65,18 @@ public class DumpMojo extends AbstractLDAPMojo {
      */
     @Parameter(required = true)
     private String filename;
+    /**
+     * The output file format.
+     * <ul>
+     * <li>ldif</li>
+     * <li>dsml</li>
+     * </ul>
+     */
     @Parameter(defaultValue = "ldif")
     private String format;
 
     /**
-     * Execute the plugin goal.
+     * Execute the plugin goal by dumping the matching directory entries to a file in the specified format.
      *
      * @throws MojoExecutionException If something unexpected happens.
      */
@@ -90,6 +103,11 @@ public class DumpMojo extends AbstractLDAPMojo {
         }
     }
 
+    /**
+     * Get the appropriate format handler based on the output file format.
+     *
+     * @return The appropriate file handler or {@code null} if the output file format is not supported.
+     */
     private FormatHandler getFormatHandler() {
         if (format.equals("dsml")) {
             return dsmlFormatHandler;

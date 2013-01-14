@@ -28,7 +28,7 @@ import java.io.PrintWriter;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
-public class DSMLWriter implements FormatWriter {
+public final class DSMLWriter implements FormatWriter {
 
     /**
      * Used to write to the output stream.

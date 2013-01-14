@@ -16,33 +16,24 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
+
 import com.btmatthews.maven.plugins.ldap.LDAPServer;
 import com.btmatthews.utils.monitor.mojo.AbstractRunMojo;
-import org.apache.maven.ProjectDependenciesResolver;
-import org.apache.maven.RepositoryUtils;
-import org.apache.maven.artifact.factory.ArtifactFactory;
-import org.apache.maven.artifact.metadata.ArtifactMetadataSource;
-import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.DefaultDependencyResolutionRequest;
-import org.apache.maven.project.DependencyResolutionException;
-import org.apache.maven.project.DependencyResolutionResult;
-import org.apache.maven.project.MavenProject;
 import org.codehaus.classworlds.ClassRealm;
 import org.codehaus.classworlds.ClassWorld;
 import org.codehaus.classworlds.DuplicateRealmException;
-import org.sonatype.aether.RepositorySystemSession;
-import org.sonatype.aether.artifact.Artifact;
-import org.sonatype.aether.impl.ArtifactResolver;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This Mojo implements the run goal which launches an embedded LDAP
@@ -94,31 +85,6 @@ public final class RunLDAPMojo extends AbstractRunMojo {
      */
     @Parameter(defaultValue = "${project.build.directory}", required = true)
     private File outputDirectory;
-    @Component
-    private ArtifactResolver artifactResolver;
-    /**
-     *
-    */
-    @Component
-    private ArtifactFactory artifactFactory;
-    /**
-     *
-     */
-    @Component
-    private ArtifactMetadataSource metadataSource;
-    /**
-     *
-     * @parameter expression="${localRepository}"
-     */
-    @Parameter(defaultValue="$")
-    private ArtifactRepository localRepository;
-    /**
-     *
-     */
-    @Parameter(defaultValue = "${project.remoteArtifactRepositories}")
-    private List remoteRepositories;
-
-
 
     /**
      * Get the server type.

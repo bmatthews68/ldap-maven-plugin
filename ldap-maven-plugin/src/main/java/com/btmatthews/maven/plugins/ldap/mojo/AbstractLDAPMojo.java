@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2012 Brian Thomas Matthews
+ * Copyright 2008-2013 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -65,8 +65,8 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
     /**
      * The connection timeout.
      */
-    @Parameter(defaultValue = "5")
-    private int connectionTimeout = 5;
+    @Parameter(defaultValue = "5000")
+    private int connectionTimeout = 5000;
     /**
      * The maximum number of connection attempts before failing.
      */

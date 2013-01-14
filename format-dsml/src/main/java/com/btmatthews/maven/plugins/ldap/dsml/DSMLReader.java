@@ -38,7 +38,7 @@ import java.util.*;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
-public class DSMLReader implements FormatReader {
+public final class DSMLReader implements FormatReader {
 
     /**
      * Iterates over the directory entries extracted from the .dsml file.
