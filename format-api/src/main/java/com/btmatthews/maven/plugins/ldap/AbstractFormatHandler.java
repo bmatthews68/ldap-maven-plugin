@@ -26,15 +26,20 @@ import java.io.OutputStream;
 import java.util.List;
 
 /**
+ * Abstract base class for {@link FormatHandler} objects that import/export directory entries to/from LDAP directory
+ * servers in LDIF and DSML format.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public abstract class AbstractFormatHandler implements FormatHandler {
 
     /**
-     * @param connection
-     * @param inputStream
-     * @param ignoreErrors If {@code true}
+     * Reads directory entries from the input stream and loads them in the LDAP directory server.
+     *
+     * @param connection   The connection to the LDAP directory server.
+     * @param inputStream  The input stream from which directory entries will be read.
+     * @param ignoreErrors If {@code true} then loading will continue if an error occurs.
      * @param logger       Used to log information or error messages.
      */
     @Override
@@ -45,35 +50,42 @@ public abstract class AbstractFormatHandler implements FormatHandler {
         final FormatReader reader = openReader(inputStream, logger);
         if (reader != null) {
             try {
-                for (; ; ) {
+                boolean keepReading = true;
+                do {
                     try {
                         final LDIFChangeRecord record = reader.nextRecord();
                         if (record == null) {
-                            break;
+                            keepReading = false;
                         } else {
                             record.processChange(connection);
                         }
                     } catch (final LDIFException e) {
                         if (!ignoreErrors || !e.mayContinueReading()) {
-                            break;
+                            logger.logError("Error parsing directory entry read from the input stream", e);
+                            keepReading = false;
                         }
                     } catch (final LDAPException e) {
                         if (!ignoreErrors) {
-                            break;
+                            logger.logError("Error loading directory entry into the LDAP directory server", e);
+                            keepReading = false;
                         }
                     }
-                }
+                } while (keepReading);
             } catch (final IOException e) {
+                logger.logError("I/O error reading directory entry from input stream", e);
             } finally {
                 try {
                     reader.close();
                 } catch (final IOException e) {
+                    logger.logError("I/O error closing the input stream reader", e);
                 }
             }
         }
     }
 
     /**
+     * Dump the results of a search against the LDAP directory server to an output stream.
+     *
      * @param connection   The connection to the LDAP directory server.
      * @param base         The base DN from which to start the search.
      * @param filter       Query used to filter the directory entries.
@@ -87,41 +99,51 @@ public abstract class AbstractFormatHandler implements FormatHandler {
                            final OutputStream outputStream,
                            final FormatLogger logger) {
         final FormatWriter ldapWriter = createWriter(outputStream, logger);
-        try {
+        if (ldapWriter == null) {
+            logger.logError("Error creating writer for output stream");
+        } else {
             try {
-                final SearchRequest request = new SearchRequest(base, SearchScope.SUB, Filter.create(filter));
-                final SearchResult result = connection.search(request);
-                if (result.getResultCode() == ResultCode.SUCCESS) {
-                    final List<SearchResultEntry> entries = result.getSearchEntries();
-                    if (entries != null) {
-                        for (final SearchResultEntry entry : entries) {
-                            ldapWriter.printEntry(entry);
+                try {
+                    final SearchRequest request = new SearchRequest(base, SearchScope.SUB, Filter.create(filter));
+                    final SearchResult result = connection.search(request);
+                    if (result.getResultCode() == ResultCode.SUCCESS) {
+                        final List<SearchResultEntry> entries = result.getSearchEntries();
+                        if (entries != null) {
+                            for (final SearchResultEntry entry : entries) {
+                                ldapWriter.printEntry(entry);
+                            }
+                        } else {
+                            logger.logInfo("Search did not return any directory entries");
                         }
+                    } else {
+                        logger.logError("Search operation failed");
                     }
-                } else {
-                    logger.logError("Search operation failed");
+                } catch (final LDAPException e) {
+                    logger.logError("Error searching the LDAP directory", e);
+                } finally {
+                    ldapWriter.close();
                 }
-            } catch (final LDAPException e) {
-                logger.logError("", e);
-            } finally {
-                ldapWriter.close();
+            } catch (final IOException e) {
+                logger.logError("Error writing directory entry to the output stream", e);
             }
-        } catch (final IOException e) {
-            logger.logError("", e);
         }
     }
 
     /**
-     * @param outputStream
+     * Create a writer that formats the directory entry before writing it to the output stream.
+     *
+     * @param outputStream The target output stream.
      * @param logger       Used to log information or error messages.
-     * @return
+     * @return A {@link FormatWriter} object.
      */
     protected abstract FormatWriter createWriter(OutputStream outputStream, FormatLogger logger);
 
     /**
-     * @param inputStream
-     * @param logger       Used to log information or error messages.
-     * @return
+     * Create a reader to parse the directory entries as they are read from the input stream.
+     *
+     * @param inputStream The source input stream.
+     * @param logger      Used to log information or error messages.
+     * @return A {@link FormatReader} object.
      */
     protected abstract FormatReader openReader(InputStream inputStream, FormatLogger logger);
 }

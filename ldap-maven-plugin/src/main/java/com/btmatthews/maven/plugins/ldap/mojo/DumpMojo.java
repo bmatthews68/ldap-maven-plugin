@@ -33,10 +33,10 @@ import java.io.*;
  * appropriately.
  *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
- * @since 1.0.0
+ * @since 1.2.0
  */
 @Mojo(name = "dump")
-public class DumpMojo extends AbstractLDAPMojo {
+public final class DumpMojo extends AbstractLDAPMojo {
     /**
      * Handler used to dump LDAP directory entries to DSML files.
      */
@@ -82,24 +82,25 @@ public class DumpMojo extends AbstractLDAPMojo {
      */
     public final void execute() throws MojoExecutionException {
         final File outputFile = new File(outputDirectory, filename);
-        outputDirectory.mkdirs();
-        try {
-            final OutputStream outputStream = new FileOutputStream(outputFile);
+        if (outputDirectory.exists() || outputDirectory.mkdirs()) {
             try {
-                final LDAPConnection connection = connect();
+                final OutputStream outputStream = new FileOutputStream(outputFile);
                 try {
-                    final FormatHandler handler = getFormatHandler();
-                    handler.dump(connection, searchBase, searchFilter, outputStream, this);
+                    final LDAPConnection connection = connect();
+                    try {
+                        final FormatHandler handler = getFormatHandler();
+                        handler.dump(connection, searchBase, searchFilter, outputStream, this);
+                    } finally {
+                        connection.close();
+                    }
                 } finally {
-                    connection.close();
+                    try {
+                        outputStream.close();
+                    } catch (final IOException e) {
+                    }
                 }
-            } finally {
-                try {
-                    outputStream.close();
-                } catch (final IOException e) {
-                }
+            } catch (final FileNotFoundException e) {
             }
-        } catch (final FileNotFoundException e) {
         }
     }
 

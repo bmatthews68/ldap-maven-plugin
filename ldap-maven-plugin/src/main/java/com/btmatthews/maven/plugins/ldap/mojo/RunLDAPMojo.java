@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * This Mojo implements the run goal which launches an embedded LDAP
- * server using Apache Directory Server.
+ * directory server.
  *
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
  * @since 1.1.0
@@ -112,7 +112,7 @@ public final class RunLDAPMojo extends AbstractRunMojo {
             } catch (final MalformedURLException e) {
             }
         }
-        config.put(LDAPServer.LDAP_PORT, Integer.valueOf(ldapPort));
+        config.put(LDAPServer.LDAP_PORT, ldapPort);
         config.put(LDAPServer.AUTH_DN, authDn);
         config.put(LDAPServer.PASSWD, passwd);
         return config;

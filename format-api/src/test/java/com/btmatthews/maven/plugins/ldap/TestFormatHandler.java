@@ -16,11 +16,9 @@
 
 package com.btmatthews.maven.plugins.ldap;
 
-import com.unboundid.ldap.sdk.LDAPInterface;
-import com.unboundid.ldap.sdk.SearchRequest;
-import com.unboundid.ldap.sdk.SearchResult;
-import com.unboundid.ldap.sdk.SearchResultEntry;
+import com.unboundid.ldap.sdk.*;
 import com.unboundid.ldif.LDIFChangeRecord;
+import com.unboundid.ldif.LDIFException;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -35,11 +33,8 @@ import static org.mockito.Mockito.*;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 13/01/13
- * Time: 23:03
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.2.0
  */
 public class TestFormatHandler {
 
@@ -97,6 +92,40 @@ public class TestFormatHandler {
                 return reader;
             }
         };
+    }
+
+    @Test
+    public void handleLDIFExceptionWhileReading() throws Exception {
+        doThrow(LDIFException.class).when(reader).nextRecord();
+        handler.load(connection, inputStream, false, logger);
+        verify(logger).logError(eq("Error parsing directory entry read from the input stream"), any(LDIFException.class));
+        verify(reader).close();
+    }
+
+    @Test
+    public void handleIOExceptionWhileReading() throws Exception {
+        doThrow(IOException.class).when(reader).nextRecord();
+        handler.load(connection, inputStream, false, logger);
+        verify(logger).logError(eq("I/O error reading directory entry from input stream"), any(IOException.class));
+        verify(reader).close();
+    }
+
+    @Test
+    public void handleIOExceptionWhileClosing() throws Exception {
+        doThrow(IOException.class).when(reader).close();
+        handler.load(connection, inputStream, false, logger);
+        verify(logger).logError(eq("I/O error closing the input stream reader"), any(IOException.class));
+        verify(reader).close();
+    }
+
+    @Test
+    public void handleLDAPExceptionWhileProcessing() throws Exception {
+        final LDIFChangeRecord first = mock(LDIFChangeRecord.class);
+        when(reader.nextRecord()).thenReturn(first);
+        doThrow(LDAPException.class).when(first).processChange(same(connection));
+        handler.load(connection, inputStream, false, logger);
+        logger.logError(eq("Error loading directory entry into the LDAP directory server"), any(LDAPException.class));
+        verify(reader).close();
     }
 
     @Test

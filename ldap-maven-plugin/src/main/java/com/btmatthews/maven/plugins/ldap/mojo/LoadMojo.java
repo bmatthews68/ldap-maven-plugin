@@ -28,10 +28,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Implement the goal that loads a DSML file.
+ * Implement the goal that loads a LDIF or DSML file into the LDAP directory server.
  *
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
- * @version 1.0
+ * @since 1.2.0
  */
 @Mojo(name = "load")
 public final class LoadMojo extends AbstractLDAPMojo {
@@ -47,6 +47,7 @@ public final class LoadMojo extends AbstractLDAPMojo {
     /**
      * The LDIF and DSML files to be processed.
      */
+    @SuppressWarnings("MismatchedReadAndWriteOfArray")
     @Parameter(required = true)
     private Source[] sources;
     /**
@@ -79,9 +80,12 @@ public final class LoadMojo extends AbstractLDAPMojo {
                             } else {
                                 getLog().warn("Skipping source that could not be opened for reading: " + source);
                             }
-                            inputStream.close();
                         } else {
-                            handler.load(connection, source.open(), continueOnError, this);
+                            try {
+                                handler.load(connection, source.open(), continueOnError, this);
+                            } finally {
+                                inputStream.close();
+                            }
                         }
                     }
                 } catch (final IOException e) {

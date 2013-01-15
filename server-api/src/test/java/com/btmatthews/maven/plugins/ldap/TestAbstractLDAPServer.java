@@ -119,7 +119,7 @@ public class TestAbstractLDAPServer {
      */
     @Test
     public void configureLDAPPort() {
-        server.configure("ldapPort", Integer.valueOf(10389), logger);
+        server.configure("ldapPort", 10389, logger);
         verify(logger).logInfo("Configured TCP port for directory server: 10389");
         assertEquals(10389, server.getServerPort());
     }

@@ -16,11 +16,9 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
-import com.btmatthews.maven.plugins.ldap.FormatHandler;
 import com.btmatthews.maven.plugins.ldap.FormatLogger;
 import com.unboundid.ldap.sdk.LDAPConnection;
 import com.unboundid.ldap.sdk.LDAPException;
-import com.unboundid.ldap.sdk.LDAPInterface;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -108,16 +106,32 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
         return connection;
     }
 
+    /**
+     * Write a information message to the Maven log.
+     *
+     * @param message The information message.
+     */
     @Override
     public void logInfo(final String message) {
         getLog().info(message);
     }
 
+    /**
+     * Write an error message to the Maven log.
+     *
+     * @param message The error message.
+     */
     @Override
     public void logError(final String message) {
         getLog().error(message);
     }
 
+    /**
+     * Write an error message and stack trace to the Maven log.
+     *
+     * @param message   The error message.
+     * @param exception The exception containing the stack trace.
+     */
     @Override
     public void logError(final String message, final Throwable exception) {
         getLog().error(message, exception);

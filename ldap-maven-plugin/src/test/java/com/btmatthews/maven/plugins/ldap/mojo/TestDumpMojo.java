@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2012 Brian Thomas Matthews
+ * Copyright 2013 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,17 +17,18 @@
 package com.btmatthews.maven.plugins.ldap.mojo;
 
 
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-
-import org.apache.maven.plugin.logging.Log;
+import com.btmatthews.ldapunit.DirectoryServerConfiguration;
+import com.btmatthews.ldapunit.DirectoryServerRule;
 import org.apache.maven.plugin.logging.SystemStreamLog;
-import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
+import java.io.File;
+
+import static org.codehaus.plexus.util.ReflectionUtils.setVariableValueInObject;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the dump plugin goal.
@@ -35,48 +36,62 @@ import org.junit.rules.TemporaryFolder;
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
-public final class TestDumpMojo extends AbstractLDAPMojoTest {
+@DirectoryServerConfiguration(ldifFile = "com/btmatthews/maven/plugins/ldap/mojo/initial.ldif")
+public final class TestDumpMojo {
+
+    /**
+     * Temporary folder in which the mojo will dump data.
+     */
+    @Rule
+    public final TemporaryFolder outputDirectory = new TemporaryFolder();
 
     @Rule
-    public TemporaryFolder outputDirectory = new TemporaryFolder();
+    public final DirectoryServerRule directoryServerRule = new DirectoryServerRule();
 
-    public DumpMojo mojo = new DumpMojo();
+    /**
+     * The mojo that implements the dump goal.
+     */
+    public final DumpMojo mojo = new DumpMojo();
 
+    /**
+     * Prepare for test case execution by creating and initialising the test case fixtures and mock objects.
+     *
+     * @throws Exception If there was a problem configuring the mojo.
+     */
     @Before
     public void setUp() throws Exception {
-        super.setUp();
         mojo.setLog(new SystemStreamLog());
-        ReflectionUtils.setVariableValueInObject(mojo, "outputDirectory", outputDirectory.getRoot());
-        ReflectionUtils.setVariableValueInObject(mojo, "host", LOCALHOST);
-        ReflectionUtils.setVariableValueInObject(mojo, "port", Integer.valueOf(PORT));
-        ReflectionUtils.setVariableValueInObject(mojo, "authDn", DN);
-        ReflectionUtils.setVariableValueInObject(mojo, "passwd", PASSWD);
-        ReflectionUtils.setVariableValueInObject(mojo, "searchBase", "dc=btmatthews,dc=com");
-        ReflectionUtils.setVariableValueInObject(mojo, "searchFilter", "(objectclass=*)");
+        setVariableValueInObject(mojo, "outputDirectory", outputDirectory.getRoot());
+        setVariableValueInObject(mojo, "host", "localhost");
+        setVariableValueInObject(mojo, "port", 10389);
+        setVariableValueInObject(mojo, "authDn", "uid=admin,ou=system");
+        setVariableValueInObject(mojo, "passwd", "secret");
+        setVariableValueInObject(mojo, "searchBase", "dc=btmatthews,dc=com");
+        setVariableValueInObject(mojo, "searchFilter", "(objectclass=*)");
     }
 
     /**
-     * Test the configuration for the dsml-dump goal.
+     * Test the configuration for the dump goal.
      *
      * @throws Exception If something unexpected happens.
      */
     @Test
     public void dumpDSML() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "filename", "dump.dsml");
-        ReflectionUtils.setVariableValueInObject(mojo, "format", "dsml");
+        setVariableValueInObject(mojo, "filename", "dump.dsml");
+        setVariableValueInObject(mojo, "format", "dsml");
         mojo.execute();
         assertTrue(new File(outputDirectory.getRoot(), "dump.dsml").exists());
     }
 
     /**
-     * Test the configuration for the dsml-dump goal.
+     * Test the configuration for the dump goal.
      *
      * @throws Exception If something unexpected happens.
      */
     @Test
     public void dumpLDIF() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "filename", "dump.ldif");
-        ReflectionUtils.setVariableValueInObject(mojo, "format", "ldif");
+        setVariableValueInObject(mojo, "filename", "dump.ldif");
+        setVariableValueInObject(mojo, "format", "ldif");
         mojo.execute();
         assertTrue(new File(outputDirectory.getRoot(), "dump.ldif").exists());
     }

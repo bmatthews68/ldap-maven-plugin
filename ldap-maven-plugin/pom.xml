@@ -85,6 +85,11 @@
             <artifactId>monitor</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-api</artifactId>
             <classifier>tests</classifier>
@@ -117,6 +122,11 @@
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-unboundid</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.ldapunit</groupId>
+            <artifactId>ldapunit</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

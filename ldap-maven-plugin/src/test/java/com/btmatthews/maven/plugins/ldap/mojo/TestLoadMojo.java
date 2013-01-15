@@ -16,66 +16,103 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
-import com.btmatthews.maven.plugins.ldap.TestUtils;
+import com.btmatthews.ldapunit.DirectoryServerConfiguration;
+import com.btmatthews.ldapunit.DirectoryServerRule;
 import org.apache.maven.plugin.logging.SystemStreamLog;
-import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import java.io.File;
+import static org.codehaus.plexus.util.ReflectionUtils.setVariableValueInObject;
 
 /**
- * Unit tests for the ldif-loader plugin goal.
+ * Unit tests for the load plugin goal.
  *
  * @author <a href="mailto:brian.matthews@terranua.com">Brian Matthews</a>
  * @version 1.0
  */
-public final class TestLoadMojo extends AbstractLDAPMojoTest {
+@DirectoryServerConfiguration(ldifFile = "com/btmatthews/maven/plugins/ldap/mojo/initial.ldif")
+public final class TestLoadMojo {
 
-    private LoadMojo mojo = new LoadMojo();
+    /**
+     * The mojo that implements the load goal.
+     */
+    private final LoadMojo mojo = new LoadMojo();
 
+    @Rule
+    public final DirectoryServerRule directoryServerRule = new DirectoryServerRule();
+
+    /**
+     * Prepare for test case execution by creating and initialising test fixtures and mock objects.
+     *
+     * @throws Exception If there was a problem configuring the mojo.
+     */
     @Before
     public void setUp() throws Exception {
-        super.setUp();
         mojo.setLog(new SystemStreamLog());
-        ReflectionUtils.setVariableValueInObject(mojo, "host", "localhost");
-        ReflectionUtils.setVariableValueInObject(mojo, "port", Integer.valueOf(10389));
-        ReflectionUtils.setVariableValueInObject(mojo, "authDn", "uid=admin,ou=system");
-        ReflectionUtils.setVariableValueInObject(mojo, "passwd", "secret");
+        setVariableValueInObject(mojo, "host", "localhost");
+        setVariableValueInObject(mojo, "port", 10389);
+        setVariableValueInObject(mojo, "authDn", "uid=admin,ou=system");
+        setVariableValueInObject(mojo, "passwd", "secret");
     }
 
+    /**
+     * Verify that we can load DSML file using the namespace with a namespace prefix.
+     *
+     * @throws Exception If the mojo execution failed.
+     */
     @Test
     public void loadDSMLWithNamespace() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add.dsml")});
-        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add.dsml")});
+        setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 
+    /**
+     * Verify that we can load DSML file without a namespace.
+     *
+     * @throws Exception If the mojo execution failed.
+     */
     @Test
     public void loadDSMLWithoutNamespace() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add1.dsml")});
-        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add1.dsml")});
+        setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 
+    /**
+     * Verify that we can load LDIF file that adds an entry to the LDAP directory.
+     *
+     * @throws Exception If the mojo execution failed.
+     */
     @Test
     public void testAddLDIF() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{ new Ldif("classpath:com/btmatthews/maven/plugins/ldap/add.ldif") });
-        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/add.ldif")});
+        setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 
+    /**
+     * Verify that we can load LDIF file that modifies an entry in the LDAP directory.
+     *
+     * @throws Exception If the mojo execution failed.
+     */
     @Test
     public void testModifyLDIF() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{ new Ldif("classpath:com/btmatthews/maven/plugins/ldap/modify.ldif") });
-        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/modify.ldif")});
+        setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 
+    /**
+     * Verify that we can load LDIF file that deletes an entry from the LDAP directory.
+     *
+     * @throws Exception If the mojo execution failed.
+     */
     @Test
     public void testDeleteLDIF() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "sources", new Source[]{ new Ldif("classpath:com/btmatthews/maven/plugins/ldap/delete.ldif") });
-        ReflectionUtils.setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
+        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/delete.ldif")});
+        setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
 }

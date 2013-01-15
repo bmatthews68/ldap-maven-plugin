@@ -41,11 +41,8 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 13/01/13
- * Time: 12:11
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.2.0
  */
 public class TestDSMLFormatHandler {
 

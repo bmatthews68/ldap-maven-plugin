@@ -24,11 +24,8 @@ import java.io.InputStream;
 import static org.junit.Assert.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 12/01/13
- * Time: 04:06
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.2.0
  */
 public class TestDSMLReader {
 

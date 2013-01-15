@@ -21,11 +21,11 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 
 /**
- * Implement stop goal for the plugin.
+ * Implement stop goal for the plugin which shuts down the running LDAP directory server.
  *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.0
  */
 @Mojo(name = "stop", defaultPhase = LifecyclePhase.POST_INTEGRATION_TEST)
-public class StopLDAPMojo extends AbstractStopMojo {
+public final class StopLDAPMojo extends AbstractStopMojo {
 }

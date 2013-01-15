@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2013-01-02
+ 2013-01-16
  ------
 
 ~~ Copyright 2008-2013 Brian Thomas Matthews
@@ -42,13 +42,9 @@ LDAP Maven Plugin
 
 ~~  General Information about the goals.
 
-  * {{{./ldap-maven-plugin/ldif-load-mojo.html}ldap:ldif-load}} Load directory entries from LDIF format.
+  * {{{./ldap-maven-plugin/load-mojo.html}ldap:load}} Load directory entries from DSML or LDIF format.
 
-  * {{{./ldap-maven-plugin/ldif-dump-mojo.html}ldap:ldif-dump}} Dump directory entries to LDIF format.
-
-  * {{{./ldap-maven-plugin/dsml-load-mojo.html}ldap:dsml-load}} Load directory entries from DSML format.
-
-  * {{{./ldap-maven-plugin/dsml-dump-mojo.html}ldap:dsml-dump}} Dump directory entries to DSML format.
+  * {{{./ldap-maven-plugin/dump-mojo.html}ldap:dump}} Dump directory entries to DSML LDIF format.
 
   * {{{./ldap-maven-plugin/run-mojo.html}ldap:run}} Run an embedded ApacheDS server.
 

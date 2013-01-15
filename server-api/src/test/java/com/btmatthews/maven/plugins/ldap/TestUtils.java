@@ -32,7 +32,7 @@ public class TestUtils {
      * @param filename The filename.
      * @return The {@link URL}.
      */
-    public static final URL getURL(final String filename) {
+    public static URL getURL(final String filename) {
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         return classLoader.getResource(filename);
     }
@@ -43,7 +43,7 @@ public class TestUtils {
      * @param filename The filename.
      * @return The {@link File}.
      */
-    public static final File getFile(final String filename) throws URISyntaxException {
+    public static File getFile(final String filename) throws URISyntaxException {
         final URL url = getURL(filename);
         return new File(url.toURI());
     }

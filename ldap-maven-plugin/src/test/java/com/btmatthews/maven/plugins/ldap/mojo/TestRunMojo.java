@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Brian Thomas Matthews
+ * Copyright 2012-2013 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,20 +16,20 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
-import static org.mockito.MockitoAnnotations.initMocks;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Monitor;
 import org.apache.maven.plugin.Mojo;
-import org.codehaus.plexus.util.ReflectionUtils;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static org.codehaus.plexus.util.ReflectionUtils.setVariableValueInObject;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Unit tests for the Mojo that implements the run goal.
@@ -40,21 +40,19 @@ import org.mockito.Mock;
 public class TestRunMojo {
 
     /**
-     * Mock the logger.
-     */
-    @Mock
-    private Logger logger;
-
-    /**
-     * The mojo being tested.
-     */
-    private Mojo mojo;
-
-    /**
      * Used to create temporary directories used by the unit tests.
      */
     @Rule
     public TemporaryFolder outputDirectory = new TemporaryFolder();
+    /**
+     * Mock the logger.
+     */
+    @Mock
+    private Logger logger;
+    /**
+     * The mojo being tested.
+     */
+    private Mojo mojo;
 
     /**
      * Prepare for test execution by initialising the mock objects and test fixture.
@@ -65,12 +63,12 @@ public class TestRunMojo {
     public void setUp() throws Exception {
         initMocks(this);
         mojo = new RunLDAPMojo();
-        ReflectionUtils.setVariableValueInObject(mojo, "monitorPort", 11389);
-        ReflectionUtils.setVariableValueInObject(mojo, "monitorKey", "ldap");
-        ReflectionUtils.setVariableValueInObject(mojo, "serverType", "apacheds");
-        ReflectionUtils.setVariableValueInObject(mojo, "rootDn", "dc=btmatthews,dc=com");
-        ReflectionUtils.setVariableValueInObject(mojo, "ldapPort", 10389);
-        ReflectionUtils.setVariableValueInObject(mojo, "outputDirectory", outputDirectory.getRoot());
+        setVariableValueInObject(mojo, "monitorPort", 11389);
+        setVariableValueInObject(mojo, "monitorKey", "ldap");
+        setVariableValueInObject(mojo, "serverType", "mock");
+        setVariableValueInObject(mojo, "rootDn", "dc=btmatthews,dc=com");
+        setVariableValueInObject(mojo, "ldapPort", 10389);
+        setVariableValueInObject(mojo, "outputDirectory", outputDirectory.getRoot());
     }
 
     /**
@@ -80,7 +78,7 @@ public class TestRunMojo {
      */
     @Test
     public void testRun() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "daemon", Boolean.FALSE);
+        setVariableValueInObject(mojo, "daemon", Boolean.FALSE);
 
         final Thread mojoThread = new Thread(new Runnable() {
             public void run() {
@@ -110,7 +108,7 @@ public class TestRunMojo {
      */
     @Test
     public void testRunDaemon() throws Exception {
-        ReflectionUtils.setVariableValueInObject(mojo, "daemon", Boolean.TRUE);
+        setVariableValueInObject(mojo, "daemon", Boolean.TRUE);
         mojo.execute();
         Thread.sleep(5000L);
         signalStop();

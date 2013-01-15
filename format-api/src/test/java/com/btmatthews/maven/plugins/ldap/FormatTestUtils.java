@@ -24,11 +24,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 13/01/13
- * Time: 23:56
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.2.0
  */
 public class FormatTestUtils {
     public static Entry createEntry(final String dn,

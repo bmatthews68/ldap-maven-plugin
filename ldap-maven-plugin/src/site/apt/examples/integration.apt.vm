@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2013-01-02
+ 2013-01-16
  ------
 
 ~~ Copyright 2012-2013 Brian Thomas Matthews
@@ -41,29 +41,29 @@ Using the embedded ApacheDS server for integration testing
             <goals>
               <goal>integration-test</goal>
               <goal>verify</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
 +-----+
 
   In this example we are using the LDAP Maven Plugin in conjunction with the Maven Failsafe Plugin which
   while run some unit tests in the integration-test phase of the build life cycle.
 
 +-----+
-        <plugin>
-          <groupId>${project.groupId}</groupId>
-          <artifactId>${project.artifactId}</artifactId>
-          <version>${project.version}</version>
-          <configuration>
-            <monitorPort>11389</monitorPort>
-            <monitorKey>ldap</monitorKey>
-            <daemon>true</daemon>
-            <rootDn>dc=btmatthews,dc=com</rootDn>
-            <ldapPort>10389</ldapPort>
-            <ldifFile>src/test/resources/data.ldif</ldifFile>
-          </configuration>
-          <executions>
+      <plugin>
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <version>${project.version}</version>
+        <configuration>
+          <monitorPort>11389</monitorPort>
+          <monitorKey>ldap</monitorKey>
+          <daemon>true</daemon>
+          <rootDn>dc=btmatthews,dc=com</rootDn>
+          <ldapPort>10389</ldapPort>
+          <ldifFile>src/test/resources/data.ldif</ldifFile>
+        </configuration>
+        <executions>
 +-----+
 
   The embedded LDAP directory server is configured to run as a daemon by setting \<daemon/\> to true. This will run
@@ -73,13 +73,13 @@ Using the embedded ApacheDS server for integration testing
   being sent to the correct instance.
 
 +-----+
-            <execution>
-              <id>start-server</id>
-              <phase>pre-integration-test</phase>
-              <goals>
-                <goal>run</goal>
-              </goals>
-            </execution>
+          <execution>
+            <id>start-server</id>
+            <phase>pre-integration-test</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
 +-----+
 
   The above execution will invoke the {{{../run-mojo.html}ldap:run}} goal during the <<pre-integration-test>> phase of
@@ -88,13 +88,13 @@ Using the embedded ApacheDS server for integration testing
   data in the LDIF file specified by \<ldifFile/\>.
 
 +-----+
-            <execution>
-              <id>stop-server</id>
-              <phase>post-integration-test</phase>
-              <goals>
-                <goal>stop</goal>
-              </goals>
-            </execution>
+          <execution>
+            <id>stop-server</id>
+            <phase>post-integration-test</phase>
+            <goals>
+              <goal>stop</goal>
+            </goals>
+          </execution>
 +-----+
 
   The above execution will invoke the {{{../stop-mojo.html}ldap:stop}} goal during the post-integration-test phase of
@@ -102,20 +102,18 @@ Using the embedded ApacheDS server for integration testing
   directory server.
 
 +-----+
-          </executions>
-        </plugin>
-      </plugins>
-    </build>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+        </executions>
+      </plugin>
     </plugins>
   </build>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
 +-----+
   

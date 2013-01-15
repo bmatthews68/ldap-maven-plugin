@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2013-01-02
+ 2013-01-16
  ------
 
 ~~ Copyright 2008-2013 Brian Thomas Matthews
@@ -103,18 +103,17 @@ objectclass: inetOrgPerson
           <execution>
             <phase>pre-integration-test</phase>
             <goals>
-              <goal>ldif-load</goal>
+              <goal>load</goal>
             </goals>
             <configuration>
-              <version>3</version>
               <host>localhost</host>
               <port>10389</port>
               <authDn>uid=admin,ou=system</authDn>
               <passwd>secret</passwd>
               <continueOnError>true</continueOnError>
-              <ldapFiles>
-                <ldapFile>load.ldif</ldapFile>
-              </ldapFiles>
+              <sources>
+                <ldif>load.ldif</ldif>
+              </sources>
             </configuration>
           </execution>
         </executions>

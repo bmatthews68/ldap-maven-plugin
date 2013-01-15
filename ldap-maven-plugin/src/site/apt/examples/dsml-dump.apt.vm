@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2013-01-02
+ 2013-01-16
  ------
 
 ~~ Copyright 2008-2013 Brian Thomas Matthews
@@ -50,15 +50,15 @@ Dump entries to DSML file
           <execution>
             <phase>post-integration-test</phase>
             <goals>
-              <goal>dsml-dump</goal>
+              <goal>dump</goal>
             </goals>
             <configuration>
-              <version>3</version>
               <host>localhost</host>
               <port>10389</port>
               <authDn>uid=admin,ou=system</authDn>
               <passwd>secret</passwd>
               <filename>dump.dsml</filename>
+              <format>dsml</format>
             </configuration>
           </execution>
         </executions>

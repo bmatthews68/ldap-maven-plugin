@@ -1,5 +1,5 @@
 /*
- * Copyright 2012 Brian Thomas Matthews
+ * Copyright 2012-2013 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
+import static org.codehaus.plexus.util.ReflectionUtils.setVariableValueInObject;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.validateMockitoUsage;
@@ -81,8 +82,8 @@ public class TestStopMojo {
         final Monitor monitor = new Monitor("ldap", 12389);
         final Thread monitorThread = monitor.runMonitorDaemon(server, logger, observer);
         final StopLDAPMojo mojo = new StopLDAPMojo();
-        ReflectionUtils.setVariableValueInObject(mojo, "monitorPort", 12389);
-        ReflectionUtils.setVariableValueInObject(mojo, "monitorKey", "ldap");
+        setVariableValueInObject(mojo, "monitorPort", 12389);
+        setVariableValueInObject(mojo, "monitorKey", "ldap");
         final Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

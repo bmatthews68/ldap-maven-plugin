@@ -28,11 +28,8 @@ import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Brian
- * Date: 24/11/12
- * Time: 23:06
- * To change this template use File | Settings | File Templates.
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.2.0
  */
 public class TestApacheDSServer {
 

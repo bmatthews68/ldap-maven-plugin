@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2013-01-02
+ 2013-01-16
  ------
 
 ~~ Copyright 2008-2013 Brian Thomas Matthews
@@ -39,7 +39,6 @@ Usage
         <groupId>${project.groupId}</groupId>
         <artifactId>${project.artifactId}</artifactId>
         <configuration>
-          <version>2|3</version>
           <host>somehost</host>
           <port>someport</port>
           <authDn>somedn</authDn>
@@ -49,7 +48,7 @@ Usage
         </configuration>
         <executions>
           <execution>
-            <goal>ldif-load|ldif-dump|dsml-dump</goal>
+            <goal>load|dump|run|stop</goal>
           </execution>
         </executions>
       </plugin>
@@ -75,20 +74,19 @@ Usage
         <groupId>com.btmatthews</groupId>
         <artifactId>ldap-maven-plugin</artifactId>
         <configuration>
-          <version>3</version>
           <host>localhost</host>
           <port>10389</port>
           <authDn>uid=admin,ou=system</authDn>
           <passwd>secret</passwd>
           ...
-          <ldapFiles>
-            <ldapFile>${basedir}/load.ldif</ldapFile>
+          <sources>
+            <ldif>${basedir}/load.ldif</ldif>
             ...
-          </ldapFiles>
+          </sources>
         </configuration>
         <executions>
           <execution>
-            <goal>ldif-load</goal>
+            <goal>load</goal>
           </execution>
         </executions>
     </plugins>
@@ -113,17 +111,16 @@ Usage
         <groupId>com.btmatthews</groupId>
         <artifactId>ldap-maven-plugin</artifactId>
         <configuration>
-          <version>3</version>
           <host>localhost</host>
           <port>10389</port>
           <authDn>uid=admin,ou=system</authDn>
           <passwd>secret</passwd>
           ...
-          <filename>${basedir}/dump.ldif</filename>
+          <filename>dump.ldif</filename>
         </configuration>
         <executions>
           <execution>
-            <goal>ldif-dump</goal>
+            <goal>dump</goal>
           </execution>
         </executions>
     </plugins>
@@ -149,11 +146,12 @@ Usage
           <authDn>uid=admin,ou=system</authDn>
           <passwd>secret</passwd>
           ...
-          <filename>${basedir}/dump.dsml</filename>
+          <filename>dump.dsml</filename>
+          <format>dsml</format>
         </configuration>
         <executions>
           <execution>
-            <goal>dsml-dump</goal>
+            <goal>dump</goal>
           </execution>
         </executions>
     </plugins>

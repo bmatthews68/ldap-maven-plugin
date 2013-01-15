@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2013-01-02
+ 2013-01-16
  ------
 
 ~~ Copyright 2008-2013 Brian Thomas Matthews
@@ -105,7 +105,7 @@ Load entries from DSML file
           <execution>
             <phase>pre-integration-test</phase>
             <goals>
-              <goal>dsml-load</goal>
+              <goal>load</goal>
             </goals>
             <configuration>
               <version>3</version>
@@ -114,9 +114,9 @@ Load entries from DSML file
               <authDn>uid=admin,ou=system</authDn>
               <passwd>secret</passwd>
               <continueOnError>true</continueOnError>
-              <dsmlFiles>
-                <dsmlFile>load.dsml</dsmlFile>
-              </dsmlFiles>
+              <sources>
+                <dsml>load.dsml</dsml>
+              </sources>
             </configuration>
           </execution>
         </executions>

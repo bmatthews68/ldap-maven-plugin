@@ -87,6 +87,7 @@ public final class ApacheDSServer extends AbstractLDAPServer {
             final JdbmPartition partition = new JdbmPartition();
             partition.setId("rootPartition");
             partition.setSuffix(getRoot());
+            service.setInterceptors(list);
             service.setWorkingDirectory(getWorkingDirectory());
             service.addPartition(partition);
             service.setExitVmOnShutdown(false);

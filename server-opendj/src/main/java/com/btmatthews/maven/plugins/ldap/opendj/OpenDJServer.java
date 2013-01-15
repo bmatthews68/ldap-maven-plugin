@@ -16,14 +16,6 @@
 
 package com.btmatthews.maven.plugins.ldap.opendj;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.btmatthews.maven.plugins.ldap.AbstractLDAPServer;
 import com.btmatthews.utils.monitor.Logger;
 import org.apache.commons.io.IOUtils;
@@ -35,15 +27,18 @@ import org.opends.server.config.ConfigException;
 import org.opends.server.core.DirectoryServer;
 import org.opends.server.core.LockFileManager;
 import org.opends.server.tools.BackendToolUtils;
-import org.opends.server.types.DN;
-import org.opends.server.types.DirectoryEnvironmentConfig;
-import org.opends.server.types.DirectoryException;
-import org.opends.server.types.Entry;
-import org.opends.server.types.InitializationException;
-import org.opends.server.types.LDIFImportConfig;
-import org.opends.server.types.LDIFImportResult;
+import org.opends.server.types.*;
 import org.opends.server.util.EmbeddedUtils;
 import org.opends.server.util.StaticUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
@@ -51,24 +46,41 @@ import org.opends.server.util.StaticUtils;
  */
 public final class OpenDJServer extends AbstractLDAPServer {
 
+    private static boolean ensureDirectoryExists(final File parent, final String child) {
+        return ensureDirectoryExists(new File(parent, child));
+    }
+
+    private static boolean ensureDirectoryExists(final File directory) {
+        if (directory.exists()) {
+            return true;
+        } else {
+            return directory.mkdirs();
+        }
+    }
+
     @Override
     public void start(final Logger logger) {
         try {
             logger.logInfo("Starting OpenDJ server");
-            new File(getWorkingDirectory(), "locks").mkdirs();
-            new File(getWorkingDirectory(), "logs").mkdirs();
-            if (!EmbeddedUtils.isRunning()) {
-                DirectoryEnvironmentConfig envConfig = new DirectoryEnvironmentConfig();
+            if (ensureDirectoryExists(getWorkingDirectory(), "locks")
+                    && ensureDirectoryExists(getWorkingDirectory(), "logs")
+                    && !EmbeddedUtils.isRunning()) {
+                final DirectoryEnvironmentConfig envConfig = new DirectoryEnvironmentConfig();
                 envConfig.setServerRoot(getWorkingDirectory());
                 final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                final File source = new File(classLoader.getResource("opendj/config/config.ldif").toURI());
-                copyFolder(source.getParentFile().getParentFile(), getWorkingDirectory());
-                envConfig.setConfigFile(new File(getWorkingDirectory(), "config/config.ldif"));
-                envConfig.setDisableConnectionHandlers(false);
-                envConfig.setMaintainConfigArchive(false);
-                EmbeddedUtils.startServer(envConfig);
-                loadLdif("default", DN.decode(getRoot()));
-                logger.logInfo("Started OpenDJ server");
+                final URL url = classLoader.getResource("opendj/config/config.ldif");
+                if (url != null) {
+                    final File source = new File(url.toURI());
+                    copyFolder(source.getParentFile().getParentFile(), getWorkingDirectory());
+                    envConfig.setConfigFile(new File(getWorkingDirectory(), "config/config.ldif"));
+                    envConfig.setDisableConnectionHandlers(false);
+                    envConfig.setMaintainConfigArchive(false);
+                    EmbeddedUtils.startServer(envConfig);
+                    loadLdif("default", DN.decode(getRoot()));
+                    logger.logInfo("Started OpenDJ server");
+                } else {
+                    logger.logError("Cannot locate OpenDJ configuration resources");
+                }
             } else {
                 logger.logInfo("OpenDJ server is already running");
             }
@@ -94,16 +106,15 @@ public final class OpenDJServer extends AbstractLDAPServer {
 
     private void copyFolder(final File sourceFolder,
                             final File destinationFolder) throws IOException {
-        if (!destinationFolder.exists()) {
-            destinationFolder.mkdirs();
-        }
-        for (final String filename : sourceFolder.list()) {
-            final File sourceFile = new File(sourceFolder, filename);
-            final File destinationFile = new File(destinationFolder, filename);
-            if (sourceFile.isDirectory()) {
-                copyFolder(sourceFile, destinationFile);
-            } else {
-                IOUtils.copy(new FileInputStream(sourceFile), new FileOutputStream(destinationFile));
+        if (ensureDirectoryExists(destinationFolder)) {
+            for (final String filename : sourceFolder.list()) {
+                final File sourceFile = new File(sourceFolder, filename);
+                final File destinationFile = new File(destinationFolder, filename);
+                if (sourceFile.isDirectory()) {
+                    copyFolder(sourceFile, destinationFile);
+                } else {
+                    IOUtils.copy(new FileInputStream(sourceFile), new FileOutputStream(destinationFile));
+                }
             }
         }
     }
@@ -159,7 +170,7 @@ public final class OpenDJServer extends AbstractLDAPServer {
             throws DirectoryException, ConfigException, InitializationException {
         final MemoryBackend memoryBackend = new MemoryBackend();
         memoryBackend.setBackendID(backendId);
-        memoryBackend.setBaseDNs(new DN[]{ baseDN });
+        memoryBackend.setBaseDNs(new DN[]{baseDN});
         memoryBackend.supportsControl("1.2.840.113556.1.4.473");
         memoryBackend.initializeBackend();
         DirectoryServer.registerBackend(memoryBackend);
