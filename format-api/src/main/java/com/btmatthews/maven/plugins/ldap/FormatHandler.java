@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * The interface that is implemented by objects that handle the DSML and LDIF file formats.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */

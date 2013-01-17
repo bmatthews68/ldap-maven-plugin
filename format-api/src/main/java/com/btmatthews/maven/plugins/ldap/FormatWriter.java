@@ -21,21 +21,25 @@ import com.unboundid.ldap.sdk.Entry;
 import java.io.IOException;
 
 /**
- * <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * Implemented by objects that write directory entries to DSML or LDIF files.
+ *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public interface FormatWriter {
 
     /**
+     * Write the directory entry to the underlying output stream in the appropriate format.
      *
-     * @param entry
-     * @throws IOException
+     * @param entry The directory entry.
+     * @throws IOException If there was an error writing to the underlying output stream.
      */
     void printEntry(Entry entry) throws IOException;
 
     /**
+     * Close the writer but not the underlying output stream.
      *
-     * @throws IOException
+     * @throws IOException If there was a problem closing the writer.
      */
     void close() throws IOException;
 }

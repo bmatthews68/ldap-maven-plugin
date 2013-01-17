@@ -17,27 +17,33 @@
 package com.btmatthews.maven.plugins.ldap;
 
 /**
- * <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * The API used by {@link FormatHandler}, {@link FormatReader} and {@link FormatWriter} implementations to log
+ * information and error messages.
+ *
+ * @suthor <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public interface FormatLogger {
 
     /**
+     * Write an information message to the log file.
      *
-     * @param message
+     * @param message The message.
      */
     void logInfo(String message);
 
     /**
+     * Write an error message to the log file.
      *
-     * @param message
+     * @param message The message.
      */
     void logError(String message);
 
     /**
+     * Write an error message with an exception stack trace to the log file.
      *
-     * @param message
-     * @param exception
+     * @param message   The message.
+     * @param exception The exception.
      */
     void logError(String message, Throwable exception);
 }

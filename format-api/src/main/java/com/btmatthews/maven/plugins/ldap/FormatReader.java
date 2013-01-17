@@ -22,8 +22,9 @@ import com.unboundid.ldif.LDIFException;
 import java.io.IOException;
 
 /**
- * <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * Implemented by objects that read change records from DSML or LDIF files.
  *
+ * @suthor <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public interface FormatReader {
@@ -38,8 +39,9 @@ public interface FormatReader {
     LDIFChangeRecord nextRecord() throws IOException, LDIFException;
 
     /**
+     * Close the reader but not the underlying input stream.
      *
-     * @throws IOException
+     * @throws IOException If there was an error closing the reader.
      */
     void close() throws IOException;
 }

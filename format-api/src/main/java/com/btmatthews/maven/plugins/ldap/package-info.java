@@ -14,4 +14,8 @@
  * limitations under the License.
  */
 
+/**
+ * This package defines the API and base classes for the objects that are used to
+ * import or export LDAP directory entries to or from DSML and LDIF file formats.
+ */
 package com.btmatthews.maven.plugins.ldap;

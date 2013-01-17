@@ -24,10 +24,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * Helper methods used by test cases.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public class FormatTestUtils {
+    /**
+     * Create a LDAP directory entry from the distinguished name an a set of attributes passed as name value pairs.
+     *
+     * @param dn                  The distinguished name.
+     * @param attributeNameValues Thr attribute names and values.
+     * @return An {@link Entry} object.
+     */
     public static Entry createEntry(final String dn,
                                     final String... attributeNameValues) {
         final List<Attribute> attributes = new LinkedList<Attribute>();
@@ -37,19 +46,43 @@ public class FormatTestUtils {
         return new Entry(dn, attributes);
     }
 
+    /**
+     * Create a search result entry from the distinguished name an a set of attributes passed as name value pairs.
+     *
+     * @param dn                  The distinguished name.
+     * @param attributeNameValues Thr attribute names and values.
+     * @return An {@link SearchResultEntry} object.
+     */
     public static SearchResultEntry createSearchResultEntry(final String dn, final String... attributeNameValues) {
         final Entry entry = createEntry(dn, attributeNameValues);
         return new SearchResultEntry(entry);
     }
 
+    /**
+     * Create an empty search result.
+     *
+     * @return A {@link SearchResult} object.
+     */
     public static SearchResult createSearchResult() {
         return createSearchResult(new ArrayList<SearchResultEntry>());
     }
 
+    /**
+     * Create a search result with the search result entries passed as a {@link List}.
+     *
+     * @param entries A list of individual search result entries.
+     * @return A {@link SearchResult} object.
+     */
     public static SearchResult createSearchResult(final List<SearchResultEntry> entries) {
         return new SearchResult(0, ResultCode.SUCCESS, null, null, null, entries, null, entries.size(), 0, null);
     }
 
+    /**
+     * Create a search result with the search result entries passed as a variant argument list.
+     *
+     * @param entries The individual search result entries.
+     * @return A {@link SearchResult} object.
+     */
     public static SearchResult createSearchResult(final SearchResultEntry... entries) {
         return createSearchResult(Arrays.asList(entries));
     }
