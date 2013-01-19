@@ -16,10 +16,12 @@
 
 package com.btmatthews.maven.plugins.ldap.ldif;
 
+import com.btmatthews.maven.plugins.ldap.AddRequestMatcher;
 import com.btmatthews.maven.plugins.ldap.FormatHandler;
 import com.btmatthews.maven.plugins.ldap.FormatLogger;
-import com.btmatthews.maven.plugins.ldap.FormatTestUtils;
-import com.unboundid.ldap.sdk.*;
+import com.unboundid.ldap.sdk.LDAPInterface;
+import com.unboundid.ldap.sdk.SearchRequest;
+import com.unboundid.ldap.sdk.SearchResult;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -31,6 +33,8 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static com.btmatthews.maven.plugins.ldap.FormatTestUtils.createSearchResult;
+import static com.btmatthews.maven.plugins.ldap.FormatTestUtils.createSearchResultEntry;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
@@ -97,7 +101,7 @@ public class TestLDIFFormatHandler {
     public void canLoadLDIFFileWithOneChangeRecord() throws Exception {
         final InputStream inputStream = TestLDIFFormatHandler.class.getResourceAsStream("one.ldif");
         formatHandler.load(connection, inputStream, true, logger);
-        verify(connection).add(any(AddRequest.class));
+        verify(connection).add(argThat(new AddRequestMatcher("ou=People,dc=btmatthews,dc=com", "ou", "People", "objectclass", "organizationalUnit")));
         verifyNoMoreInteractions(connection, logger);
     }
 
@@ -112,20 +116,28 @@ public class TestLDIFFormatHandler {
     public void canLoadLDIFFileWithTwoChangeRecords() throws Exception {
         final InputStream inputStream = TestLDIFFormatHandler.class.getResourceAsStream("two.ldif");
         formatHandler.load(connection, inputStream, true, logger);
-        verify(connection, times(2)).add(any(AddRequest.class));
+        verify(connection).add(argThat(new AddRequestMatcher(
+                "ou=People,dc=btmatthews,dc=com",
+                "ou", "People",
+                "objectclass", "organizationalUnit")));
+        verify(connection).add(argThat(new AddRequestMatcher(
+                "cn=Bart Simpson,ou=People,dc=btmatthews,dc=com",
+                "cn", "Bart Simpson",
+                "sn", "Simpson",
+                "givenName", "Bart",
+                "uid", "bsimpson",
+                "objectclass", "inetOrgPerson")));
         verifyNoMoreInteractions(connection, logger);
     }
 
+    /**
+     * Verify that an empty LDIF file is created when dumping an empty search result.
+     *
+     * @throws Exception If there was a problem executing the test case.
+     */
     @Test
     public void noDataInDump() throws Exception {
-        final SearchResult results = new SearchResult(0, ResultCode.SUCCESS,
-                null, null,
-                null,
-                null /* entries */,
-                null,
-                0 /* numentries */, 0,
-                null);
-
+        final SearchResult results = createSearchResult();
         when(connection.search(any(SearchRequest.class))).thenReturn(results);
 
         final File outputFile = outputFolder.newFile();
@@ -135,10 +147,15 @@ public class TestLDIFFormatHandler {
         assertEquals(0, outputFile.length());
     }
 
+    /**
+     * Verify that that the LDIF file is created correctly when dumping search result with one entry.
+     *
+     * @throws Exception If there was a problem executing the test case.
+     */
     @Test
     public void oneItemInDump() throws Exception {
-        final SearchResult result = FormatTestUtils.createSearchResult(
-                FormatTestUtils.createSearchResultEntry(
+        final SearchResult result = createSearchResult(
+                createSearchResultEntry(
                         "ou=People,dc=btmatthews,dc=com",
                         "ou", "People",
                         "objectclass", "organizationalUnit"));
@@ -150,14 +167,19 @@ public class TestLDIFFormatHandler {
         // TODO Find a good way to check file contents
     }
 
+    /**
+     * Verify that that the LDIF file is created correctly when dumping search result with two entries.
+     *
+     * @throws Exception If there was a problem executing the test case.
+     */
     @Test
     public void twoItemsInDump() throws Exception {
-        final SearchResult result = FormatTestUtils.createSearchResult(
-                FormatTestUtils.createSearchResultEntry(
+        final SearchResult result = createSearchResult(
+                createSearchResultEntry(
                         "ou=People,dc=btmatthews,dc=com",
                         "ou", "People",
                         "objectclass", "organizationalUnit"),
-                FormatTestUtils.createSearchResultEntry(
+                createSearchResultEntry(
                         "cn=Bart Simpson,ou=People,dc=btmatthews,dc=com",
                         "cn", "Bart Simpson",
                         "sn", "Simpson",
