@@ -25,13 +25,25 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * This {@link FormatReader} reads LDIF change records from an underlying input stream.
+ *
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public final class LDIFFormatReader implements FormatReader {
 
+    /**
+     * The object that reads and parses LDIF change records from the
+     * underlying input stream.
+     */
     private final LDIFReader reader;
 
+    /**
+     * Initialize the {@link LDIFFormatReader} by creating an {@link LDIFReader} that
+     * will read and parse LDIF change records from the {@code inputStream}.
+     *
+     * @param inputStream The underlying input stream.
+     */
     public LDIFFormatReader(final InputStream inputStream) {
         reader = new LDIFReader(inputStream);
     }
@@ -48,6 +60,12 @@ public final class LDIFFormatReader implements FormatReader {
         return reader.readChangeRecord();
     }
 
+    /**
+     * Close the {@link LDIFFormatReader} by closing the {@link LDIFReader} object used to
+     * read and parse the LDIF change records.
+     *
+     * @throws IOException If there was a problem closing the {@link LDIFReader}.
+     */
     @Override
     public void close() throws IOException {
         reader.close();

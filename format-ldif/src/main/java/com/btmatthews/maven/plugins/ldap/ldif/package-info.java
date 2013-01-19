@@ -15,3 +15,7 @@
  */
 
 package com.btmatthews.maven.plugins.ldap.ldif;
+
+/**
+ * This package implements the classes that load data from or dump data to LDIF files.
+ */

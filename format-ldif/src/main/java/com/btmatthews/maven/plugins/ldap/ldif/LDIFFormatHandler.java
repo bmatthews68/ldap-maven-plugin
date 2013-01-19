@@ -25,13 +25,17 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * This {@link com.btmatthews.maven.plugins.ldap.FormatHandler} is used to load data from or dump data
+ * to LDIF files.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public final class LDIFFormatHandler extends AbstractFormatHandler {
 
     /**
-     * Create the LDAP writer that will dump LDAP entries in LDIF format.
+     * Create the {@link LDIFFormatWriter} that will dump LDAP entries in LDIF format
+     * to the target output stream.
      *
      * @param outputStream The target output stream.
      * @param logger       Used to log information or error messages.
@@ -44,6 +48,9 @@ public final class LDIFFormatHandler extends AbstractFormatHandler {
     }
 
     /**
+     * Create {@link LDIFFormatReader} that reads LDIF change records from the source
+     * input stream.
+     *
      * @param inputStream The source input stream.
      * @param logger      Used to log information or error messages.
      * @return A {@link LDIFFormatReader} object.

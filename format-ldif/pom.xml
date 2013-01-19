@@ -38,5 +38,11 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>format-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>format-api</artifactId>
+            <classifier>tests</classifier>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 </project>
