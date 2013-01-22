@@ -49,7 +49,7 @@ public final class OpenDJServer extends AbstractLDAPServer {
     }
 
     private static boolean ensureDirectoryExists(final File directory) {
-        return directory.exists() ||directory.mkdirs();
+        return directory.exists() || directory.mkdirs();
     }
 
     @Override
@@ -65,12 +65,11 @@ public final class OpenDJServer extends AbstractLDAPServer {
                 envConfig.setConfigFile(new File(getWorkingDirectory(), "config/config.ldif"));
                 envConfig.setDisableConnectionHandlers(false);
                 envConfig.setMaintainConfigArchive(false);
-                logger.logInfo("Starting server...");
                 EmbeddedUtils.startServer(envConfig);
-                logger.logInfo("Initializing backend...");
                 final Backend backend = initializeTestBackend(DN.decode(getRoot()));
-                logger.logInfo("Loading...");
-                loadLdif(backend);
+                if (getLdifFile() != null) {
+                    loadLdif(backend);
+                }
                 logger.logInfo("Started OpenDJ server");
             } else {
                 logger.logInfo("OpenDJ server is already running");
