@@ -20,25 +20,23 @@ import com.btmatthews.maven.plugins.ldap.AbstractLDAPServer;
 import com.btmatthews.utils.monitor.Logger;
 import org.apache.commons.io.IOUtils;
 import org.opends.messages.Message;
-import org.opends.server.admin.std.server.BackendCfg;
 import org.opends.server.api.Backend;
 import org.opends.server.backends.MemoryBackend;
 import org.opends.server.config.ConfigException;
 import org.opends.server.core.DirectoryServer;
-import org.opends.server.core.LockFileManager;
-import org.opends.server.tools.BackendToolUtils;
 import org.opends.server.types.*;
 import org.opends.server.util.EmbeddedUtils;
+import org.opends.server.util.LDIFException;
+import org.opends.server.util.LDIFReader;
 import org.opends.server.util.StaticUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URLDecoder;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
@@ -51,11 +49,7 @@ public final class OpenDJServer extends AbstractLDAPServer {
     }
 
     private static boolean ensureDirectoryExists(final File directory) {
-        if (directory.exists()) {
-            return true;
-        } else {
-            return directory.mkdirs();
-        }
+        return directory.exists() ||directory.mkdirs();
     }
 
     @Override
@@ -65,22 +59,19 @@ public final class OpenDJServer extends AbstractLDAPServer {
             if (ensureDirectoryExists(getWorkingDirectory(), "locks")
                     && ensureDirectoryExists(getWorkingDirectory(), "logs")
                     && !EmbeddedUtils.isRunning()) {
+                copyTree("opendj/", getWorkingDirectory());
                 final DirectoryEnvironmentConfig envConfig = new DirectoryEnvironmentConfig();
                 envConfig.setServerRoot(getWorkingDirectory());
-                final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-                final URL url = classLoader.getResource("opendj/config/config.ldif");
-                if (url != null) {
-                    final File source = new File(url.toURI());
-                    copyFolder(source.getParentFile().getParentFile(), getWorkingDirectory());
-                    envConfig.setConfigFile(new File(getWorkingDirectory(), "config/config.ldif"));
-                    envConfig.setDisableConnectionHandlers(false);
-                    envConfig.setMaintainConfigArchive(false);
-                    EmbeddedUtils.startServer(envConfig);
-                    loadLdif("default", DN.decode(getRoot()));
-                    logger.logInfo("Started OpenDJ server");
-                } else {
-                    logger.logError("Cannot locate OpenDJ configuration resources");
-                }
+                envConfig.setConfigFile(new File(getWorkingDirectory(), "config/config.ldif"));
+                envConfig.setDisableConnectionHandlers(false);
+                envConfig.setMaintainConfigArchive(false);
+                logger.logInfo("Starting server...");
+                EmbeddedUtils.startServer(envConfig);
+                logger.logInfo("Initializing backend...");
+                final Backend backend = initializeTestBackend(DN.decode(getRoot()));
+                logger.logInfo("Loading...");
+                loadLdif(backend);
+                logger.logInfo("Started OpenDJ server");
             } else {
                 logger.logInfo("OpenDJ server is already running");
             }
@@ -104,6 +95,67 @@ public final class OpenDJServer extends AbstractLDAPServer {
         logger.logInfo("Stopped OpenDJ server");
     }
 
+    private void loadLdif(final Backend backend)
+            throws DirectoryException, IOException {
+        final LDIFImportConfig importConfig = new LDIFImportConfig(getLdifFile().openStream());
+        importConfig.setAppendToExistingData(true);
+        importConfig.setReplaceExistingEntries(true);
+        importConfig.setCompressed(false);
+        importConfig.setEncrypted(false);
+        importConfig.setValidateSchema(false);
+        importConfig.setSkipDNValidation(false);
+        importConfig.writeRejectedEntries(System.err);
+        final LDIFReader reader = new LDIFReader(importConfig);
+        boolean keepReading = true;
+        do {
+            try {
+                final Entry entry = reader.readEntry();
+                if (entry == null) {
+                    keepReading = false;
+                } else {
+                    try {
+                        backend.addEntry(entry, null);
+                    } catch (final CanceledOperationException e) {
+                    }
+                }
+            } catch (final LDIFException e) {
+                if (!e.canContinueReading()) {
+                    keepReading = false;
+                }
+            }
+        } while (keepReading);
+    }
+
+    private Backend initializeTestBackend(final DN baseDN)
+            throws DirectoryException, ConfigException, InitializationException {
+        final MemoryBackend memoryBackend = new MemoryBackend();
+        memoryBackend.setBackendID("default");
+        memoryBackend.setBaseDNs(new DN[]{baseDN});
+        memoryBackend.supportsControl("1.2.840.113556.1.4.473");
+        memoryBackend.initializeBackend();
+        final Entry e = StaticUtils.createEntry(baseDN);
+        memoryBackend.addEntry(e, null);
+        DirectoryServer.registerBackend(memoryBackend);
+        return memoryBackend;
+    }
+
+    private void copyTree(final String path, final File destinationFolder) throws URISyntaxException, IOException {
+        final ClassLoader classLoader = OpenDJServer.class.getClassLoader();
+        URL dirURL = classLoader.getResource(path);
+        if (dirURL != null && dirURL.getProtocol().equals("file")) {
+            copyFolder(new File(dirURL.toURI()), destinationFolder);
+        } else {
+            if (dirURL == null) {
+                dirURL = classLoader.getResource("com/btmatthews/maven/plugins/ldap/opendj/OpenDJServer.class");
+            }
+            if (dirURL != null && dirURL.getProtocol().equals("jar")) {
+                final String jarPath = dirURL.getPath().substring(5, dirURL.getPath().indexOf("!"));
+                final JarFile jar = new JarFile(URLDecoder.decode(jarPath, "UTF-8"));
+                copyJarFolder(jar, path, destinationFolder);
+            }
+        }
+    }
+
     private void copyFolder(final File sourceFolder,
                             final File destinationFolder) throws IOException {
         if (ensureDirectoryExists(destinationFolder)) {
@@ -119,66 +171,30 @@ public final class OpenDJServer extends AbstractLDAPServer {
         }
     }
 
-    private void loadLdif(final String backendID,
-                          final DN baseDN)
-            throws InitializationException, ConfigException, DirectoryException,
-            URISyntaxException, IOException {
-        final LDIFImportConfig importConfig = new LDIFImportConfig(getLdifFile().openStream());
-        importConfig.setAppendToExistingData(true);
-        importConfig.setReplaceExistingEntries(true);
-        importConfig.setCompressed(false);
-        importConfig.setEncrypted(false);
-        importConfig.setValidateSchema(false);
-        importConfig.setSkipDNValidation(false);
-        final ArrayList<Backend> backendList = new ArrayList<Backend>();
-        final ArrayList<BackendCfg> entryList = new ArrayList<BackendCfg>();
-        final ArrayList<List<DN>> dnList = new ArrayList<List<DN>>();
-        BackendToolUtils.getBackends(backendList, entryList, dnList);
-        Backend backend = null;
-        for (final Backend b : backendList) {
-            if (backendID.equals(b.getBackendID())) {
-                backend = b;
-                break;
+    private void copyJarFolder(final JarFile jar,
+                               final String path,
+                               final File destinationFolder) throws IOException {
+        if (ensureDirectoryExists(destinationFolder)) {
+            final Enumeration<JarEntry> entries = jar.entries();
+            while (entries.hasMoreElements()) {
+                final JarEntry entry = entries.nextElement();
+                final String name = entry.getName();
+                if (name.startsWith(path)) {
+                    final File destination = new File(destinationFolder, name.substring(path.length()));
+                    if (entry.isDirectory()) {
+                        ensureDirectoryExists(destination);
+                    } else {
+                        if (ensureDirectoryExists(destination.getParentFile())) {
+                            final InputStream inputStream = jar.getInputStream(entry);
+                            try {
+                                IOUtils.copy(inputStream, new FileOutputStream(destination));
+                            } finally {
+                                inputStream.close();
+                            }
+                        }
+                    }
+                }
             }
         }
-        if (backend == null) {
-            backend = initializeTestBackend(true, baseDN, backendID);
-            LDIFImportResult result = backend.importLDIF(importConfig);
-            System.out.println("OpenDJ LDIF import result " + result);
-
-        } else {
-            String lockFile = LockFileManager.getBackendLockFileName(backend);
-            StringBuilder failureReason = new StringBuilder();
-            if (!LockFileManager.acquireExclusiveLock(lockFile, failureReason)) {
-                throw new RuntimeException("OpenDJ cannot get lock the backend " + backend.getBackendID()
-                        + " " + failureReason);
-            }
-            LDIFImportResult result = backend.importLDIF(importConfig);
-            System.out.println("OpenDJ LDIF import result " + result);
-            lockFile = LockFileManager.getBackendLockFileName(backend);
-            failureReason = new StringBuilder();
-            if (!LockFileManager.releaseLock(lockFile, failureReason)) {
-                throw new RuntimeException("OpenDJ cannot release the lock the backend " + backend.
-                        getBackendID() + " " + failureReason);
-            }
-        }
-    }
-
-    public Backend initializeTestBackend(final boolean createBaseEntry,
-                                         final DN baseDN,
-                                         final String backendId)
-            throws DirectoryException, ConfigException, InitializationException {
-        final MemoryBackend memoryBackend = new MemoryBackend();
-        memoryBackend.setBackendID(backendId);
-        memoryBackend.setBaseDNs(new DN[]{baseDN});
-        memoryBackend.supportsControl("1.2.840.113556.1.4.473");
-        memoryBackend.initializeBackend();
-        DirectoryServer.registerBackend(memoryBackend);
-        memoryBackend.clearMemoryBackend();
-        if (createBaseEntry) {
-            final Entry e = StaticUtils.createEntry(baseDN);
-            memoryBackend.addEntry(e, null);
-        }
-        return memoryBackend;
     }
 }

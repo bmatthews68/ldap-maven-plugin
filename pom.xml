@@ -23,6 +23,7 @@
     </licenses>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
     <modules>
         <module>server-api</module>
@@ -253,6 +254,12 @@
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                <artifactId>format-api</artifactId>
+                <version>${project.version}</version>
+                <classifier>tests</classifier>
+            </dependency>
+            <dependency>
+                <groupId>com.btmatthews.maven.plugins.ldap</groupId>
                 <artifactId>format-dsml</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -290,7 +297,7 @@
             <dependency>
                 <groupId>com.btmatthews.ldapunit</groupId>
                 <artifactId>ldapunit</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven.plugin-tools</groupId>

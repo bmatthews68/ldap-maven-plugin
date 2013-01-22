@@ -28,6 +28,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 /**
+ * A {@link com.btmatthews.maven.plugins.ldap.FormatHandler} that imports/exports LDAP directory entries from/to
+ * DSML formatted files.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
@@ -37,13 +40,13 @@ public final class DSMLFormatHandler extends AbstractFormatHandler {
      *
      * @param outputStream The target output stream.
      * @param logger       Used to log information or error messages.
-     * @return A {@link DSMLWriter} object.
+     * @return A {@link DSMLFormatWriter} object.
      */
     @Override
     protected FormatWriter createWriter(final OutputStream outputStream,
                                         final FormatLogger logger) {
         try {
-            return new DSMLWriter(outputStream);
+            return new DSMLFormatWriter(outputStream);
         } catch (final IOException e) {
             logger.logError("Could not create and intialise the DSML writer", e);
         }
@@ -55,13 +58,13 @@ public final class DSMLFormatHandler extends AbstractFormatHandler {
      *
      * @param inputStream The file input stream.
      * @param logger      Used to log information or error messages.
-     * @return A {@link DSMLReader} object.
+     * @return A {@link DSMLFormatReader} object.
      */
     @Override
     protected FormatReader openReader(final InputStream inputStream,
                                       final FormatLogger logger) {
         try {
-            return new DSMLReader(inputStream);
+            return new DSMLFormatReader(inputStream);
         } catch (final DocumentException e) {
             logger.logError("Error parsing DSML file", e);
         } catch (final JaxenException e) {

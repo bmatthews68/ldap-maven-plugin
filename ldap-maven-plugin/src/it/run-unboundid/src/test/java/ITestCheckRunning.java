@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-import static org.junit.Assert.assertTrue;
-
-import com.unboundid.ldap.sdk.LDAPConnection;
-import com.unboundid.ldap.sdk.LDAPException;
+import com.btmatthews.ldapunit.DirectoryTester;
 import org.junit.Test;
 
 /**
@@ -35,18 +32,11 @@ public class ITestCheckRunning {
      */
     @Test
     public void testLDAPRunning() throws Exception {
-        final LDAPConnection connection = new LDAPConnection();
-        int i = 0;
-        while (i < 3) {
-            try {
-                connection.connect("localhost", 10389, 5000);
-                break;
-            } catch (LDAPException e) {
-                i++;
-            }
+        final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+        try {
+            tester.assertDNExists("dc=btmatthews,dc=com");
+        } finally {
+            tester.disconnect();
         }
-        assertTrue(i < 3);
-        connection.bind("uid=admin,ou=system", "secret");
-        connection.close();
     }
 }

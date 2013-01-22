@@ -35,26 +35,43 @@ import java.io.InputStream;
 import java.util.*;
 
 /**
+ * A {@link FormatReader} that reads LDAP directory entries from a DSML file.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
-public final class DSMLReader implements FormatReader {
+public final class DSMLFormatReader implements FormatReader {
 
     /**
      * Iterates over the directory entries extracted from the .dsml file.
      */
     private final Iterator<Node> entryIterator;
+    /**
+     * The namespace context maps the dsml prefix to the http://www.dsml.org/DSML namespace.
+     */
     private final NamespaceContext namespaceContext;
+    /**
+     * The {@link XPath} expression used to iterate through the object classes for the DSML entry.
+     */
     private final XPath objectClassXPath;
+    /**
+     * The {@link XPath} expression used to iterate through the attribute for the DSML entry.
+     */
     private final XPath attrXPath;
+    /**
+     * The {@link XPath} expression used to iterate through the values of each attribute for the DSML entry.
+     */
     private final XPath attrValueXPath;
 
     /**
-     * @param inputStream
-     * @throws DocumentException
-     * @throws IOException
+     * Initialise the reader to read DSML entries from an underlying input stream.
+     *
+     * @param inputStream The underlying input stream.
+     * @throws DocumentException If there was a problem parsing the DSML file.
+     * @throws JaxenException    If there was a problem creating the {@link XPath} expressions.
+     * @throws IOException       If there was a problem reading the DSML file.
      */
-    public DSMLReader(final InputStream inputStream) throws DocumentException, IOException, JaxenException {
+    public DSMLFormatReader(final InputStream inputStream) throws DocumentException, IOException, JaxenException {
         final Map<String, String> map = new HashMap<String, String>();
         map.put("dsml", "http://www.dsml.org/DSML");
         namespaceContext = new SimpleNamespaceContext(map);
@@ -117,10 +134,20 @@ public final class DSMLReader implements FormatReader {
         }
     }
 
+    /**
+     * Called to close {@link DSMLFormatReader}.
+     */
     @Override
     public void close() {
     }
 
+    /**
+     * Create a {@link XPath} for the expression {@code xpathString}.
+     *
+     * @param xpathString The expression.
+     * @return The {@link XPath}.
+     * @throws JaxenException If there was a problem parsing the {@code xpathString} expression.
+     */
     private XPath createXPath(final String xpathString) throws JaxenException {
         final XPath xpath = new Dom4jXPath(xpathString);
         xpath.setNamespaceContext(namespaceContext);

@@ -16,12 +16,14 @@
 
 package com.btmatthews.maven.plugins.ldap.dsml;
 
+import com.btmatthews.maven.plugins.ldap.AddRequestMatcher;
 import com.btmatthews.maven.plugins.ldap.FormatHandler;
 import com.btmatthews.maven.plugins.ldap.FormatLogger;
-import com.unboundid.ldap.sdk.*;
+import com.unboundid.ldap.sdk.Entry;
+import com.unboundid.ldap.sdk.LDAPInterface;
+import com.unboundid.ldap.sdk.SearchRequest;
+import com.unboundid.ldap.sdk.SearchResult;
 import org.custommonkey.xmlunit.XMLUnit;
-import org.hamcrest.BaseMatcher;
-import org.hamcrest.Description;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -30,9 +32,9 @@ import org.mockito.Mock;
 import org.xml.sax.InputSource;
 
 import java.io.*;
-import java.util.LinkedList;
-import java.util.List;
 
+import static com.btmatthews.maven.plugins.ldap.FormatTestUtils.createSearchResult;
+import static com.btmatthews.maven.plugins.ldap.FormatTestUtils.createSearchResultEntry;
 import static org.custommonkey.xmlunit.XMLAssert.assertXMLEqual;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.argThat;
@@ -41,6 +43,8 @@ import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
+ * Unit test the {@link DSMLFormatHandler}.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
@@ -97,14 +101,7 @@ public class TestDSMLFormatHandler {
 
     @Test
     public void noDataInDump() throws Exception {
-        final SearchResult results = new SearchResult(0, ResultCode.SUCCESS,
-                null, null,
-                null,
-                null /* entries */,
-                null,
-                0 /* numentries */, 0,
-                null);
-
+        final SearchResult results = createSearchResult();
         when(connection.search(any(SearchRequest.class))).thenReturn(results);
 
         final File outputFile = outputFolder.newFile();
@@ -114,24 +111,13 @@ public class TestDSMLFormatHandler {
         assertXMLEqual(new InputSource(expected), new InputSource(new FileInputStream(outputFile)));
     }
 
-    private Entry createEntry(final String dn, final String... nv) {
-        final List<Attribute> attributes = new LinkedList<Attribute>();
-        for (int i = 0; i < nv.length; i += 2) {
-            attributes.add(new Attribute(nv[i], nv[i + 1]));
-        }
-        return new Entry(dn, attributes);
-    }
-
-    private SearchResultEntry createSearchResultEntry(final String dn, final String... nv) {
-        final Entry entry = createEntry(dn, nv);
-        return new SearchResultEntry(entry);
-    }
-
     @Test
     public void oneItemInDump() throws Exception {
-        final List<SearchResultEntry> entries = new LinkedList<SearchResultEntry>();
-        entries.add(createSearchResultEntry("ou=People,dc=btmatthews,dc=com", "ou", "People", "objectclass", "organizationalUnit"));
-        final SearchResult result = new SearchResult(0, ResultCode.SUCCESS, null, null, null, entries, null, 1, 0, null);
+        final SearchResult result = createSearchResult(
+                createSearchResultEntry(
+                        "ou=People,dc=btmatthews,dc=com",
+                        "ou", "People",
+                        "objectclass", "organizationalUnit"));
         when(connection.search(any(SearchRequest.class))).thenReturn(result);
 
         final File outputFile = outputFolder.newFile();
@@ -139,29 +125,5 @@ public class TestDSMLFormatHandler {
         formatHandler.dump(connection, "dc=btmatthews,dc=com", "(objectclass=*)", outputStream, logger);
         final InputStream expected = TestDSMLFormatHandler.class.getResourceAsStream("one.dsml");
         assertXMLEqual(new InputSource(expected), new InputSource(new FileInputStream(outputFile)));
-    }
-
-    class AddRequestMatcher extends BaseMatcher<AddRequest> {
-
-        private Entry expected;
-
-        public AddRequestMatcher(final Entry entry) {
-            expected = entry;
-        }
-
-        @Override
-        public boolean matches(final Object item) {
-            if (item instanceof AddRequest) {
-                final AddRequest request = (AddRequest) item;
-                if (expected.getDN().equals(request.getDN())) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        @Override
-        public void describeTo(final Description description) {
-        }
     }
 }

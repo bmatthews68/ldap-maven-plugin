@@ -13,6 +13,10 @@
     <artifactId>server-apacheds</artifactId>
     <name>ApacheDS Server</name>
     <description>ApacheDS directory server implementation</description>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
