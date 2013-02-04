@@ -32,7 +32,7 @@ public class ITestCheckRunning {
      */
     @Test
     public void testLDAPRunning() throws Exception {
-        final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret");
+        final DirectoryTester tester = new DirectoryTester("localhost", 10389, "uid=admin,ou=system", "secret", 10, 10000);
         try {
             tester.assertDNExists("dc=btmatthews,dc=com");
         } finally {
