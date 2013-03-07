@@ -29,7 +29,7 @@ import static com.btmatthews.maven.plugins.ldap.FormatTestUtils.createEntry;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
-public class AddRequestMatcher extends BaseMatcher<AddRequest> {
+public final class AddRequestMatcher extends BaseMatcher<AddRequest> {
 
     /**
      * The expected LDAP entry.

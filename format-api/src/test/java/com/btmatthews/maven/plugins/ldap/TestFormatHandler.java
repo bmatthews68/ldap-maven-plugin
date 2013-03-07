@@ -38,7 +38,7 @@ import static org.mockito.MockitoAnnotations.initMocks;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
-public class TestFormatHandler {
+public final class TestFormatHandler {
 
     /**
      * Mock for the connection to the LDAP directory server.

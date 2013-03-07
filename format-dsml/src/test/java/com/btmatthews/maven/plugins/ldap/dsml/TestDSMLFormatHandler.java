@@ -50,14 +50,29 @@ import static org.mockito.MockitoAnnotations.initMocks;
  */
 public class TestDSMLFormatHandler {
 
+    /**
+     *
+     */
     @Rule
     public TemporaryFolder outputFolder = new TemporaryFolder();
+    /**
+     *
+     */
     private FormatHandler formatHandler;
+    /**
+     *
+     */
     @Mock
     private LDAPInterface connection;
+    /**
+     *
+     */
     @Mock
     private FormatLogger logger;
 
+    /**
+     *
+     */
     @Before
     public void setUp() {
         initMocks(this);
@@ -67,6 +82,9 @@ public class TestDSMLFormatHandler {
         XMLUnit.setIgnoreAttributeOrder(true);
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void loadFully() throws Exception {
         final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("load.dsml");
@@ -79,6 +97,9 @@ public class TestDSMLFormatHandler {
         verify(connection).add(argThat(new AddRequestMatcher(new Entry("cn=Bart Simpson,ou=People,dc=btmatthews,dc=com"))));
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void loadIgnoresErrors() throws Exception {
         final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("haserrors.dsml");
@@ -89,6 +110,9 @@ public class TestDSMLFormatHandler {
         }
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void loadStopsUponError() throws Exception {
         final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("haserrors.dsml");
@@ -99,6 +123,9 @@ public class TestDSMLFormatHandler {
         }
     }
 
+    /**
+     * @throws Exception
+     */
     @Test
     public void noDataInDump() throws Exception {
         final SearchResult results = createSearchResult();
@@ -111,6 +138,11 @@ public class TestDSMLFormatHandler {
         assertXMLEqual(new InputSource(expected), new InputSource(new FileInputStream(outputFile)));
     }
 
+    /**
+     * Export a single directory entry to the DSML file.
+     *
+     * @throws Exception If there was an unexpected exception.
+     */
     @Test
     public void oneItemInDump() throws Exception {
         final SearchResult result = createSearchResult(

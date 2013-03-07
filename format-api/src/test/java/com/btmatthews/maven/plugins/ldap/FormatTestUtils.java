@@ -29,7 +29,7 @@ import java.util.List;
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
-public class FormatTestUtils {
+public final class FormatTestUtils {
     /**
      * Create a LDAP directory entry from the distinguished name an a set of attributes passed as name value pairs.
      *
