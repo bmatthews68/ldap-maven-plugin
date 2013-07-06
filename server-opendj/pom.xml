@@ -24,11 +24,7 @@
         </dependency>
         <dependency>
             <groupId>org.forgerock.opendj</groupId>
-            <artifactId>opendj-server</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sleepycat</groupId>
-            <artifactId>je</artifactId>
+            <artifactId>opendj-ldap-sdk</artifactId>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.utils</groupId>
