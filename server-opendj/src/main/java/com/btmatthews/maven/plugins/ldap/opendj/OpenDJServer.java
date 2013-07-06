@@ -23,7 +23,6 @@ import org.forgerock.opendj.ldif.LDIFEntryReader;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.Semaphore;
 
 /**
  * {@link }http://opendj.forgerock.org/opendj-ldap-sdk-examples/xref/org/forgerock/opendj/examples/Server.html}
@@ -32,6 +31,8 @@ import java.util.concurrent.Semaphore;
  * @since 1.1.1
  */
 public final class OpenDJServer extends AbstractLDAPServer {
+
+    private LDAPListener listener;
 
     @Override
     public void start(final Logger logger) {
@@ -42,15 +43,7 @@ public final class OpenDJServer extends AbstractLDAPServer {
             final MemoryBackend backend = new MemoryBackend(reader);
             final ServerConnectionFactory<LDAPClientContext, Integer> connectionHandler = Connections.newServerConnectionFactory(backend);
             final LDAPListenerOptions options = new LDAPListenerOptions().setBacklog(4096);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        new LDAPListener("localhost", getServerPort(), connectionHandler, options);
-                    } catch (final IOException e) {
-                    }
-                }
-            }).start();
+            listener = new LDAPListener("localhost", getServerPort(), connectionHandler, options);
             logger.logInfo("Started OpenDJ server");
         } catch (final IOException e) {
             logger.logError("Error starting OpenDJ server", e);
@@ -60,6 +53,9 @@ public final class OpenDJServer extends AbstractLDAPServer {
     @Override
     public void stop(final Logger logger) {
         logger.logInfo("Stopping OpenDJ server");
+        if (listener != null) {
+            listener.close();
+        }
         logger.logInfo("Stopped OpenDJ server");
     }
 }
