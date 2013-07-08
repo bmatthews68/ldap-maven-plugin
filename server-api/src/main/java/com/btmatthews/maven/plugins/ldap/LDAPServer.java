@@ -74,7 +74,7 @@ public interface LDAPServer extends Server {
      *
      * @return The LDIF file.
      */
-    URL getLdifFile();
+    File getLdifFile();
 
     /**
      * Get the port on which the LDAP server is listening.

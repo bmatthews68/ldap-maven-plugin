@@ -20,6 +20,13 @@ package com.btmatthews.maven.plugins.ldap.mojo;
 import com.btmatthews.maven.plugins.ldap.LDAPServer;
 import com.btmatthews.utils.monitor.mojo.AbstractRunMojo;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.handler.ArtifactHandler;
+import org.apache.maven.artifact.metadata.ArtifactMetadata;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
+import org.apache.maven.artifact.versioning.ArtifactVersion;
+import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
+import org.apache.maven.artifact.versioning.VersionRange;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -29,11 +36,11 @@ import org.codehaus.classworlds.ClassWorld;
 import org.codehaus.classworlds.DuplicateRealmException;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.Socket;
+import java.util.*;
 
 /**
  * This Mojo implements the run goal which launches an embedded LDAP
@@ -53,7 +60,7 @@ public final class RunLDAPMojo extends AbstractRunMojo {
      * <li>unboundid</li>
      * </ul>
      */
-    @Parameter(property = "ldap.type", defaultValue = "apacheds")
+    @Parameter(property = "ldap.type", defaultValue = "unboundid")
     private String serverType;
     /**
      * The identity of the admin account for tbe directory server.
@@ -107,10 +114,7 @@ public final class RunLDAPMojo extends AbstractRunMojo {
         config.put(LDAPServer.ROOT, rootDn);
         config.put(LDAPServer.WORK_DIR, new File(outputDirectory, serverType));
         if (ldifFile != null) {
-            try {
-                config.put(LDAPServer.LDIF_FILE, ldifFile.toURI().toURL());
-            } catch (final MalformedURLException e) {
-            }
+            config.put(LDAPServer.LDIF_FILE, ldifFile);
         }
         config.put(LDAPServer.LDAP_PORT, ldapPort);
         config.put(LDAPServer.AUTH_DN, authDn);

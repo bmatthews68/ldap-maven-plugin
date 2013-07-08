@@ -19,13 +19,14 @@ package com.btmatthews.maven.plugins.ldap.apache;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
+
+import java.io.File;
 
 /**
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
@@ -47,7 +48,7 @@ public class TestApacheDSServer {
         server = new ApacheDSServer();
         server.configure("root", "dc=btmatthews,dc=com", logger);
         server.configure("ldapPort", Integer.valueOf(10389), logger);
-        server.configure("ldifFile", TestUtils.getURL("com/btmatthews/maven/plugins/ldap/initial.ldif"), logger);
+        server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/apache/initial.ldif"), logger);
         server.configure("workingDirectory", folder.newFolder(), logger);
     }
 

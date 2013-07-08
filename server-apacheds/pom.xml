@@ -19,12 +19,6 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-            <artifactId>server-api</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>

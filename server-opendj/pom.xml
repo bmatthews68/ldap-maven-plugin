@@ -36,11 +36,5 @@
             <artifactId>server-api</artifactId>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-            <artifactId>server-api</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 </project>

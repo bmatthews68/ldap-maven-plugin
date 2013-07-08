@@ -18,6 +18,7 @@ package com.btmatthews.maven.plugins.ldap.apache;
 
 import javax.naming.NamingException;
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -153,7 +154,7 @@ public final class ApacheDSServer extends AbstractLDAPServer {
      */
     private void loadLdifFile() throws Exception {
         final CoreSession coreSession = service.getAdminSession();
-        final InputStream in = getLdifFile().openStream();
+        final InputStream in = new FileInputStream(getLdifFile());
         try {
             for (final LdifEntry ldifEntry : new LdifReader(new BufferedReader(new InputStreamReader(in)))) {
                 final LdapDN dn = ldifEntry.getDn();

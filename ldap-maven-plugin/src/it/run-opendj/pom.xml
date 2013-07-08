@@ -49,6 +49,7 @@
                     <serverType>opendj</serverType>
                     <rootDn>dc=btmatthews,dc=com</rootDn>
                     <ldapPort>10389</ldapPort>
+                    <ldifFile>src/test/resources/initial.ldif</ldifFile>
                 </configuration>
                 <executions>
                     <execution>

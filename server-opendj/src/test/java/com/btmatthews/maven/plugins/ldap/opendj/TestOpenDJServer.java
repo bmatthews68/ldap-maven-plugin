@@ -21,13 +21,14 @@ import static org.mockito.Matchers.startsWith;
 import static org.mockito.Mockito.verify;
 import static org.mockito.MockitoAnnotations.initMocks;
 
-import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
+
+import java.io.File;
 
 /**
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
@@ -49,8 +50,7 @@ public class TestOpenDJServer {
         server = new OpenDJServer();
         server.configure("root", "dc=btmatthews,dc=com", logger);
         server.configure("ldapPort", Integer.valueOf(10389), logger);
-        server.configure("ldifFile", TestUtils.getURL("com/btmatthews/maven/plugins/ldap/initial.ldif"), logger);
-        server.configure("workingDirectory", folder.newFolder("opendj"), logger);
+        server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/opendj/initial.ldif"), logger);
     }
 
     @Test
@@ -58,7 +58,6 @@ public class TestOpenDJServer {
         server.start(logger);
         verify(logger).logInfo(eq("Configured root DN for directory server: dc=btmatthews,dc=com"));
         verify(logger).logInfo(eq("Configured TCP port for directory server: 10389"));
-        verify(logger).logInfo(startsWith("Configured working directory for directory server: "));
         verify(logger).logInfo(startsWith("Configured LDIF seed data source for directory server: "));
         verify(logger).logInfo(eq("Starting OpenDJ server"));
         verify(logger).logInfo(eq("Started OpenDJ server"));

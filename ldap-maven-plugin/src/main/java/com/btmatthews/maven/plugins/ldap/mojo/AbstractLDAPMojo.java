@@ -79,24 +79,30 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
      * @throws MojoExecutionException If the connection to the LDAP directory server failed.
      */
     protected final LDAPConnection connect() throws MojoExecutionException {
-        String lastMessage = null;
-        LDAPException lastError = null;
         final LDAPConnection connection = new LDAPConnection();
         int i = 0;
         while (i < connectionRetries) {
+            long start = System.currentTimeMillis();
             try {
                 this.getLog().info("Attempting to connect ot LDAP directory server (" + host + ":" + port + ")");
                 connection.connect(host, port, connectionTimeout);
                 break;
             } catch (final LDAPException e) {
-                i++;
-                lastError = e;
-                lastMessage = "Could not connect to LDAP directory server (" + host + ":" + port + ")";
-                this.getLog().error(lastMessage, lastError);
+                final String message = "Could not connect to LDAP directory server (" + host + ":" + port + ")";
+                this.getLog().error(message, e);
+                if (i++ < connectionRetries) {
+                    long time = System.currentTimeMillis() - start;
+                    if (time < connectionTimeout) {
+                        try {
+                            Thread.sleep(connectionTimeout - time);
+                        } catch (final InterruptedException e1) {
+                            throw new MojoExecutionException(message, e1);
+                        }
+                    }
+                } else {
+                    throw new MojoExecutionException(message, e);
+                }
             }
-        }
-        if (i >= connectionRetries) {
-            throw new MojoExecutionException(lastMessage, lastError);
         }
         try {
             connection.bind(authDn, passwd);

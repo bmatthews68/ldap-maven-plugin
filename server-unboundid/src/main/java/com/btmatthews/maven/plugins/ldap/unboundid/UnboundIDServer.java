@@ -27,6 +27,7 @@ import com.unboundid.ldap.sdk.Entry;
 import com.unboundid.ldap.sdk.LDAPException;
 import com.unboundid.ldif.LDIFReader;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -61,7 +62,7 @@ public final class UnboundIDServer extends AbstractLDAPServer {
             server = new InMemoryDirectoryServer(config);
             server.add(new Entry(getRoot(), new Attribute("objectclass", "domain", "top")));
             if (getLdifFile() != null) {
-                final InputStream in = getLdifFile().openStream();
+                final InputStream in = new FileInputStream(getLdifFile());
                 try {
                     final LDIFReader reader = new LDIFReader(in);
                     server.importFromLDIF(false, reader);

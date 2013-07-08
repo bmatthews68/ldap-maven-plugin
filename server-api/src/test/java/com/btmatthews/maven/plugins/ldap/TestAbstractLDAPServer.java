@@ -108,9 +108,9 @@ public class TestAbstractLDAPServer {
      */
     @Test
     public void configureLDIFFile() throws MalformedURLException {
-        final URL ldifFile = new URL("http://ldap-maven-plugin/initial.ldif");
+        final File ldifFile = new File("initial.ldif");
         server.configure("ldifFile", ldifFile, logger);
-        verify(logger).logInfo("Configured LDIF seed data source for directory server: http://ldap-maven-plugin/initial.ldif");
+        verify(logger).logInfo("Configured LDIF seed data source for directory server: initial.ldif");
         assertSame(ldifFile, server.getLdifFile());
     }
 

@@ -21,6 +21,7 @@ import com.btmatthews.utils.monitor.Logger;
 import org.forgerock.opendj.ldap.*;
 import org.forgerock.opendj.ldif.LDIFEntryReader;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -38,9 +39,14 @@ public final class OpenDJServer extends AbstractLDAPServer {
     public void start(final Logger logger) {
         try {
             logger.logInfo("Starting OpenDJ server");
-            final InputStream inputStream = getLdifFile().openStream();
-            final LDIFEntryReader reader = new LDIFEntryReader(inputStream);
-            final MemoryBackend backend = new MemoryBackend(reader);
+            final MemoryBackend backend;
+            if (getLdifFile() == null) {
+                backend = new MemoryBackend();
+            } else {
+                final InputStream inputStream = new FileInputStream(getLdifFile());
+                final LDIFEntryReader reader = new LDIFEntryReader(inputStream);
+                backend = new MemoryBackend(reader);
+            }
             final ServerConnectionFactory<LDAPClientContext, Integer> connectionHandler = Connections.newServerConnectionFactory(backend);
             final LDAPListenerOptions options = new LDAPListenerOptions().setBacklog(4096);
             listener = new LDAPListener("localhost", getServerPort(), connectionHandler, options);
@@ -55,6 +61,7 @@ public final class OpenDJServer extends AbstractLDAPServer {
         logger.logInfo("Stopping OpenDJ server");
         if (listener != null) {
             listener.close();
+            listener = null;
         }
         logger.logInfo("Stopped OpenDJ server");
     }

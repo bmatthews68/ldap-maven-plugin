@@ -51,7 +51,7 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
     /**
      * The LDIF file used to seed the LDAP directory.
      */
-    private URL ldifFile;
+    private File ldifFile;
 
     /**
      * The TCP port on which the server is listening for LDAP traffic.
@@ -90,8 +90,8 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
                 logger.logInfo("Configured working directory for directory server: " + workingDirectory);
             }
         } else if (LDIF_FILE.equals(name)) {
-            if (value instanceof URL) {
-                ldifFile = (URL)value;
+            if (value instanceof File) {
+                ldifFile = (File)value;
                 logger.logInfo("Configured LDIF seed data source for directory server: " + ldifFile);
             }
         } else if (LDAP_PORT.equals(name)) {
@@ -143,7 +143,7 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
      *
      * @return The LDIF file.
      */
-    public final URL getLdifFile() {
+    public final File getLdifFile() {
         return ldifFile;
     }
 
