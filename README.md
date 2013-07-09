@@ -107,9 +107,6 @@ Credits
 The technique for embedding **ApacheDS** was determined by examining the implementation of the embedded LDAP server in
 the [Spring Security](http://www.springsource.org/spring-security) project.
 
-The technique for embedding **OpenDJ** is heavily based on the https://github.com/ehsavoie/embedded-ldap project which
-implements a JUnit rule to launch and shutdown the LDAP directory server while executing unit tests.
-
 License & Source Code
 ---------------------
 The **LDAP Maven Plugin** is made available under the

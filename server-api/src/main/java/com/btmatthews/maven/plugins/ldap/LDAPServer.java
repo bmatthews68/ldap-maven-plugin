@@ -16,29 +16,41 @@
 
 package com.btmatthews.maven.plugins.ldap;
 
-import java.io.File;
-import java.net.URL;
-
-import com.btmatthews.utils.monitor.AbstractServer;
-import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Server;
 
+import java.io.File;
+
 /**
+ * The interface that must be implemented by LDAP servers.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.1
  */
 public interface LDAPServer extends Server {
 
+    /**
+     * Name of the parameter that specifies the root distinguished name.
+     */
     public final static String ROOT = "root";
-
+    /**
+     * The name of the parameter that specifies the identity used to authenticate connections.
+     */
     public final static String AUTH_DN = "authDn";
-
+    /**
+     * The name of the parameter that specifies the credentials used for authentication.
+     */
     public final static String PASSWD = "passwd";
-
+    /**
+     * The name of the parameter that specifies a working/scratch directory that can be used by the plugin.
+     */
     public final static String WORK_DIR = "workingDirectory";
-
+    /**
+     * The name of the parameter that specifies an LDIF file containing seed data.
+     */
     public final static String LDIF_FILE = "ldifFile";
-
+    /**
+     * The name of the parameter that specifies the port on which the LDAP service will listen for traffic.
+     */
     public final static String LDAP_PORT = "ldapPort";
 
     /**

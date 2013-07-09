@@ -26,15 +26,25 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * {@link }http://opendj.forgerock.org/opendj-ldap-sdk-examples/xref/org/forgerock/opendj/examples/Server.html}
+ * Implements an in-memory LDAP directory server using OpenDJ SDK. See
+ * <a href="http://opendj.forgerock.org/opendj-ldap-sdk-examples/xref/org/forgerock/opendj/examples/Server.html">here</a>
+ * for original code.
  *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.1
  */
 public final class OpenDJServer extends AbstractLDAPServer {
 
+    /**
+     * The listener that accepts and dispatches LDAP requests.
+     */
     private LDAPListener listener;
 
+    /**
+     * Start the OpenDJ in-memory directory server.
+     *
+     * @param logger Used for logging.
+     */
     @Override
     public void start(final Logger logger) {
         try {
@@ -56,6 +66,11 @@ public final class OpenDJServer extends AbstractLDAPServer {
         }
     }
 
+    /**
+     * Stop the OpenDJ in-memory directory server.
+     *
+     * @param logger User for logging.
+     */
     @Override
     public void stop(final Logger logger) {
         logger.logInfo("Stopping OpenDJ server");

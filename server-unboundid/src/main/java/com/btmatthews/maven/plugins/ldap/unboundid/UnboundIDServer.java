@@ -32,7 +32,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * <a href="https://www.unboundid.com/products/ldap-sdk/docs/in-memory-directory-server.php">here</a>
+ * Implements an in-memory LDAP directory server using the
+ * <a href="https://www.unboundid.com/products/ldap-sdk/docs/in-memory-directory-server.php">UnboundID SDK</a>.
  *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.1

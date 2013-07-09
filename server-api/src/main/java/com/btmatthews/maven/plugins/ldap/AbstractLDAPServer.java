@@ -16,13 +16,14 @@
 
 package com.btmatthews.maven.plugins.ldap;
 
-import java.io.File;
-import java.net.URL;
-
 import com.btmatthews.utils.monitor.AbstractServer;
 import com.btmatthews.utils.monitor.Logger;
 
+import java.io.File;
+
 /**
+ * Abstract base class for {@link LDAPServer} implementations.
+ *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.1
  */
@@ -32,27 +33,22 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
      * The root DN of the LDAP directory.
      */
     private String root;
-
     /**
      * The distinguished name of the admin account.
      */
     private String authDn;
-
     /**
      * The password for the admin account.
      */
     private String passwd;
-
     /**
      * The working directory used by the LDAP directory service to store directory data.
      */
     private File workingDirectory;
-
     /**
      * The LDIF file used to seed the LDAP directory.
      */
     private File ldifFile;
-
     /**
      * The TCP port on which the server is listening for LDAP traffic.
      */
@@ -71,32 +67,32 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
     public void configure(final String name, final Object value, final Logger logger) {
         if (ROOT.equals(name)) {
             if (value instanceof String) {
-                root = (String)value;
+                root = (String) value;
                 logger.logInfo("Configured root DN for directory server: " + root);
             }
         } else if (AUTH_DN.equals(name)) {
             if (value instanceof String) {
-                authDn = (String)value;
+                authDn = (String) value;
                 logger.logInfo("Configured admin identity for directory server: " + authDn);
             }
         } else if (PASSWD.equals(name)) {
             if (value instanceof String) {
-                passwd = (String)value;
+                passwd = (String) value;
                 logger.logInfo("Configured admin credentials for directory server: " + passwd);
             }
         } else if (WORK_DIR.equals(name)) {
             if (value instanceof File) {
-                workingDirectory = (File)value;
+                workingDirectory = (File) value;
                 logger.logInfo("Configured working directory for directory server: " + workingDirectory);
             }
         } else if (LDIF_FILE.equals(name)) {
             if (value instanceof File) {
-                ldifFile = (File)value;
+                ldifFile = (File) value;
                 logger.logInfo("Configured LDIF seed data source for directory server: " + ldifFile);
             }
         } else if (LDAP_PORT.equals(name)) {
             if (value instanceof Integer) {
-                serverPort = (Integer)value;
+                serverPort = (Integer) value;
                 logger.logInfo("Configured TCP port for directory server: " + serverPort);
             }
         }
