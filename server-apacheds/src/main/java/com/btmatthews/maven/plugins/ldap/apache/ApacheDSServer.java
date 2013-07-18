@@ -16,38 +16,29 @@
 
 package com.btmatthews.maven.plugins.ldap.apache;
 
-import javax.naming.NamingException;
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.btmatthews.maven.plugins.ldap.AbstractLDAPServer;
 import com.btmatthews.utils.monitor.Logger;
-import org.apache.directory.server.core.CoreSession;
-import org.apache.directory.server.core.DefaultDirectoryService;
-import org.apache.directory.server.core.DirectoryService;
+import org.apache.directory.server.core.api.DirectoryService;
+import org.apache.directory.server.core.api.InstanceLayout;
+import org.apache.directory.server.core.api.interceptor.Interceptor;
+import org.apache.directory.server.core.api.partition.Partition;
 import org.apache.directory.server.core.authn.AuthenticationInterceptor;
-import org.apache.directory.server.core.entry.DefaultServerEntry;
-import org.apache.directory.server.core.entry.ServerEntry;
 import org.apache.directory.server.core.exception.ExceptionInterceptor;
-import org.apache.directory.server.core.interceptor.Interceptor;
+import org.apache.directory.server.core.factory.DefaultDirectoryServiceFactory;
 import org.apache.directory.server.core.normalization.NormalizationInterceptor;
 import org.apache.directory.server.core.operational.OperationalAttributeInterceptor;
-import org.apache.directory.server.core.partition.Partition;
-import org.apache.directory.server.core.partition.impl.btree.jdbm.JdbmPartition;
+import org.apache.directory.server.core.partition.impl.avl.AvlPartition;
 import org.apache.directory.server.core.referral.ReferralInterceptor;
 import org.apache.directory.server.core.subtree.SubentryInterceptor;
 import org.apache.directory.server.ldap.LdapServer;
+import org.apache.directory.server.protocol.shared.store.LdifFileLoader;
 import org.apache.directory.server.protocol.shared.transport.TcpTransport;
-import org.apache.directory.shared.ldap.entry.Entry;
-import org.apache.directory.shared.ldap.entry.Modification;
-import org.apache.directory.shared.ldap.exception.LdapNameNotFoundException;
-import org.apache.directory.shared.ldap.ldif.LdifEntry;
-import org.apache.directory.shared.ldap.ldif.LdifReader;
-import org.apache.directory.shared.ldap.name.LdapDN;
+import org.apache.directory.shared.ldap.model.entry.Entry;
+import org.apache.directory.shared.ldap.model.exception.LdapException;
+import org.apache.directory.shared.ldap.model.name.Dn;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implements an embedded ApacheDS LDAP apache. This code is based on the sample available at:
@@ -62,7 +53,6 @@ public final class ApacheDSServer extends AbstractLDAPServer {
      * The LDAP directory service.
      */
     private DirectoryService service;
-
     /**
      * The server that listens for LDAP requests and forwards them to the directory service.
      */
@@ -77,7 +67,12 @@ public final class ApacheDSServer extends AbstractLDAPServer {
     public void start(final Logger logger) {
         try {
             logger.logInfo("Starting ApacheDS server");
-            service = new DefaultDirectoryService();
+
+            final DefaultDirectoryServiceFactory factory = new DefaultDirectoryServiceFactory();
+            factory.init("ApacheDS");
+
+            service = factory.getDirectoryService();
+            service.getChangeLog().setEnabled(false);
             final List<Interceptor> list = new ArrayList<Interceptor>();
             list.add(new NormalizationInterceptor());
             list.add(new AuthenticationInterceptor());
@@ -85,26 +80,32 @@ public final class ApacheDSServer extends AbstractLDAPServer {
             list.add(new ExceptionInterceptor());
             list.add(new OperationalAttributeInterceptor());
             list.add(new SubentryInterceptor());
-            final JdbmPartition partition = new JdbmPartition();
-            partition.setId("rootPartition");
-            partition.setSuffix(getRoot());
             service.setInterceptors(list);
-            service.setWorkingDirectory(getWorkingDirectory());
+            service.setShutdownHookEnabled(true);
+
+            final InstanceLayout il = new InstanceLayout(getWorkingDirectory());
+            service.setInstanceLayout(il);
+
+            final AvlPartition partition = new AvlPartition(
+                    service.getSchemaManager());
+            partition.setId("ApacheDS");
+            partition.setSuffixDn(new Dn(service.getSchemaManager(),
+                    getRoot()));
+            partition.initialize();
             service.addPartition(partition);
-            service.setExitVmOnShutdown(false);
-            service.setShutdownHookEnabled(false);
-            service.getChangeLog().setEnabled(false);
             service.startup();
 
             server = new LdapServer();
             server.setTransports(new TcpTransport("localhost", getServerPort()));
             server.setDirectoryService(service);
+
             server.start();
 
             createRoot(partition);
             if (getLdifFile() != null) {
                 loadLdifFile();
             }
+
             logger.logInfo("Started ApacheDS server");
         } catch (final Exception e) {
             logger.logError("Error starting ApacheDS server", e);
@@ -137,10 +138,10 @@ public final class ApacheDSServer extends AbstractLDAPServer {
     private void createRoot(final Partition partition) throws Exception {
         try {
             service.getAdminSession().lookup(partition.getSuffixDn());
-        } catch (final LdapNameNotFoundException e) {
-            final LdapDN dn = new LdapDN(getRoot());
+        } catch (final LdapException e) {
+            final Dn dn = new Dn(getRoot());
             final String dc = getRoot().substring(3, getRoot().indexOf(','));
-            final ServerEntry entry = service.newEntry(dn);
+            final Entry entry = service.newEntry(dn);
             entry.add("objectClass", "top", "domain", "extensibleObject");
             entry.add("dc", dc);
             service.getAdminSession().add(entry);
@@ -153,31 +154,7 @@ public final class ApacheDSServer extends AbstractLDAPServer {
      * @throws Exception If there was an error.
      */
     private void loadLdifFile() throws Exception {
-        final CoreSession coreSession = service.getAdminSession();
-        final InputStream in = new FileInputStream(getLdifFile());
-        try {
-            for (final LdifEntry ldifEntry : new LdifReader(new BufferedReader(new InputStreamReader(in)))) {
-                final LdapDN dn = ldifEntry.getDn();
-                if (ldifEntry.isEntry()) {
-                    final Entry entry = ldifEntry.getEntry();
-                    try {
-                        coreSession.lookup(dn);
-                    } catch (Exception e) {
-                        try {
-                            coreSession.add(new DefaultServerEntry(coreSession.getDirectoryService().getRegistries(), entry));
-                        } catch (final NamingException e1) {
-                        }
-                    }
-                } else {
-                    final List<Modification> items = ldifEntry.getModificationItems();
-                    try {
-                        coreSession.modify(dn, items);
-                    } catch (final NamingException e) {
-                    }
-                }
-            }
-        } finally {
-            in.close();
-        }
+        new LdifFileLoader(service.getAdminSession(), getLdifFile(), null)
+                .execute();
     }
 }

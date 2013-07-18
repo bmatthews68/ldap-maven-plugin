@@ -19,14 +19,7 @@ package com.btmatthews.maven.plugins.ldap.mojo;
 
 import com.btmatthews.maven.plugins.ldap.LDAPServer;
 import com.btmatthews.utils.monitor.mojo.AbstractRunMojo;
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.handler.ArtifactHandler;
-import org.apache.maven.artifact.metadata.ArtifactMetadata;
-import org.apache.maven.artifact.repository.ArtifactRepository;
-import org.apache.maven.artifact.resolver.filter.ArtifactFilter;
-import org.apache.maven.artifact.versioning.ArtifactVersion;
-import org.apache.maven.artifact.versioning.OverConstrainedVersionException;
-import org.apache.maven.artifact.versioning.VersionRange;
+import com.jcabi.aether.Aether;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -34,13 +27,16 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.classworlds.ClassRealm;
 import org.codehaus.classworlds.ClassWorld;
 import org.codehaus.classworlds.DuplicateRealmException;
+import org.sonatype.aether.artifact.Artifact;
+import org.sonatype.aether.repository.RemoteRepository;
+import org.sonatype.aether.resolution.DependencyResolutionException;
+import org.sonatype.aether.util.artifact.DefaultArtifact;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.Socket;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This Mojo implements the run goal which launches an embedded LDAP
@@ -92,6 +88,10 @@ public final class RunLDAPMojo extends AbstractRunMojo {
      */
     @Parameter(defaultValue = "${project.build.directory}", required = true)
     private File outputDirectory;
+    @Parameter(defaultValue = "${project.remoteProjectRepositories}")
+    private List<RemoteRepository> projectRepos;
+    @Parameter(defaultValue = "${settings.localRepository}")
+    private File localRepo;
 
     /**
      * Get the server type.
@@ -124,8 +124,11 @@ public final class RunLDAPMojo extends AbstractRunMojo {
 
     @Override
     public void execute() throws MojoFailureException {
-        final List<Artifact> artifacts = getServerArtifacts();
-        addServerArtifactsClassPath(artifacts);
+        try {
+            final List<Artifact> artifacts = getServerArtifacts();
+            addServerArtifactsClassPath(artifacts);
+        } catch (final DependencyResolutionException e) {
+        }
         super.execute();
     }
 
@@ -134,8 +137,10 @@ public final class RunLDAPMojo extends AbstractRunMojo {
      *
      * @return A list of artifacts.
      */
-    private List<Artifact> getServerArtifacts() {
-        return new ArrayList<Artifact>();
+    private List<Artifact> getServerArtifacts() throws DependencyResolutionException {
+        final Aether aether = new Aether(projectRepos, localRepo);
+        final Artifact artifact = new DefaultArtifact("com.btmatthews.maven.plugins.ldap", "server-" + serverType, "", "jar", "1.2.0-SNAPSHOT");
+        return aether.resolve(artifact, "runtime");
     }
 
     /**

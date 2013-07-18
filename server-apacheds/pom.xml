@@ -24,27 +24,11 @@
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-server-jndi</artifactId>
+            <artifactId>apacheds-server-integ</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core-entry</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-ldap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-shared</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.shared</groupId>
-            <artifactId>shared-ldap</artifactId>
+            <artifactId>apacheds-core-integ</artifactId>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.utils</groupId>
