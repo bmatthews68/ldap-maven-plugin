@@ -121,12 +121,12 @@ public final class ApacheDSServer extends AbstractLDAPServer {
 
     @Override
     public boolean isStarted(final Logger logger) {
-        return server.isStarted();
+        return server != null && server.isStarted();
     }
 
     @Override
     public boolean isStopped(final Logger logger) {
-        return !server.isStarted();
+        return server == null || !server.isStarted();
     }
 
     /**
