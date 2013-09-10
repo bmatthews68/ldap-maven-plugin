@@ -78,6 +78,7 @@ public class TestStopMojo {
     @Test
     public void testStop() throws Exception {
         final Server server = Mockito.mock(Server.class);
+        Mockito.when(server.isStarted(Mockito.any(Logger.class))).thenReturn(true);
         final Logger logger = Mockito.mock(Logger.class);
         final Monitor monitor = new Monitor("ldap", 12389);
         final Thread monitorThread = monitor.runMonitorDaemon(server, logger, observer);
@@ -101,8 +102,5 @@ public class TestStopMojo {
         verify(logger).logInfo(eq("Receiving command from client"));
         verify(server).stop(same(logger));
         validateMockitoUsage();
-
     }
-
-
 }

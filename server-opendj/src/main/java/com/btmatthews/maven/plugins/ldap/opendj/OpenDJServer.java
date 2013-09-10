@@ -76,7 +76,6 @@ public final class OpenDJServer extends AbstractLDAPServer {
         logger.logInfo("Stopping OpenDJ server");
         if (listener != null) {
             listener.close();
-            listener = null;
         }
         logger.logInfo("Stopped OpenDJ server");
     }

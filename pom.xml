@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <prerequisites>
-        <maven>3.0.5</maven>
+        <maven>3.1.0</maven>
     </prerequisites>
     <groupId>com.btmatthews.maven.plugins.ldap</groupId>
     <artifactId>parent</artifactId>
@@ -77,7 +77,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.15</version>
+                    <version>2.16</version>
                 </plugin>
                 <plugin>
                     <groupId>org.pitest</groupId>
@@ -141,7 +141,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.9</version>
+                    <version>2.9.1</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-checkstyle-plugin</artifactId>
@@ -162,7 +162,7 @@
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-report-plugin</artifactId>
-                    <version>2.15</version>
+                    <version>2.16</version>
                 </plugin>
                 <plugin>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -249,7 +249,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.5.2</version>
+                <version>2.6</version>
                 <configuration>
                     <check>false</check>
                     <quiet>true</quiet>
@@ -265,7 +265,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-report-plugin</artifactId>
-                <version>2.15</version>
+                <version>2.16</version>
             </plugin>
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
@@ -335,7 +335,7 @@
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-plugin-api</artifactId>
-                <version>3.0.4</version>
+                <version>3.1.0</version>
             </dependency>
             <dependency>
                 <groupId>org.sonatype.aether</groupId>
@@ -355,7 +355,7 @@
             <dependency>
                 <groupId>org.apache.maven</groupId>
                 <artifactId>maven-core</artifactId>
-                <version>3.0.4</version>
+                <version>3.1.0</version>
             </dependency>
             <dependency>
                 <groupId>dom4j</groupId>
@@ -385,29 +385,76 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>1.6.0</version>
+                <version>1.7.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.server</groupId>
-                <artifactId>apacheds-server-integ</artifactId>
-                <version>2.0.0-M5</version>
+                <artifactId>apacheds-all</artifactId>
+                <version>2.0.0-M15</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.directory.shared</groupId>
                         <artifactId>shared-ldap-schema</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.directory.api</groupId>
+                        <artifactId>api-ldap-schema-data</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.directory.server</groupId>
+                <artifactId>apacheds-server-integ</artifactId>
+                <version>2.0.0-M15</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.directory.shared</groupId>
+                        <artifactId>shared-ldap-schema</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.directory.api</groupId>
+                        <artifactId>api-ldap-schema-data</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.directory.jdbm</groupId>
+                        <artifactId>apacheds-jdbm1</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.server</groupId>
                 <artifactId>apacheds-core-integ</artifactId>
-                <version>2.0.0-M5</version>
+                <version>2.0.0-M15</version>
                 <exclusions>
                     <exclusion>
                         <groupId>org.apache.directory.shared</groupId>
                         <artifactId>shared-ldap-schema</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.directory.api</groupId>
+                        <artifactId>api-ldap-schema-data</artifactId>
+                    </exclusion>
                 </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.directory.server</groupId>
+                <artifactId>apacheds-server-jndi</artifactId>
+                <version>2.0.0-M15</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.directory.shared</groupId>
+                        <artifactId>shared-ldap-schema</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.directory.api</groupId>
+                        <artifactId>api-ldap-schema-data</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.directory.jdbm</groupId>
+                <artifactId>apacheds-jdbm1</artifactId>
+                <version>2.0.0-M2</version>
             </dependency>
             <dependency>
                 <groupId>org.forgerock.opendj</groupId>
@@ -422,7 +469,7 @@
             <dependency>
                 <groupId>com.btmatthews.utils</groupId>
                 <artifactId>monitor</artifactId>
-                <version>2.0.0</version>
+                <version>2.1.0</version>
             </dependency>
             <dependency>
                 <groupId>commons-io</groupId>

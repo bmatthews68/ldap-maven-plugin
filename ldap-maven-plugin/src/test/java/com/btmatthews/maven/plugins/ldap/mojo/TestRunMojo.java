@@ -24,9 +24,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
-import org.sonatype.aether.repository.RemoteRepository;
 
-import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -71,9 +69,7 @@ public class TestRunMojo {
         setVariableValueInObject(mojo, "rootDn", "dc=btmatthews,dc=com");
         setVariableValueInObject(mojo, "ldapPort", 10389);
         setVariableValueInObject(mojo, "outputDirectory", outputDirectory.newFolder());
-        setVariableValueInObject(mojo, "projectRepos", new ArrayList<RemoteRepository>());
-        setVariableValueInObject(mojo, "localRepo", outputDirectory.newFolder());
-    }
+     }
 
     /**
      * Verify that we can start the server.

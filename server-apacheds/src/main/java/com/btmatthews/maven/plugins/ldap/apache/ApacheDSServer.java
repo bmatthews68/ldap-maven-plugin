@@ -18,27 +18,17 @@ package com.btmatthews.maven.plugins.ldap.apache;
 
 import com.btmatthews.maven.plugins.ldap.AbstractLDAPServer;
 import com.btmatthews.utils.monitor.Logger;
+import org.apache.directory.api.ldap.model.entry.Entry;
+import org.apache.directory.api.ldap.model.exception.LdapException;
+import org.apache.directory.api.ldap.model.name.Dn;
 import org.apache.directory.server.core.api.DirectoryService;
 import org.apache.directory.server.core.api.InstanceLayout;
-import org.apache.directory.server.core.api.interceptor.Interceptor;
 import org.apache.directory.server.core.api.partition.Partition;
-import org.apache.directory.server.core.authn.AuthenticationInterceptor;
-import org.apache.directory.server.core.exception.ExceptionInterceptor;
 import org.apache.directory.server.core.factory.DefaultDirectoryServiceFactory;
-import org.apache.directory.server.core.normalization.NormalizationInterceptor;
-import org.apache.directory.server.core.operational.OperationalAttributeInterceptor;
 import org.apache.directory.server.core.partition.impl.avl.AvlPartition;
-import org.apache.directory.server.core.referral.ReferralInterceptor;
-import org.apache.directory.server.core.subtree.SubentryInterceptor;
 import org.apache.directory.server.ldap.LdapServer;
 import org.apache.directory.server.protocol.shared.store.LdifFileLoader;
 import org.apache.directory.server.protocol.shared.transport.TcpTransport;
-import org.apache.directory.shared.ldap.model.entry.Entry;
-import org.apache.directory.shared.ldap.model.exception.LdapException;
-import org.apache.directory.shared.ldap.model.name.Dn;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Implements an embedded ApacheDS LDAP apache. This code is based on the sample available at:
@@ -73,14 +63,14 @@ public final class ApacheDSServer extends AbstractLDAPServer {
 
             service = factory.getDirectoryService();
             service.getChangeLog().setEnabled(false);
-            final List<Interceptor> list = new ArrayList<Interceptor>();
+            /*final List<Interceptor> list = new ArrayList<Interceptor>();
             list.add(new NormalizationInterceptor());
             list.add(new AuthenticationInterceptor());
             list.add(new ReferralInterceptor());
             list.add(new ExceptionInterceptor());
             list.add(new OperationalAttributeInterceptor());
             list.add(new SubentryInterceptor());
-            service.setInterceptors(list);
+            service.setInterceptors(list);  */
             service.setShutdownHookEnabled(true);
 
             final InstanceLayout il = new InstanceLayout(getWorkingDirectory());
@@ -127,6 +117,16 @@ public final class ApacheDSServer extends AbstractLDAPServer {
         } catch (final Exception e) {
             logger.logError("Error stopping ApacheDS server", e);
         }
+    }
+
+    @Override
+    public boolean isStarted(final Logger logger) {
+        return server.isStarted();
+    }
+
+    @Override
+    public boolean isStopped(final Logger logger) {
+        return !server.isStarted();
     }
 
     /**

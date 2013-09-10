@@ -24,11 +24,23 @@
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-server-integ</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-core-integ</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-server-jndi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.directory.jdbm</groupId>
+            <artifactId>apacheds-jdbm1</artifactId>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.utils</groupId>
