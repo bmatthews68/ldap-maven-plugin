@@ -31,8 +31,7 @@ import org.apache.directory.server.protocol.shared.store.LdifFileLoader;
 import org.apache.directory.server.protocol.shared.transport.TcpTransport;
 
 /**
- * Implements an embedded ApacheDS LDAP apache. This code is based on the sample available at:
- * http://svn.apache.org/repos/asf/directory/documentation/samples/trunk/embedded-sample
+ * Implements an embedded ApacheDS LDAP apache.
  *
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.1.0
@@ -63,14 +62,6 @@ public final class ApacheDSServer extends AbstractLDAPServer {
 
             service = factory.getDirectoryService();
             service.getChangeLog().setEnabled(false);
-            /*final List<Interceptor> list = new ArrayList<Interceptor>();
-            list.add(new NormalizationInterceptor());
-            list.add(new AuthenticationInterceptor());
-            list.add(new ReferralInterceptor());
-            list.add(new ExceptionInterceptor());
-            list.add(new OperationalAttributeInterceptor());
-            list.add(new SubentryInterceptor());
-            service.setInterceptors(list);  */
             service.setShutdownHookEnabled(true);
 
             final InstanceLayout il = new InstanceLayout(getWorkingDirectory());
@@ -83,12 +74,12 @@ public final class ApacheDSServer extends AbstractLDAPServer {
                     getRoot()));
             partition.initialize();
             service.addPartition(partition);
-            service.startup();
 
             server = new LdapServer();
             server.setTransports(new TcpTransport("localhost", getServerPort()));
             server.setDirectoryService(service);
 
+            service.startup();
             server.start();
 
             createRoot(partition);

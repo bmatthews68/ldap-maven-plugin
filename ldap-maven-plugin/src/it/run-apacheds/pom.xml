@@ -45,6 +45,8 @@
                 <configuration>
                     <monitorPort>11389</monitorPort>
                     <monitorKey>ldap</monitorKey>
+                    <monitorRetryCount>10</monitorRetryCount>
+                    <nonitorInterval>5000</nonitorInterval>
                     <daemon>true</daemon>
                     <serverType>apacheds</serverType>
                     <rootDn>dc=btmatthews,dc=com</rootDn>
