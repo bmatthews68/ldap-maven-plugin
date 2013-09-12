@@ -39,6 +39,11 @@
             </plugin>
             <plugin>
                 <artifactId>maven-invoker-plugin</artifactId>
+                <configuration>
+                    <pomExcludes>
+                        <pomExclude>run-apacheds/pom.xml</pomExclude>
+                    </pomExcludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>integration-test</id>
