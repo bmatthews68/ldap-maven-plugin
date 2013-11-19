@@ -20,7 +20,7 @@ package com.btmatthews.maven.plugins.ldap;
  * The API used by {@link FormatHandler}, {@link FormatReader} and {@link FormatWriter} implementations to log
  * information and error messages.
  *
- * @suthor <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public interface FormatLogger {

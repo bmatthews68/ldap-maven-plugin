@@ -44,7 +44,7 @@ public final class DSMLFormatWriter implements FormatWriter {
 
     /**
      * Create {@link PrintWriter} that will be used to write the directory entries to the output stream and write the
-     * opening &lt;dsml:dsml;&gt and &lt;dsml:directory-entry;&gt tags.
+     * opening &lt;dsml:dsml;&gt; and &lt;dsml:directory-entry;&gt; tags.
      *
      * @param outputStream The file output stream.
      * @throws IOException If there was a problem writing the openng tags.

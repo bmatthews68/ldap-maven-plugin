@@ -24,7 +24,7 @@ import java.io.IOException;
 /**
  * Implemented by objects that read change records from DSML or LDIF files.
  *
- * @suthor <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
  * @since 1.2.0
  */
 public interface FormatReader {
