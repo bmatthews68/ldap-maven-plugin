@@ -18,10 +18,14 @@ package com.btmatthews.maven.plugins.ldap.opendj;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.startsWith;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
+import com.btmatthews.utils.monitor.Server;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -36,33 +40,28 @@ import java.io.File;
  */
 public class TestOpenDJServer {
 
-    private OpenDJServer server;
-
-    @Mock
-    private Logger logger;
-
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Before
-    public void setUp() throws Exception {
-        initMocks(this);
-        server = new OpenDJServer();
-        server.configure("root", "dc=btmatthews,dc=com", logger);
-        server.configure("ldapPort", Integer.valueOf(10389), logger);
-        server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/opendj/initial.ldif"), logger);
-    }
-
     @Test
     public void testRunStop() {
+        final int port = TestUtils.getUnusedPort(10389);
+        final Logger logger = mock(Logger.class);
+        final Server server = new OpenDJServer();
+
+        server.configure("root", "dc=btmatthews,dc=com", logger);
+        server.configure("ldapPort", Integer.valueOf(port), logger);
+        server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/opendj/initial.ldif"), logger);
         server.start(logger);
+        server.stop(logger);
+
         verify(logger).logInfo(eq("Configured root DN for directory server: dc=btmatthews,dc=com"));
-        verify(logger).logInfo(eq("Configured TCP port for directory server: 10389"));
+        verify(logger).logInfo(eq("Configured TCP port for directory server: " + port));
         verify(logger).logInfo(startsWith("Configured LDIF seed data source for directory server: "));
         verify(logger).logInfo(eq("Starting OpenDJ server"));
         verify(logger).logInfo(eq("Started OpenDJ server"));
-        server.stop(logger);
         verify(logger).logInfo(eq("Stopping OpenDJ server"));
         verify(logger).logInfo(eq("Stopped OpenDJ server"));
+        verifyNoMoreInteractions(logger);
     }
 }

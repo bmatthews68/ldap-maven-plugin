@@ -22,6 +22,8 @@ import com.btmatthews.utils.monitor.mojo.AbstractRunMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+import org.sonatype.aether.RepositorySystemSession;
 
 import java.io.File;
 import java.util.HashMap;
@@ -34,7 +36,10 @@ import java.util.Map;
  * @author <a href="mailto:brian.matthews@btmatthews.com">Brian Matthews</a>
  * @since 1.1.0
  */
-@Mojo(name = "run", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST)
+@Mojo(
+        name = "run",
+        defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST,
+        configurator = "include-server-dependencies")
 public final class RunLDAPMojo extends AbstractRunMojo {
 
     /**

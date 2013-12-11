@@ -65,17 +65,10 @@
             </plugin>
             <plugin>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <configuration>
-                    <targetJdk>1.5</targetJdk>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <configuration>
-                    <check>false</check>
-                    <quiet>true</quiet>
-                </configuration>
             </plugin>
             <plugin>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -106,6 +99,18 @@
             <artifactId>maven-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-aether-provider</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-artifact</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.jcabi</groupId>
+            <artifactId>jcabi-aether</artifactId>
+        </dependency>
+        <dependency>
             <groupId>dom4j</groupId>
             <artifactId>dom4j</artifactId>
         </dependency>
@@ -128,12 +133,6 @@
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-            <artifactId>server-api</artifactId>
-            <classifier>tests</classifier>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>format-api</artifactId>
         </dependency>
         <dependency>
@@ -151,14 +150,23 @@
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-apacheds</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-opendj</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-unboundid</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>server-api</artifactId>
+            <classifier>tests</classifier>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.btmatthews.ldapunit</groupId>

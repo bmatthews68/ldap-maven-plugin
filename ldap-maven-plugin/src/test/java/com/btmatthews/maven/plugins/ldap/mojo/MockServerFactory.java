@@ -35,7 +35,6 @@ public class MockServerFactory implements ServerFactory {
      *
      * @return Always returns {@code mock}.
      */
-    @Override
     public String getServerName() {
         return "mock";
     }
@@ -45,7 +44,6 @@ public class MockServerFactory implements ServerFactory {
      *
      * @return A mock {@link LDAPServer}.
      */
-    @Override
     public Server createServer() {
         return mock(LDAPServer.class);
     }

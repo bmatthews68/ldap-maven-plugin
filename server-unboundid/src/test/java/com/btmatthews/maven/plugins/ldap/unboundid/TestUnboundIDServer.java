@@ -16,10 +16,9 @@
 
 package com.btmatthews.maven.plugins.ldap.unboundid;
 
-import static org.mockito.Mockito.verify;
-import static org.mockito.MockitoAnnotations.initMocks;
-
+import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
+import com.btmatthews.utils.monitor.Server;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,6 +26,12 @@ import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
 
 import java.io.File;
+import java.io.IOException;
+
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.startsWith;
+import static org.mockito.Mockito.*;
+import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
@@ -34,33 +39,34 @@ import java.io.File;
  */
 public class TestUnboundIDServer {
 
-    private UnboundIDServer server;
-
-    @Mock
-    private Logger logger;
-
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Before
-    public void setUp() throws Exception {
-        initMocks(this);
-        server = new UnboundIDServer();
+    @Test
+    public void testRunStop() throws IOException {
+        final int port = TestUtils.getUnusedPort(10389);
+        final Logger logger = mock(Logger.class);
+        final Server server = new UnboundIDServer();
+
         server.configure("root", "dc=btmatthews,dc=com", logger);
         server.configure("authDn", "uid=admin,ou=system", logger);
         server.configure("passwd", "secret", logger);
-        server.configure("ldapPort", Integer.valueOf(10389), logger);
+        server.configure("ldapPort", Integer.valueOf(port), logger);
         server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/unboundid/initial.ldif"), logger);
         server.configure("workingDirectory", folder.newFolder(), logger);
-    }
-
-    @Test
-    public void testRunStop() {
         server.start(logger);
-        verify(logger).logInfo("Starting UnboundID server");
-        verify(logger).logInfo("Started UnboundID server");
         server.stop(logger);
-        verify(logger).logInfo("Stopping UnboundID server");
-        verify(logger).logInfo("Stopped UnboundID server");
+
+        verify(logger).logInfo(eq("Configured root DN for directory server: dc=btmatthews,dc=com"));
+        verify(logger).logInfo(eq("Configured admin identity for directory server: uid=admin,ou=system"));
+        verify(logger).logInfo(eq("Configured admin credentials for directory server: secret"));
+        verify(logger).logInfo(eq("Configured TCP port for directory server: " + port));
+        verify(logger).logInfo(startsWith("Configured LDIF seed data source for directory server: "));
+        verify(logger).logInfo(startsWith("Configured working directory for directory server: "));
+        verify(logger).logInfo(eq("Starting UnboundID server"));
+        verify(logger).logInfo(eq("Started UnboundID server"));
+        verify(logger).logInfo(eq("Stopping UnboundID server"));
+        verify(logger).logInfo(eq("Stopped UnboundID server"));
+        verifyNoMoreInteractions(logger);
     }
 }

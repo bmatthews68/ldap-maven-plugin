@@ -16,10 +16,16 @@
 
 package com.btmatthews.maven.plugins.ldap.apache;
 
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.startsWith;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.MockitoAnnotations.initMocks;
 
+import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
+import com.btmatthews.utils.monitor.Server;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,6 +33,7 @@ import org.junit.rules.TemporaryFolder;
 import org.mockito.Mock;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
@@ -34,31 +41,30 @@ import java.io.File;
  */
 public class TestApacheDSServer {
 
-    private ApacheDSServer server;
-
-    @Mock
-    private Logger logger;
-
     @Rule
     public TemporaryFolder folder = new TemporaryFolder();
 
-    @Before
-    public void setUp() throws Exception {
-        initMocks(this);
-        server = new ApacheDSServer();
+   @Test
+    public void testRunStop() throws IOException {
+        final int port = TestUtils.getUnusedPort(10389);
+        final Logger logger = mock(Logger.class);
+        final Server server = new ApacheDSServer();
+
         server.configure("root", "dc=btmatthews,dc=com", logger);
-        server.configure("ldapPort", Integer.valueOf(10389), logger);
+        server.configure("ldapPort", Integer.valueOf(port), logger);
         server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/apache/initial.ldif"), logger);
         server.configure("workingDirectory", folder.newFolder(), logger);
-    }
-
-    @Test
-    public void testRunStop() {
         server.start(logger);
-        verify(logger).logInfo("Starting ApacheDS server");
-        verify(logger).logInfo("Started ApacheDS server");
         server.stop(logger);
-        verify(logger).logInfo("Stopping ApacheDS server");
-        verify(logger).logInfo("Stopped ApacheDS server");
+
+        verify(logger).logInfo(eq("Configured root DN for directory server: dc=btmatthews,dc=com"));
+        verify(logger).logInfo(eq("Configured TCP port for directory server: " + port));
+        verify(logger).logInfo(startsWith("Configured LDIF seed data source for directory server: "));
+        verify(logger).logInfo(startsWith("Configured working directory for directory server: "));
+        verify(logger).logInfo(eq("Starting ApacheDS server"));
+        verify(logger).logInfo(eq("Started ApacheDS server"));
+        verify(logger).logInfo(eq("Stopping ApacheDS server"));
+        verify(logger).logInfo(eq("Stopped ApacheDS server"));
+        verifyNoMoreInteractions(logger);
     }
 }

@@ -32,7 +32,6 @@ public class UnboundIDServerFactory implements ServerFactory {
      *
      * @return Always returns {@code unboundid}.
      */
-    @Override
     public String getServerName() {
         return "unboundid";
     }
@@ -42,7 +41,6 @@ public class UnboundIDServerFactory implements ServerFactory {
      *
      * @return The newly create instance of {@link com.btmatthews.maven.plugins.ldap.unboundid.UnboundIDServer}.
      */
-    @Override
     public Server createServer() {
         return new UnboundIDServer();
     }

@@ -40,6 +40,7 @@
                         <configuration>
                             <monitorPort>11389</monitorPort>
                             <monitorKey>ldap</monitorKey>
+                            <serverType>unboundid</serverType>
                             <daemon>true</daemon>
                             <rootDn>dc=btmatthews,dc=com</rootDn>
                             <ldapPort>10389</ldapPort>

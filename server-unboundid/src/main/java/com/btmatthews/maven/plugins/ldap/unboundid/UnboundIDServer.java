@@ -74,8 +74,10 @@ public final class UnboundIDServer extends AbstractLDAPServer {
             server.startListening();
             logger.logInfo("Started UnboundID server");
         } catch (final LDAPException e) {
+            e.printStackTrace();
             logger.logError("Could not launch embedded UnboundID directory server", e);
         } catch (final IOException e) {
+            e.printStackTrace();
             logger.logError("Could not launch embedded UnboundID directory server", e);
         }
     }

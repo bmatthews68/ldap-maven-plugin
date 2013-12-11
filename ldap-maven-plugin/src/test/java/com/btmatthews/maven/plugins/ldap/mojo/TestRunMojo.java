@@ -16,6 +16,7 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
+import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Monitor;
 import org.apache.maven.plugin.Mojo;
@@ -54,6 +55,8 @@ public class TestRunMojo {
      */
     private Mojo mojo;
 
+    private int ports[];
+
     /**
      * Prepare for test execution by initialising the mock objects and test fixture.
      *
@@ -62,12 +65,13 @@ public class TestRunMojo {
     @Before
     public void setUp() throws Exception {
         initMocks(this);
+        ports = TestUtils.getUnusedPorts(2, 10389);
         mojo = new RunLDAPMojo();
-        setVariableValueInObject(mojo, "monitorPort", 11389);
+        setVariableValueInObject(mojo, "monitorPort", ports[1]);
         setVariableValueInObject(mojo, "monitorKey", "ldap");
         setVariableValueInObject(mojo, "serverType", "mock");
         setVariableValueInObject(mojo, "rootDn", "dc=btmatthews,dc=com");
-        setVariableValueInObject(mojo, "ldapPort", 10389);
+        setVariableValueInObject(mojo, "ldapPort", ports[0]);
         setVariableValueInObject(mojo, "outputDirectory", outputDirectory.newFolder());
      }
 
@@ -118,6 +122,6 @@ public class TestRunMojo {
      * Send a stop signal to monitor controlling the server.
      */
     private void signalStop() {
-        new Monitor("ldap", 11389).sendCommand("stop", logger);
+        new Monitor("ldap", ports[1]).sendCommand("stop", logger);
     }
 }
