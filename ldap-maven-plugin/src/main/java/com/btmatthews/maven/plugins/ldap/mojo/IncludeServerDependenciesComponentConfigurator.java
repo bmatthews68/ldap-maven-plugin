@@ -1,3 +1,19 @@
+/*
+ * Copyright 2008-2013 Brian Thomas Matthews
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.btmatthews.maven.plugins.ldap.mojo;
 
 import com.jcabi.aether.Aether;
@@ -29,14 +45,40 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 
+/**
+ * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
+ * @since 1.2.0
+ */
 @Component(role = ComponentConfigurator.class, hint = "include-server-dependencies")
 public class IncludeServerDependenciesComponentConfigurator extends AbstractComponentConfigurator {
 
+    /**
+     * The plugin configuration element that specifies the LDAP server type.
+     */
     private static final String SERVER_TYPE_ATTRIBUTE = "serverType";
+    /**
+     * The default LDAP server type.
+     */
     private static final String DEFAULT_SERVER_TYPE_VALUE = "unboundid";
+    /**
+     * The group id of the main artifact for the LDAP server type.
+     */
     private static final String DEFAULT_GROUP_ID = "com.btmatthews.maven.plugins.ldap";
+    /**
+     * Used to construct the artifact id of the main artifact for the LDAP server type.
+     */
     private static final String DEFAULT_ARTIFACT_ID_FORMAT = "server-{0}";
 
+    /**
+     * Configure the Mojo by adding the dependencies for the LDAP server type to the class loader.
+     *
+     * @param component           The Mojo being configured.
+     * @param configuration       The plugin configuration.
+     * @param expressionEvaluator Used to evaluate expressions.
+     * @param containerRealm      Used to build the class loader.
+     * @param listener            Receives notification when configuration is changed.
+     * @throws ComponentConfigurationException If there was a problem resolving or locating any of the dependencies.
+     */
     @Override
     public void configureComponent(final Object component,
                                    final PlexusConfiguration configuration,
@@ -58,6 +100,14 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
 
     }
 
+    /**
+     * Resolve the dependencies for an LDAP server type and add them to the class loader.
+     *
+     * @param serverType          The LDAP server type.
+     * @param expressionEvaluator Used to evaluate expressions.
+     * @param containerRealm      The class loader.
+     * @throws ComponentConfigurationException If there was a problem resolving or locating any of the dependencies.
+     */
     private void addServerDependenciesToClassRealm(final String serverType,
                                                    final ExpressionEvaluator expressionEvaluator,
                                                    final ClassRealm containerRealm)
@@ -70,6 +120,13 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
         }
     }
 
+    /**
+     * Retrive the URLs used to locate the JAR files for a list of artifacts.
+     *
+     * @param classpathElements The list of artifacts.
+     * @return The list of URLs.
+     * @throws ComponentConfigurationException If any JAR files could not be located.
+     */
     private List<URL> buildURLs(final Collection<Artifact> classpathElements)
             throws ComponentConfigurationException {
         final List<URL> urls = new ArrayList<URL>(classpathElements.size());
@@ -84,6 +141,15 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
         return urls;
     }
 
+    /**
+     * Resolve the LDAP server type artifact and its dependencies.
+     *
+     * @param serverType          The LDAP server type.
+     * @param expressionEvaluator Used to get the Maven project model and repository session objects.
+     * @return A list of dependencies required for the LDAP server type.
+     * @throws ComponentConfigurationException If the was a problem resolving the dependencies for
+     *                                         the LDAP server type.
+     */
     private List<Artifact> getServerDependencies(final String serverType,
                                                  final ExpressionEvaluator expressionEvaluator)
             throws ComponentConfigurationException {
@@ -109,6 +175,12 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
         }
     }
 
+    /**
+     * Get the artifact descriptor for the JAR file that implements support for the LDAP server type.
+     *
+     * @param serverType The LDAP server type.
+     * @return The JAR file artifact descriptor.
+     */
     private Artifact getServerArtifact(final String serverType) {
         return new DefaultArtifact(
                 DEFAULT_GROUP_ID,
@@ -119,6 +191,13 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
                 null);
     }
 
+    /**
+     * Determine the configured LDAP server type. If one has not been configured then
+     * return the default.
+     *
+     * @param configuration The plugin configuration.
+     * @return The LDAP server type.
+     */
     private String getServerType(final PlexusConfiguration configuration) {
         final Pattern pattern = Pattern.compile("\\$\\{[A-Za-z0-9\\._]+\\}");
         for (final PlexusConfiguration cfg : configuration.getChildren()) {
