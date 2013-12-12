@@ -295,7 +295,7 @@
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
                 <artifactId>format-api</artifactId>
                 <version>${project.version}</version>
-                <classifier>tests</classifier>
+                <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
@@ -316,7 +316,7 @@
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
                 <artifactId>server-api</artifactId>
                 <version>${project.version}</version>
-                <classifier>tests</classifier>
+                <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
