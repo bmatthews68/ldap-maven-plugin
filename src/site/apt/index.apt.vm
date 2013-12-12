@@ -67,4 +67,4 @@ LDAP Maven Plugin
   
   * {{{./ldap-maven-plugin/examples/dsml-dump.html}Dump entries to DSML file}}
 
-  * {{{./ldap-maven-plugin/examples/integration.html}Using the embedded ApacheDS server for integration testing}}
+  * {{{./ldap-maven-plugin/examples/integration.html}Using the embedded LDAP directory server for integration testing}}
