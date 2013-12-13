@@ -22,7 +22,7 @@
     <parent>
         <groupId>com.btmatthews.maven.plugins.ldap</groupId>
         <artifactId>parent</artifactId>
-        <version>1.2.1-SNAPSHOT</version>
+        <version>1.2.0-SNAPSHOT</version>
     </parent>
     <artifactId>format-ldif</artifactId>
     <name>Format LDIF</name>
