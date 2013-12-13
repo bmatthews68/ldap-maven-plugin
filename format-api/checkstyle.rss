@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>Format API - Checkstyle report</title>
+    <link>http://ldap-maven-plugin.btmatthews.com/format-api</link>
+    <description>Format API - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2008 - 2013 Brian Matthews</copyright>
+    <item>
+      <title>File: 6,
+             Errors: 37,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html#com.btmatthews.maven.plugins.ldap.package-info.java">com/btmatthews/maven/plugins/ldap/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatLogger.java">com/btmatthews/maven/plugins/ldap/FormatLogger.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatWriter.java">com/btmatthews/maven/plugins/ldap/FormatWriter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatHandler.java">com/btmatthews/maven/plugins/ldap/FormatHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html#com.btmatthews.maven.plugins.ldap.AbstractFormatHandler.java">com/btmatthews/maven/plugins/ldap/AbstractFormatHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-api/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatReader.java">com/btmatthews/maven/plugins/ldap/FormatReader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
