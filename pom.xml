@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <prerequisites>
         <maven>3.0.5</maven>
     </prerequisites>
     <groupId>com.btmatthews.maven.plugins.ldap</groupId>
     <artifactId>parent</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>LDAP Maven Plugin - Parent</name>
     <description>Parse and load LDIF records to an LDAP directory server. Dump records from an LDAP directory server to
@@ -541,7 +542,7 @@
         <connection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</connection>
         <url>https://github.com/bmatthews68/ldap-maven-plugin</url>
         <developerConnection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</developerConnection>
-        <tag>ldap-maven-plugin-1.2.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <site>
