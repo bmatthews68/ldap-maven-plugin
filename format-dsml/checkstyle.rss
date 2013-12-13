@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<rss version="0.91">
+  <channel>
+    <title>Format DSML - Checkstyle report</title>
+    <link>http://ldap-maven-plugin.btmatthews.com/format-dsml</link>
+    <description>Format DSML - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2008 - 2013 Brian Matthews</copyright>
+    <item>
+      <title>File: 4,
+             Errors: 34,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>http://ldap-maven-plugin.btmatthews.com/format-dsml/checkstyle.html</link>
+      <description>
+        <p>Click <a href="http://ldap-maven-plugin.btmatthews.com/format-dsml/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-dsml/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.DSMLFormatReader.java">com/btmatthews/maven/plugins/ldap/dsml/DSMLFormatReader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-dsml/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.DSMLFormatHandler.java">com/btmatthews/maven/plugins/ldap/dsml/DSMLFormatHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-dsml/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.DSMLFormatWriter.java">com/btmatthews/maven/plugins/ldap/dsml/DSMLFormatWriter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/format-dsml/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.package-info.java">com/btmatthews/maven/plugins/ldap/dsml/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
