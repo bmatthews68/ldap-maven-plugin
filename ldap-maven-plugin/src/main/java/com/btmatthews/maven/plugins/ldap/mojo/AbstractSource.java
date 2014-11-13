@@ -52,6 +52,13 @@ public abstract class AbstractSource implements Source {
     }
 
     /**
+    * Method call by plexus to valorise path after contruction of the class
+    */
+    public void set(String path){
+        this.path = path;
+    }
+
+    /**
      * Open the resource or file and return the input stream. If the path is prefixed with classpath: then it is treated
      * as a classpath resource. Otherwise, it is assumed to be a file system path.
      *
