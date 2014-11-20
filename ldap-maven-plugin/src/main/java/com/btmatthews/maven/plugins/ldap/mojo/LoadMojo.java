@@ -64,40 +64,42 @@ public final class LoadMojo extends AbstractLDAPMojo {
      * @throws MojoExecutionException If there was an error executing the plugin goal.
      */
     public void execute() throws MojoExecutionException {
-        final LDAPConnection connection = connect();
-        try {
-            for (final Source source : sources) {
-                try {
-                    getLog().info("Processing input source: " + source);
-                    final FormatHandler handler = getFormatHandler(source);
-                    if (handler == null) {
-                        getLog().warn("No handler for input source: " + source);
-                    } else {
-                        final InputStream inputStream = source.open();
-                        if (inputStream == null) {
-                            if (!this.continueOnError) {
-                                throw new MojoExecutionException("Cannot open source for reading: " + source);
-                            } else {
-                                getLog().warn("Skipping source that could not be opened for reading: " + source);
-                            }
+        if (!isSkip()){
+            final LDAPConnection connection = connect();
+            try {
+                for (final Source source : sources) {
+                    try {
+                        getLog().info("Processing input source: " + source);
+                        final FormatHandler handler = getFormatHandler(source);
+                        if (handler == null) {
+                            getLog().warn("No handler for input source: " + source);
                         } else {
-                            try {
-                                handler.load(connection, source.open(), continueOnError, this);
-                            } finally {
-                                inputStream.close();
+                            final InputStream inputStream = source.open();
+                            if (inputStream == null) {
+                                if (!this.continueOnError) {
+                                    throw new MojoExecutionException("Cannot open source for reading: " + source);
+                                } else {
+                                    getLog().warn("Skipping source that could not be opened for reading: " + source);
+                                }
+                            } else {
+                                try {
+                                    handler.load(connection, source.open(), continueOnError, this);
+                                } finally {
+                                    inputStream.close();
+                                }
                             }
                         }
-                    }
-                } catch (final IOException e) {
-                    if (!this.continueOnError) {
-                        throw new MojoExecutionException("Error closing input source: " + source, e);
-                    } else {
-                        this.getLog().warn("Ignoring error closing input source: " + source, e);
+                    } catch (final IOException e) {
+                        if (!this.continueOnError) {
+                            throw new MojoExecutionException("Error closing input source: " + source, e);
+                        } else {
+                            this.getLog().warn("Ignoring error closing input source: " + source, e);
+                        }
                     }
                 }
+            } finally {
+                connection.close();
             }
-        } finally {
-            connection.close();
         }
     }
 
