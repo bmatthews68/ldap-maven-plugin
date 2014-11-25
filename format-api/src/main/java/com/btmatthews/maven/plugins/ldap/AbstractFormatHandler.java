@@ -37,16 +37,18 @@ public abstract class AbstractFormatHandler implements FormatHandler {
     /**
      * Reads directory entries from the input stream and loads them in the LDAP directory server.
      *
-     * @param connection   The connection to the LDAP directory server.
-     * @param inputStream  The input stream from which directory entries will be read.
-     * @param ignoreErrors If {@code true} then loading will continue if an error occurs.
-     * @param logger       Used to log information or error messages.
+     * @param connection         The connection to the LDAP directory server.
+     * @param inputStream        The input stream from which directory entries will be read.
+     * @param ignoreErrors       If {@code true} then loading will continue if an error occurs.
+     * @param logger             Used to log information or error messages.
+     * @param throwLdapException Used to throw Ldap exception
      */
     @Override
     public final void load(final LDAPInterface connection,
                            final InputStream inputStream,
                            final boolean ignoreErrors,
-                           final FormatLogger logger) {
+                           final FormatLogger logger, 
+                           final boolean throwLdapException) throws LDIFException,LDAPException{
         final FormatReader reader = openReader(inputStream, logger);
         if (reader != null) {
             try {
@@ -60,14 +62,20 @@ public abstract class AbstractFormatHandler implements FormatHandler {
                             record.processChange(connection);
                         }
                     } catch (final LDIFException e) {
+                        logger.logError("Error parsing directory entry read from the input stream", e);
                         if (!ignoreErrors || !e.mayContinueReading()) {
-                            logger.logError("Error parsing directory entry read from the input stream", e);
                             keepReading = false;
+                            if (throwLdapException){
+                                throw e;
+                            }
                         }
                     } catch (final LDAPException e) {
+                        logger.logError("Error loading directory entry into the LDAP directory server", e);
                         if (!ignoreErrors) {
-                            logger.logError("Error loading directory entry into the LDAP directory server", e);
                             keepReading = false;
+                            if (throwLdapException){
+                                throw e;
+                            }
                         }
                     }
                 } while (keepReading);

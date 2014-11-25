@@ -89,7 +89,7 @@ public class TestDSMLFormatHandler {
     public void loadFully() throws Exception {
         final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("load.dsml");
         try {
-            formatHandler.load(connection, inputStream, false, logger);
+            formatHandler.load(connection, inputStream, false, logger, false);
         } finally {
             inputStream.close();
         }
@@ -104,7 +104,7 @@ public class TestDSMLFormatHandler {
     public void loadIgnoresErrors() throws Exception {
         final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("haserrors.dsml");
         try {
-            formatHandler.load(connection, inputStream, true, logger);
+            formatHandler.load(connection, inputStream, true, logger, false);
         } finally {
             inputStream.close();
         }
@@ -117,7 +117,7 @@ public class TestDSMLFormatHandler {
     public void loadStopsUponError() throws Exception {
         final InputStream inputStream = TestDSMLFormatHandler.class.getResourceAsStream("haserrors.dsml");
         try {
-            formatHandler.load(connection, inputStream, false, logger);
+            formatHandler.load(connection, inputStream, false, logger, false);
         } finally {
             inputStream.close();
         }

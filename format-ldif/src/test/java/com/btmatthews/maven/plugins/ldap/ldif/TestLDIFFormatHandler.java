@@ -84,9 +84,9 @@ public class TestLDIFFormatHandler {
      * behaves correctly when importing an empty LDIF file.
      */
     @Test
-    public void canLoadEmptyLDIFFile() {
+    public void canLoadEmptyLDIFFile()  throws Exception {
         final InputStream inputStream = TestLDIFFormatHandler.class.getResourceAsStream("empty.ldif");
-        formatHandler.load(connection, inputStream, true, logger);
+        formatHandler.load(connection, inputStream, true, logger, false);
         verifyNoMoreInteractions(connection, logger);
     }
 
@@ -100,7 +100,7 @@ public class TestLDIFFormatHandler {
     @Test
     public void canLoadLDIFFileWithOneChangeRecord() throws Exception {
         final InputStream inputStream = TestLDIFFormatHandler.class.getResourceAsStream("one.ldif");
-        formatHandler.load(connection, inputStream, true, logger);
+        formatHandler.load(connection, inputStream, true, logger, false);
         verify(connection).add(argThat(new AddRequestMatcher("ou=People,dc=btmatthews,dc=com", "ou", "People", "objectclass", "organizationalUnit")));
         verifyNoMoreInteractions(connection, logger);
     }
@@ -115,7 +115,7 @@ public class TestLDIFFormatHandler {
     @Test
     public void canLoadLDIFFileWithTwoChangeRecords() throws Exception {
         final InputStream inputStream = TestLDIFFormatHandler.class.getResourceAsStream("two.ldif");
-        formatHandler.load(connection, inputStream, true, logger);
+        formatHandler.load(connection, inputStream, true, logger, false);
         verify(connection).add(argThat(new AddRequestMatcher(
                 "ou=People,dc=btmatthews,dc=com",
                 "ou", "People",
