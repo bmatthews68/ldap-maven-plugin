@@ -105,7 +105,7 @@ public final class TestFormatHandler {
     @Test
     public void handleLDIFExceptionWhileReading() throws Exception {
         doThrow(LDIFException.class).when(reader).nextRecord();
-        handler.load(connection, inputStream, false, logger);
+        handler.load(connection, inputStream, false, logger, false);
         verify(reader).nextRecord();
         verify(logger).logError(eq("Error parsing directory entry read from the input stream"), any(LDIFException.class));
         verify(reader).close();
@@ -121,7 +121,7 @@ public final class TestFormatHandler {
     @Test
     public void handleIOExceptionWhileReading() throws Exception {
         doThrow(IOException.class).when(reader).nextRecord();
-        handler.load(connection, inputStream, false, logger);
+        handler.load(connection, inputStream, false, logger, false);
         verify(reader).nextRecord();
         verify(logger).logError(eq("I/O error reading directory entry from input stream"), any(IOException.class));
         verify(reader).close();
@@ -137,7 +137,7 @@ public final class TestFormatHandler {
     @Test
     public void handleIOExceptionWhileClosing() throws Exception {
         doThrow(IOException.class).when(reader).close();
-        handler.load(connection, inputStream, false, logger);
+        handler.load(connection, inputStream, false, logger, false);
         verify(reader).nextRecord();
         verify(logger).logError(eq("I/O error closing the input stream reader"), any(IOException.class));
         verify(reader).close();
@@ -155,7 +155,7 @@ public final class TestFormatHandler {
         final LDIFChangeRecord first = mock(LDIFChangeRecord.class);
         when(reader.nextRecord()).thenReturn(first);
         doThrow(LDAPException.class).when(first).processChange(same(connection), eq(true));
-        handler.load(connection, inputStream, false, logger);
+        handler.load(connection, inputStream, false, logger, false);
         verify(reader).nextRecord();
         verify(first).processChange(same(connection), eq(true));
         verify(logger).logError(eq("Error loading directory entry into the LDAP directory server"), any(LDAPException.class));
@@ -172,7 +172,7 @@ public final class TestFormatHandler {
      */
     @Test
     public void loadEmptyFile() throws Exception {
-        handler.load(connection, inputStream, true, logger);
+        handler.load(connection, inputStream, true, logger, false);
         verify(reader).nextRecord();
         verify(reader).close();
         verifyNoMoreInteractions(reader, connection, inputStream, logger);
@@ -189,7 +189,7 @@ public final class TestFormatHandler {
     public void loadFileWithOneItem() throws Exception {
         final LDIFChangeRecord first = mock(LDIFChangeRecord.class);
         when(reader.nextRecord()).thenReturn(first, null);
-        handler.load(connection, inputStream, true, logger);
+        handler.load(connection, inputStream, true, logger, false);
         verify(reader, times(2)).nextRecord();
         verify(first).processChange(same(connection), eq(true));
         verify(reader).close();
@@ -208,7 +208,7 @@ public final class TestFormatHandler {
         final LDIFChangeRecord first = mock(LDIFChangeRecord.class);
         final LDIFChangeRecord second = mock(LDIFChangeRecord.class);
         when(reader.nextRecord()).thenReturn(first, second, null);
-        handler.load(connection, inputStream, true, logger);
+        handler.load(connection, inputStream, true, logger, false);
         verify(reader, times(3)).nextRecord();
         verify(first).processChange(same(connection), eq(true));
         verify(second).processChange(same(connection), eq(true));

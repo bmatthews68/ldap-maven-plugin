@@ -20,9 +20,12 @@ import com.btmatthews.maven.plugins.ldap.FormatHandler;
 import com.btmatthews.maven.plugins.ldap.dsml.DSMLFormatHandler;
 import com.btmatthews.maven.plugins.ldap.ldif.LDIFFormatHandler;
 import com.unboundid.ldap.sdk.LDAPConnection;
+import com.unboundid.ldap.sdk.*;
+import com.unboundid.ldif.LDIFException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -82,7 +85,11 @@ public final class LoadMojo extends AbstractLDAPMojo {
                             }
                         } else {
                             try {
-                                handler.load(connection, source.open(), continueOnError, this);
+                                    handler.load(connection, source.open(), continueOnError, this, true);
+                                } catch (final LDIFException e){
+                                    throw new MojoExecutionException("Error during LDAP load", e);
+                                } catch (final LDAPException e){
+                                    throw new MojoExecutionException("Error during LDAP load", e);
                             } finally {
                                 inputStream.close();
                             }

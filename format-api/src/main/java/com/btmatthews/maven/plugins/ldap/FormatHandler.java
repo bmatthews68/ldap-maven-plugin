@@ -16,7 +16,8 @@
 
 package com.btmatthews.maven.plugins.ldap;
 
-import com.unboundid.ldap.sdk.LDAPInterface;
+import com.unboundid.ldap.sdk.*;
+import com.unboundid.ldif.LDIFException;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -37,7 +38,7 @@ public interface FormatHandler {
      * @param ignoreErrors If {@code true} then loading will continue if an error occurs.
      * @param logger       Used to log information or error messages.
      */
-    void load(LDAPInterface connection, InputStream inputStream, boolean ignoreErrors, FormatLogger logger);
+    void load(LDAPInterface connection, InputStream inputStream, boolean ignoreErrors, FormatLogger logger, boolean throwLdapException) throws LDIFException,LDAPException;
 
     /**
      * Dump the results of a search against the LDAP directory server to an output stream.
