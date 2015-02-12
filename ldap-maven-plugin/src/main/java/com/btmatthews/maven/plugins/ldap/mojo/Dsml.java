@@ -32,4 +32,8 @@ public final class Dsml extends AbstractSource {
     public Dsml(final String path) {
         super(path);
     }
+
+    public Dsml(){
+    	super(null);
+    }
 }

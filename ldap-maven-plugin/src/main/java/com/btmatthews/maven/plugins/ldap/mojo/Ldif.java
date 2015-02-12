@@ -32,4 +32,8 @@ public final class Ldif extends AbstractSource {
     public Ldif(final String path) {
         super(path);
     }
+
+    public Ldif(){
+    	super(null);
+    }
 }
