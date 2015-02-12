@@ -70,6 +70,11 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
      */
     @Parameter(defaultValue = "3")
     private int connectionRetries = 3;
+    /**
+     * To skip execution of the plugin
+     */
+    @Parameter(defaultValue = "false")
+    private boolean skip;
 
     /**
      * Connect to the LDAP directory server. The connection attempt will be retried {@link #connectionRetries} times
@@ -110,6 +115,10 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
             throw new MojoExecutionException("Could not bind to LDAP directory server as " + authDn, e);
         }
         return connection;
+    }
+
+    public boolean isSkip(){
+        return this.skip;
     }
 
     /**
