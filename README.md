@@ -48,7 +48,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <executions>
         <execution>
             <id>load</id>
@@ -66,6 +66,13 @@ goal of the **LDAP Maven Plugin**.
             </configuration>
         </execution>
     </executions>
+    <dependencies>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>server-unboundid</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    </dependencies>
 </plugin>
 ```
 
@@ -80,7 +87,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <executions>
         <execution>
             <id>dump</id>
@@ -98,6 +105,13 @@ goal of the **LDAP Maven Plugin**.
             </configuration>
         </execution>
     </executions>
+    <dependencies>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>server-unboundid</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    </dependencies>
 </plugin>
 ```
 
@@ -114,7 +128,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <executions>
         <execution>
             <id>load</id>
@@ -132,6 +146,13 @@ goal of the **LDAP Maven Plugin**.
             </configuration>
         </execution>
     </executions>
+    <dependencies>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>server-unboundid</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    </dependencies>
 </plugin>
 ```
 
@@ -146,7 +167,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <executions>
         <execution>
             <id>dump</id>
@@ -164,6 +185,13 @@ goal of the **LDAP Maven Plugin**.
             </configuration>
         </execution>
     </executions>
+    <dependencies>
+        <dependency>
+            <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+            <artifactId>server-unboundid</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+    </dependencies>
 </plugin>
 ```
 
@@ -192,7 +220,7 @@ the embedded LDAP directory server upon completion of the integration tests.
         <plugin>
           <groupId>com.btmatthews.maven.plugins</groupId>
           <artifactId>ldap-maven-plugin</artifactId>
-          <version>1.2.0</version>
+          <version>1.2.1</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -200,7 +228,7 @@ the embedded LDAP directory server upon completion of the integration tests.
       <plugin>
         <groupId>com.btmatthews.maven.plugins</groupId>
         <artifactId>ldap-maven-plugin</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
         <configuration>
           <monitorPort>11389</monitorPort>
           <monitorKey>ldap</monitorKey>
@@ -222,6 +250,13 @@ the embedded LDAP directory server upon completion of the integration tests.
             <phase>post-integration-test</phase>
           </execution>
         </executions>
+        <dependencies>
+            <dependency>
+                <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                <artifactId>server-unboundid</artifactId>
+                <version>1.2.1</version>
+            </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
@@ -250,7 +285,7 @@ coordinates:
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 </plugin>
 ```
 

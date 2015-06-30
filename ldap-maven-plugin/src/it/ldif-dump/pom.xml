@@ -75,6 +75,13 @@
                         </configuration>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                        <artifactId>server-unboundid</artifactId>
+                        <version>@project.version@</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

@@ -38,8 +38,7 @@ import java.util.Map;
  */
 @Mojo(
         name = "run",
-        defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST,
-        configurator = "include-server-dependencies")
+        defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST)
 public final class RunLDAPMojo extends AbstractRunMojo {
 
     /**

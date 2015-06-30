@@ -53,6 +53,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                        <artifactId>server-unboundid</artifactId>
+                        <version>@project.version@</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
@@ -60,7 +67,7 @@
         <dependency>
             <groupId>com.btmatthews.ldapunit</groupId>
             <artifactId>ldapunit</artifactId>
-            <version>1.0.2</version>
+            <version>1.0.3</version>
             <scope>test</scope>
         </dependency>
         <dependency>
