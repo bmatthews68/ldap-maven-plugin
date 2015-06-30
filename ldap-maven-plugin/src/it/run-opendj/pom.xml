@@ -55,6 +55,13 @@
                         </goals>
                     </execution>
                 </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.btmatthews.maven.plugins.ldap</groupId>
+                        <artifactId>server-opendj</artifactId>
+                        <version>@project.version@</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
