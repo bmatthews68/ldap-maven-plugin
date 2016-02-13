@@ -22,8 +22,6 @@ import com.btmatthews.utils.monitor.mojo.AbstractRunMojo;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
-import org.sonatype.aether.RepositorySystemSession;
 
 import java.io.File;
 import java.util.HashMap;

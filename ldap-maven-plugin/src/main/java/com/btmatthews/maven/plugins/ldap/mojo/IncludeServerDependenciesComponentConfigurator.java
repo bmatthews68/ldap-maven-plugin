@@ -16,10 +16,18 @@
 
 package com.btmatthews.maven.plugins.ldap.mojo;
 
-import com.jcabi.aether.Aether;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.artifact.InvalidRepositoryException;
+import org.apache.maven.artifact.repository.ArtifactRepository;
+import org.apache.maven.artifact.repository.DefaultRepositoryRequest;
+import org.apache.maven.artifact.repository.RepositoryRequest;
+import org.apache.maven.artifact.resolver.ArtifactResolutionRequest;
+import org.apache.maven.artifact.resolver.ArtifactResolutionResult;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.repository.RepositorySystem;
 import org.codehaus.plexus.classworlds.realm.ClassRealm;
 import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.component.annotations.Requirement;
 import org.codehaus.plexus.component.configurator.AbstractComponentConfigurator;
 import org.codehaus.plexus.component.configurator.ComponentConfigurationException;
 import org.codehaus.plexus.component.configurator.ComponentConfigurator;
@@ -29,20 +37,12 @@ import org.codehaus.plexus.component.configurator.converters.special.ClassRealmC
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluationException;
 import org.codehaus.plexus.component.configurator.expression.ExpressionEvaluator;
 import org.codehaus.plexus.configuration.PlexusConfiguration;
-import org.sonatype.aether.RepositorySystemSession;
-import org.sonatype.aether.artifact.Artifact;
-import org.sonatype.aether.resolution.DependencyResolutionException;
-import org.sonatype.aether.util.artifact.DefaultArtifact;
-import org.sonatype.aether.util.artifact.JavaScopes;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 
 /**
@@ -68,6 +68,9 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
      * Used to construct the artifact id of the main artifact for the LDAP server type.
      */
     private static final String DEFAULT_ARTIFACT_ID_FORMAT = "server-{0}";
+
+    @Requirement
+    private RepositorySystem repositorySystem;
 
     /**
      * Configure the Mojo by adding the dependencies for the LDAP server type to the class loader.
@@ -150,28 +153,28 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
      * @throws ComponentConfigurationException If the was a problem resolving the dependencies for
      *                                         the LDAP server type.
      */
-    private List<Artifact> getServerDependencies(final String serverType,
+    private Collection<Artifact> getServerDependencies(final String serverType,
                                                  final ExpressionEvaluator expressionEvaluator)
             throws ComponentConfigurationException {
         try {
             final MavenProject project = (MavenProject) expressionEvaluator.evaluate("${project}");
-            final RepositorySystemSession session = (RepositorySystemSession) expressionEvaluator.evaluate("${repositorySystemSession}");
-            if (session != null) {
-                try {
-                    final File repo = session.getLocalRepository().getBasedir();
-                    return new Aether(project, repo).resolve(
-                            getServerArtifact(serverType),
-                            JavaScopes.RUNTIME);
-                } catch (final DependencyResolutionException e) {
-                    final String message = new StringBuilder("Could not resolve dependencies for server type: ")
-                            .append(serverType)
-                            .toString();
-                    throw new ComponentConfigurationException(message, e);
-                }
+            final String localRepo = (String) expressionEvaluator.evaluate("${settings.localRepository}");
+            final ArtifactRepository localRepository = repositorySystem.createLocalRepository(new File(localRepo));
+            final RepositoryRequest repositoryRequest = new DefaultRepositoryRequest();
+            repositoryRequest.setRemoteRepositories(project.getRemoteArtifactRepositories());
+            repositoryRequest.setLocalRepository(localRepository);
+            final ArtifactResolutionRequest request = new ArtifactResolutionRequest(repositoryRequest);
+            request.setArtifact(getServerArtifact(serverType));
+            request.setResolveTransitively(true);
+            final ArtifactResolutionResult result = repositorySystem.resolve(request);
+            if (result.isSuccess()) {
+                return result.getArtifacts();
             }
             return Collections.emptyList();
         } catch (final ExpressionEvaluationException e) {
             throw new ComponentConfigurationException("Error evaluating expression", e);
+        } catch (final InvalidRepositoryException e) {
+            throw new ComponentConfigurationException("Error resolving local repository", e);
         }
     }
 
@@ -182,13 +185,12 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
      * @return The JAR file artifact descriptor.
      */
     private Artifact getServerArtifact(final String serverType) {
-        return new DefaultArtifact(
+        return repositorySystem.createArtifact(
                 DEFAULT_GROUP_ID,
                 MessageFormat.format(DEFAULT_ARTIFACT_ID_FORMAT, serverType),
-                "",
-                "jar",
                 getClass().getPackage().getImplementationVersion(),
-                null);
+                "runtime",
+                "jar");
     }
 
     /**
