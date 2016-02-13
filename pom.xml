@@ -393,72 +393,33 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.server</groupId>
-                <artifactId>apacheds-all</artifactId>
-                <version>2.0.0-M15</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.directory.shared</groupId>
-                        <artifactId>shared-ldap-schema</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.directory.api</groupId>
-                        <artifactId>api-ldap-schema-data</artifactId>
-                    </exclusion>
-                </exclusions>
+                <artifactId>apacheds-core</artifactId>
+                <version>1.5.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.server</groupId>
-                <artifactId>apacheds-server-integ</artifactId>
-                <version>2.0.0-M15</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.directory.shared</groupId>
-                        <artifactId>shared-ldap-schema</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.directory.api</groupId>
-                        <artifactId>api-ldap-schema-data</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.directory.jdbm</groupId>
-                        <artifactId>apacheds-jdbm1</artifactId>
-                    </exclusion>
-                </exclusions>
+                <artifactId>apacheds-core-entry</artifactId>
+                <version>1.5.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.server</groupId>
-                <artifactId>apacheds-core-integ</artifactId>
-                <version>2.0.0-M15</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.directory.shared</groupId>
-                        <artifactId>shared-ldap-schema</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.directory.api</groupId>
-                        <artifactId>api-ldap-schema-data</artifactId>
-                    </exclusion>
-                </exclusions>
+                <artifactId>apacheds-protocol-ldap</artifactId>
+                <version>1.5.5</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.directory.server</groupId>
+                <artifactId>apacheds-protocol-shared</artifactId>
+                <version>1.5.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.server</groupId>
                 <artifactId>apacheds-server-jndi</artifactId>
-                <version>2.0.0-M15</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.apache.directory.shared</groupId>
-                        <artifactId>shared-ldap-schema</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.directory.api</groupId>
-                        <artifactId>api-ldap-schema-data</artifactId>
-                    </exclusion>
-                </exclusions>
+                <version>1.5.5</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.directory.jdbm</groupId>
-                <artifactId>apacheds-jdbm1</artifactId>
-                <version>2.0.0-M2</version>
+                <groupId>org.apache.directory.shared</groupId>
+                <artifactId>shared-ldap</artifactId>
+                <version>0.9.15</version>
             </dependency>
             <dependency>
                 <groupId>org.forgerock.opendj</groupId>

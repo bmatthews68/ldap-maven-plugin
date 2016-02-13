@@ -32,7 +32,6 @@ public class ApacheDSServerFactory implements ServerFactory {
      *
      * @return Always returns {@code apacheds}.
      */
-    @Override
     public String getServerName() {
         return "apacheds";
     }
@@ -42,7 +41,6 @@ public class ApacheDSServerFactory implements ServerFactory {
      *
      * @return The newly create instance of {@link ApacheDSServer}.
      */
-    @Override
     public Server createServer() {
         return new ApacheDSServer();
     }
