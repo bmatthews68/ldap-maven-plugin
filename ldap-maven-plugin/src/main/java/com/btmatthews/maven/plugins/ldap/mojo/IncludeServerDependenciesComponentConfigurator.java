@@ -170,7 +170,21 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
             if (result.isSuccess()) {
                 return result.getArtifacts();
             }
-            return Collections.emptyList();
+            boolean first = true;
+            final StringBuilder builder = new StringBuilder("Cannot resolve dependencies: [");
+            for (final Artifact artifact : result.getMissingArtifacts()) {
+                if (!first) {
+                    builder.append(',');
+                    first = false;
+                }
+                builder.append(artifact.getGroupId());
+                builder.append(':');
+                builder.append(artifact.getArtifactId());
+                builder.append(':');
+                builder.append(artifact.getVersion());
+            }
+            builder.append("]");
+            throw new ComponentConfigurationException(builder.toString());
         } catch (final ExpressionEvaluationException e) {
             throw new ComponentConfigurationException("Error evaluating expression", e);
         } catch (final InvalidRepositoryException e) {
