@@ -92,7 +92,9 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
 
         final String serverType = getServerType(configuration);
 
-        addServerDependenciesToClassRealm(serverType, expressionEvaluator, containerRealm);
+        if (!serverType.startsWith("dependency-")) {
+            addServerDependenciesToClassRealm(serverType, expressionEvaluator, containerRealm);
+        }
 
         converterLookup.registerConverter(new ClassRealmConverter(containerRealm));
 
@@ -100,7 +102,6 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
 
         converter.processConfiguration(converterLookup, component, containerRealm, configuration,
                 expressionEvaluator, listener);
-
     }
 
     /**
@@ -154,7 +155,7 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
      *                                         the LDAP server type.
      */
     private Collection<Artifact> getServerDependencies(final String serverType,
-                                                 final ExpressionEvaluator expressionEvaluator)
+                                                       final ExpressionEvaluator expressionEvaluator)
             throws ComponentConfigurationException {
         try {
             final MavenProject project = (MavenProject) expressionEvaluator.evaluate("${project}");
@@ -198,13 +199,31 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
      * @param serverType The LDAP server type.
      * @return The JAR file artifact descriptor.
      */
-    private Artifact getServerArtifact(final String serverType) {
-        return repositorySystem.createArtifact(
-                DEFAULT_GROUP_ID,
-                MessageFormat.format(DEFAULT_ARTIFACT_ID_FORMAT, serverType),
-                getClass().getPackage().getImplementationVersion(),
-                "runtime",
-                "jar");
+    private Artifact getServerArtifact(final String serverType)
+            throws ComponentConfigurationException {
+        if (serverType.startsWith("gav-")) {
+            int index = serverType.indexOf("-", 4);
+            if (index > 0) {
+                String[] gav = serverType.substring(index + 1).split(":");
+                if (gav.length == 3) {
+                    return repositorySystem.createArtifact(
+                            gav[0],
+                            gav[1],
+                            gav[2],
+                            "runtime",
+                            "jar"
+                    );
+                }
+            }
+            throw new ComponentConfigurationException("Invalid server type: " + serverType);
+        } else {
+            return repositorySystem.createArtifact(
+                    DEFAULT_GROUP_ID,
+                    MessageFormat.format(DEFAULT_ARTIFACT_ID_FORMAT, serverType),
+                    getClass().getPackage().getImplementationVersion(),
+                    "runtime",
+                    "jar");
+        }
     }
 
     /**

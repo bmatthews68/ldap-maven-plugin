@@ -43,9 +43,11 @@ public final class RunLDAPMojo extends AbstractRunMojo {
     /**
      * The server can be one of:
      * <ul>
-     * <li>apacheds</li>
-     * <li>opendj</li>
-     * <li>unboundid</li>
+     * <li>apacheds</li> - Use ApacheDS 1.5.5
+     * <li>opendj</li> - Use OpenDJ 2.6.0
+     * <li>unboundid</li> - Use UnboundID 3.1.0
+     * <li>dependency-[serverType]</li> - Use custom server included as plugin dependency and identified by <b>serverType</b>
+     * <li>dependency-[serverType]-[groupId]:[artifactId]:[version]</li> - Use custom server specified by the GAV coordinates and identified by <b>serverType</b>
      * </ul>
      */
     @Parameter(property = "ldap.type", defaultValue = "unboundid")
@@ -88,6 +90,15 @@ public final class RunLDAPMojo extends AbstractRunMojo {
      */
     @Override
     public String getServerType() {
+        if (serverType.startsWith("dependency-")) {
+            return serverType.substring(11);
+        }
+        if (serverType.startsWith("gav-")) {
+            int index = serverType.indexOf("-", 4);
+            if (index > 0) {
+                return serverType.substring(4, index);
+            }
+        }
         return serverType;
     }
 
