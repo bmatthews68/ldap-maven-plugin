@@ -31,27 +31,27 @@ public interface LDAPServer extends Server {
     /**
      * Name of the parameter that specifies the root distinguished name.
      */
-    public final static String ROOT = "root";
+    String ROOT = "root";
     /**
      * The name of the parameter that specifies the identity used to authenticate connections.
      */
-    public final static String AUTH_DN = "authDn";
+    String AUTH_DN = "authDn";
     /**
      * The name of the parameter that specifies the credentials used for authentication.
      */
-    public final static String PASSWD = "passwd";
+    String PASSWD = "passwd";
     /**
      * The name of the parameter that specifies a working/scratch directory that can be used by the plugin.
      */
-    public final static String WORK_DIR = "workingDirectory";
+    String WORK_DIR = "workingDirectory";
     /**
      * The name of the parameter that specifies an LDIF file containing seed data.
      */
-    public final static String LDIF_FILE = "ldifFile";
+    String LDIF_FILE = "ldifFile";
     /**
      * The name of the parameter that specifies the port on which the LDAP service will listen for traffic.
      */
-    public final static String LDAP_PORT = "ldapPort";
+    String LDAP_PORT = "ldapPort";
 
     /**
      * Get the configured directory root.

@@ -19,11 +19,9 @@ package com.btmatthews.maven.plugins.ldap.unboundid;
 import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Server;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.mockito.Mock;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +29,6 @@ import java.io.IOException;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.startsWith;
 import static org.mockito.Mockito.*;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * @author <a href="mailto:brian@btmatthews.com">Brian Matthews</a>
@@ -51,7 +48,7 @@ public class TestUnboundIDServer {
         server.configure("root", "dc=btmatthews,dc=com", logger);
         server.configure("authDn", "uid=admin,ou=system", logger);
         server.configure("passwd", "secret", logger);
-        server.configure("ldapPort", Integer.valueOf(port), logger);
+        server.configure("ldapPort", port, logger);
         server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/unboundid/initial.ldif"), logger);
         server.configure("workingDirectory", folder.newFolder(), logger);
         server.start(logger);

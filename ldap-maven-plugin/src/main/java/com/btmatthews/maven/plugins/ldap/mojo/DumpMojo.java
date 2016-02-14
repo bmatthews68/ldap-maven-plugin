@@ -89,7 +89,9 @@ public final class DumpMojo extends AbstractLDAPMojo {
                     final LDAPConnection connection = connect();
                     try {
                         final FormatHandler handler = getFormatHandler();
-                        handler.dump(connection, searchBase, searchFilter, outputStream, this);
+                        if (handler != null) {
+                            handler.dump(connection, searchBase, searchFilter, outputStream, this);
+                        }
                     } finally {
                         connection.close();
                     }

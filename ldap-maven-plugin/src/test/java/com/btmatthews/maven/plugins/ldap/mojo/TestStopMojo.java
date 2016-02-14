@@ -21,7 +21,6 @@ import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Monitor;
 import com.btmatthews.utils.monitor.MonitorObserver;
 import com.btmatthews.utils.monitor.Server;
-import org.apache.maven.plugin.MojoFailureException;
 import org.junit.Test;
 
 import java.util.Timer;

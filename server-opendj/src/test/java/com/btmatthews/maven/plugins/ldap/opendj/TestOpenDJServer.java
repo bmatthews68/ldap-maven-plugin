@@ -21,16 +21,13 @@ import static org.mockito.Matchers.startsWith;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 import com.btmatthews.maven.plugins.ldap.TestUtils;
 import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.Server;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import org.mockito.Mock;
 
 import java.io.File;
 
@@ -50,7 +47,7 @@ public class TestOpenDJServer {
         final Server server = new OpenDJServer();
 
         server.configure("root", "dc=btmatthews,dc=com", logger);
-        server.configure("ldapPort", Integer.valueOf(port), logger);
+        server.configure("ldapPort", port, logger);
         server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/opendj/initial.ldif"), logger);
         server.start(logger);
         server.stop(logger);
