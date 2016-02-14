@@ -1,6 +1,8 @@
 LDAP Maven Plugin
 =================
 
+![Build Status](https://codeship.com/projects/530ebbf0-b546-0133-1ab7-667a7a9f6651/status?branch=master)
+
 The [LDAP Maven Plugin](http://ldap-maven-plugin.btmatthews.com/) is a [Maven](http://maven.apache.org) plugin that
 can:
 
