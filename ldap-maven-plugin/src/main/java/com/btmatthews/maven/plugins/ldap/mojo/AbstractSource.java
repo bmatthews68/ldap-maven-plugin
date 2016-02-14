@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2008-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +64,6 @@ public abstract class AbstractSource implements Source {
      *
      * @return The input stream or {@code null} if the file or resource cannot be found.
      */
-    @Override
     public InputStream open() {
         if (path.startsWith(CLASSPATH_PREFIX)) {
             final ClassLoader loader = Thread.currentThread().getContextClassLoader();

@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,6 @@ public abstract class AbstractFormatHandler implements FormatHandler {
      * @param ignoreErrors If {@code true} then loading will continue if an error occurs.
      * @param logger       Used to log information or error messages.
      */
-    @Override
     public final void load(final LDAPInterface connection,
                            final InputStream inputStream,
                            final boolean ignoreErrors,
@@ -92,7 +91,6 @@ public abstract class AbstractFormatHandler implements FormatHandler {
      * @param outputStream The output stream to which the directory entries are to be written.
      * @param logger       Used to log information or error messages.
      */
-    @Override
     public final void dump(final LDAPInterface connection,
                            final String base,
                            final String filter,

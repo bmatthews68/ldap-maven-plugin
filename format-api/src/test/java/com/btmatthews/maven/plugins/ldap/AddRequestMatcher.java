@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,6 @@ public final class AddRequestMatcher extends BaseMatcher<AddRequest> {
      * @param item The object being matched.
      * @return {@code true} if the object matches.
      */
-    @Override
     public boolean matches(final Object item) {
         if (item instanceof AddRequest) {
             final AddRequest request = (AddRequest) item;
@@ -78,7 +77,6 @@ public final class AddRequestMatcher extends BaseMatcher<AddRequest> {
      *
      * @param description Used to build the description.
      */
-    @Override
     public void describeTo(final Description description) {
     }
 }

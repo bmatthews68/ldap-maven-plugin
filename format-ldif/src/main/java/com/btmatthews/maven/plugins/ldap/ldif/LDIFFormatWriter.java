@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,6 @@ public final class LDIFFormatWriter implements FormatWriter {
      * @param entry The directory entry.
      * @throws IOException If there was a problem writing to the underlying output stream.
      */
-    @Override
     public void printEntry(final Entry entry) throws IOException {
         if (entry != null) {
             final ByteStringBuffer buffer = new ByteStringBuffer();
@@ -79,7 +78,6 @@ public final class LDIFFormatWriter implements FormatWriter {
     /**
      * Close the {@link LDIFFormatWriter} which does not require any processing.
      */
-    @Override
     public void close() {
     }
 }

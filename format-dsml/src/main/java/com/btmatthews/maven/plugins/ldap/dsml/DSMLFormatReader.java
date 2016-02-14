@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -90,7 +90,6 @@ public final class DSMLFormatReader implements FormatReader {
      *
      * @return The next change record or {@code null} if the end of the input stream has been reached.
      */
-    @Override
     public LDIFChangeRecord nextRecord() {
         if (entryIterator.hasNext()) {
             try {
@@ -137,7 +136,6 @@ public final class DSMLFormatReader implements FormatReader {
     /**
      * Called to close {@link DSMLFormatReader}.
      */
-    @Override
     public void close() {
     }
 

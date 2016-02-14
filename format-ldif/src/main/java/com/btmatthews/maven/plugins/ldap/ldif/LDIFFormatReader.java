@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Brian Thomas Matthews
+ * Copyright 2013-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,6 @@ public final class LDIFFormatReader implements FormatReader {
      * @throws IOException   If there was an error reading from the input stream.
      * @throws LDIFException If there was an error parsing the data read from the input stream.
      */
-    @Override
     public LDIFChangeRecord nextRecord() throws IOException, LDIFException {
         return reader.readChangeRecord();
     }
@@ -66,7 +65,6 @@ public final class LDIFFormatReader implements FormatReader {
      *
      * @throws IOException If there was a problem closing the {@link LDIFReader}.
      */
-    @Override
     public void close() throws IOException {
         reader.close();
     }

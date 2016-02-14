@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2013 Brian Thomas Matthews
+ * Copyright 2008-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,6 @@ public class OpenDJServerFactory implements ServerFactory {
      *
      * @return Always returns {@code opendj}.
      */
-    @Override
     public String getServerName() {
         return "opendj";
     }
@@ -42,7 +41,6 @@ public class OpenDJServerFactory implements ServerFactory {
      *
      * @return The newly create instance of {@link com.btmatthews.maven.plugins.ldap.opendj.OpenDJServer}.
      */
-    @Override
     public Server createServer() {
         return new OpenDJServer();
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2008-2013 Brian Thomas Matthews
+ * Copyright 2008-2016 Brian Thomas Matthews
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,7 +126,6 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
      *
      * @param message The information message.
      */
-    @Override
     public void logInfo(final String message) {
         getLog().info(message);
     }
@@ -136,7 +135,6 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
      *
      * @param message The error message.
      */
-    @Override
     public void logError(final String message) {
         getLog().error(message);
     }
@@ -147,7 +145,6 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
      * @param message   The error message.
      * @param exception The exception containing the stack trace.
      */
-    @Override
     public void logError(final String message, final Throwable exception) {
         getLog().error(message, exception);
     }
