@@ -57,4 +57,11 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>maven.forgerock.org</id>
+            <name>maven.forgerock.org-releases</name>
+            <url>http://maven.forgerock.org/repo/releases</url>
+        </repository>
+    </repositories>
 </project>

@@ -256,19 +256,6 @@ coordinates:
 </plugin>
 ```
 
-**Note:** If you want to use [OpenDJ](http://opendj.forgerock.org/) you will also need to add the following 
-repository to your **pom.xml** or **settings.xml** file since the [ForgeRock](https://www.forgerock.com/) dependencies 
-are not available from [Maven Central](http://search.maven.org).
-
-```xml
-<repository>
-  <id>maven.forgerock.org</id>
-  <name>maven.forgerock.org-releases</name>
-  <url>http://maven.forgerock.org/repo/releases</url>
-</repository>
-```
-
-
 License & Source Code
 ---------------------
 The **LDAP Maven Plugin** is made available under the
