@@ -412,7 +412,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-simple</artifactId>
-                <version>1.7.16</version>
+                <version>1.7.21</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.directory.server</groupId>
@@ -452,7 +452,7 @@
             <dependency>
                 <groupId>com.unboundid</groupId>
                 <artifactId>unboundid-ldapsdk</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.utils</groupId>
@@ -472,7 +472,7 @@
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>log4j-over-slf4j</artifactId>
-                <version>1.7.16</version>
+                <version>1.7.21</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

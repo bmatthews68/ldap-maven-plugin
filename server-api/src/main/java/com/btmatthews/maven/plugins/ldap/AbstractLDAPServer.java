@@ -34,6 +34,10 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
      */
     private String root;
     /**
+     * The object classes used for the root DN.
+     */
+    private String[] objectClasses;
+    /**
      * The distinguished name of the admin account.
      */
     private String authDn;
@@ -70,6 +74,11 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
                 root = (String) value;
                 logger.logInfo("Configured root DN for directory server: " + root);
             }
+        } else if (OBJECT_CLASSES.equals(name)) {
+            if (value instanceof String[]) {
+                objectClasses = (String[]) value;
+                logger.logInfo("Configured object classes for root DN: " + objectClasses);
+            }
         } else if (AUTH_DN.equals(name)) {
             if (value instanceof String) {
                 authDn = (String) value;
@@ -105,6 +114,15 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
      */
     public final String getRoot() {
         return root;
+    }
+
+    /**
+     * Get the object classes used to create the directory root.
+     *
+     * @return The object classes.
+     */
+    public final String[] getObjectClasses() {
+        return objectClasses;
     }
 
     /**
