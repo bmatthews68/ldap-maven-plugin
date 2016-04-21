@@ -33,6 +33,10 @@ public interface LDAPServer extends Server {
      */
     String ROOT = "root";
     /**
+     * Name of the parameter that specifies the object classes used when creating the root distinguished name.
+     */
+    String OBJECT_CLASSES = "objectClasses";
+    /**
      * The name of the parameter that specifies the identity used to authenticate connections.
      */
     String AUTH_DN = "authDn";

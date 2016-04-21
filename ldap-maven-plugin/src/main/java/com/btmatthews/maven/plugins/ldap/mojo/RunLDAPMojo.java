@@ -68,6 +68,11 @@ public final class RunLDAPMojo extends AbstractRunMojo {
     @Parameter(property = "ldap.root", required = true)
     private String rootDn;
     /**
+     *
+     */
+    @Parameter(property = "ldap.objectClasses", required = false)
+    private String objectClasses;
+    /**
      * An optional LDIF file that can be used to seed the embedded LDAP server.
      */
     @Parameter(property = "ldap.ldif", required = false)
@@ -111,6 +116,9 @@ public final class RunLDAPMojo extends AbstractRunMojo {
     public Map<String, Object> getServerConfig() {
         final Map<String, Object> config = new HashMap<String, Object>();
         config.put(LDAPServer.ROOT, rootDn);
+        if (objectClasses != null) {
+            config.put(LDAPServer.OBJECT_CLASSES, objectClasses.split(","));
+        }
         config.put(LDAPServer.WORK_DIR, new File(outputDirectory, serverType));
         if (ldifFile != null) {
             config.put(LDAPServer.LDIF_FILE, ldifFile);
