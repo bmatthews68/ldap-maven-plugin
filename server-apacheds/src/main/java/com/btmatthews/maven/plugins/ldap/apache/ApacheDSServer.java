@@ -84,6 +84,7 @@ public final class ApacheDSServer extends AbstractLDAPServer {
             // list.add( new TriggerInterceptor() );
             // list.add( new JournalInterceptor() );
             service.setInterceptors(list);
+            service.setWorkingDirectory(getWorkingDirectory());
 
             final JdbmPartition partition = new JdbmPartition();
             partition.setId("rootPartition");
