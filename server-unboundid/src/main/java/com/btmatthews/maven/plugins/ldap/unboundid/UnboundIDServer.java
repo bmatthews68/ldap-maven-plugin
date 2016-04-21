@@ -41,6 +41,11 @@ import java.io.InputStream;
 public final class UnboundIDServer extends AbstractLDAPServer {
 
     /**
+     * The default object classes used for the root DN entry.
+     */
+    private static final String[] DEFAULT_ROOT_OBJECT_CLASSES = { "domain", "top" };
+
+    /**
      * The in-memory instance of the UnboundID directory server.
      */
     private InMemoryDirectoryServer server;
@@ -61,7 +66,11 @@ public final class UnboundIDServer extends AbstractLDAPServer {
                 config.addAdditionalBindCredentials(getAuthDn(), getPasswd());
             }
             server = new InMemoryDirectoryServer(config);
-            server.add(new Entry(getRoot(), new Attribute("objectclass", "domain", "top")));
+            String[] objectClasses = getObjectClasses();
+            if (objectClasses == null) {
+                objectClasses = DEFAULT_ROOT_OBJECT_CLASSES;
+            }
+            server.add(new Entry(getRoot(), new Attribute("objectclass", objectClasses)));
             if (getLdifFile() != null) {
                 final InputStream in = new FileInputStream(getLdifFile());
                 try {
