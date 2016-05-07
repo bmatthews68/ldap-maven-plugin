@@ -141,8 +141,7 @@
         </dependency>
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-            <artifactId>server-api</artifactId>
-            <type>test-jar</type>
+            <artifactId>server-api-test</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>

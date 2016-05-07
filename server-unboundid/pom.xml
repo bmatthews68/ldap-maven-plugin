@@ -48,9 +48,18 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-            <artifactId>server-api</artifactId>
-            <type>test-jar</type>
+            <artifactId>server-api-test</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

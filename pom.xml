@@ -43,10 +43,12 @@
     </properties>
     <modules>
         <module>server-api</module>
+        <module>server-api-test</module>
         <module>server-apacheds</module>
         <module>server-opendj</module>
         <module>server-unboundid</module>
         <module>format-api</module>
+        <module>format-api-test</module>
         <module>format-dsml</module>
         <module>format-ldif</module>
         <module>ldap-maven-plugin</module>
@@ -317,7 +319,7 @@
                             <reportSets>
                                 <reportSet>
                                     <reports>
-                                        <report>report</report>
+                                        <report><report></report></report>
                                     </reports>
                                 </reportSet>
                             </reportSets>
@@ -364,9 +366,8 @@
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-                <artifactId>format-api</artifactId>
+                <artifactId>format-api-test</artifactId>
                 <version>${project.version}</version>
-                <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
@@ -385,9 +386,8 @@
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
-                <artifactId>server-api</artifactId>
+                <artifactId>server-api-test</artifactId>
                 <version>${project.version}</version>
-                <type>test-jar</type>
             </dependency>
             <dependency>
                 <groupId>com.btmatthews.maven.plugins.ldap</groupId>
@@ -516,18 +516,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
     <url>http://ldap-maven-plugin.btmatthews.com</url>
     <organization>
         <name>Brian Matthews</name>

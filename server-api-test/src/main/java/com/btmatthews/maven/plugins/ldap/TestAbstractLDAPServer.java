@@ -16,6 +16,8 @@
 
 package com.btmatthews.maven.plugins.ldap;
 
+import com.btmatthews.maven.plugins.ldap.AbstractLDAPServer;
+import com.btmatthews.maven.plugins.ldap.LDAPServer;
 import com.btmatthews.utils.monitor.Logger;
 import org.junit.Before;
 import org.junit.Test;

@@ -63,7 +63,7 @@ public final class TestLoadMojo {
      */
     @Test
     public void loadDSMLWithNamespace() throws Exception {
-        setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add.dsml")});
+        setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/mojo/add.dsml")});
         setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
@@ -75,7 +75,7 @@ public final class TestLoadMojo {
      */
     @Test
     public void loadDSMLWithoutNamespace() throws Exception {
-        setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/add1.dsml")});
+        setVariableValueInObject(mojo, "sources", new Source[]{new Dsml("classpath:com/btmatthews/maven/plugins/ldap/mojo/add1.dsml")});
         setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
@@ -87,7 +87,7 @@ public final class TestLoadMojo {
      */
     @Test
     public void testAddLDIF() throws Exception {
-        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/add.ldif")});
+        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/mojo/add.ldif")});
         setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
@@ -99,7 +99,7 @@ public final class TestLoadMojo {
      */
     @Test
     public void testModifyLDIF() throws Exception {
-        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/modify.ldif")});
+        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/mojo/modify.ldif")});
         setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
@@ -111,7 +111,7 @@ public final class TestLoadMojo {
      */
     @Test
     public void testDeleteLDIF() throws Exception {
-        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/delete.ldif")});
+        setVariableValueInObject(mojo, "sources", new Source[]{new Ldif("classpath:com/btmatthews/maven/plugins/ldap/mojo/delete.ldif")});
         setVariableValueInObject(mojo, "continueOnError", Boolean.FALSE);
         mojo.execute();
     }
