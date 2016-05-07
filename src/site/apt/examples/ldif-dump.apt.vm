@@ -1,9 +1,9 @@
  ------
- Load entries from LDIF file
+ Dump entries to LDIF file
  ------
  Brian Matthews
  ------
- 2016-02-14
+ 2016-05-07
  ------
 
 ~~ Copyright 2008-2016 Brian Thomas Matthews
@@ -21,10 +21,10 @@
 ~~ limitations under the License.
 
 
-Load entries from LDIF file
+Dump entries to LDIF file
 
-  The following example demonstrates how to use the LDAP Maven Plugin to load directory
-  contents from LDIF format before integration tests are performed.
+  The following example demonstrates how to use the LDAP Maven Plugin to dump directory
+  contents to LDIF format after integration tests have been performed.
 
   * LDAP Directory Server
 
@@ -32,63 +32,10 @@ Load entries from LDIF file
   is being used and is installed locally on port 10389 with the default administration account
   (uid=admin,ou=system) and password (secret). Furthermore, we are assuming that the base DN
   has not been modified from the default (o=sevenSeas).
-  
-* Create LDIF file
 
-  Create a file called load.ldif with the following contents:
-  
-+-----+
-dn: ou=People,o=sevenSeas
-changetype: add
-ou: People
-objectclass: organizationalUnit
+  * Configure a POM
 
-dn: cn=Bart Simpson,ou=People,o=sevenSeas
-changetype: add
-cn: Bart Simpson
-sn: Simpson
-givenName: Bart
-uid: bsimpson
-objectclass: inetOrgPerson
-
-dn: cn=Lisa Simpson,ou=People,o=sevenSeas
-cn: Lisa Simpson
-sn: Simpson
-givenName: Lisa
-uid: lsimpson
-title: Kid
-objectclass: inetOrgPerson
-
-dn: cn=Maggie simpson,ou=People,o=sevenSeas
-cn: Maggie Simpson
-sn: Simpson
-givenName: Maggie
-uid: msimpson1
-title: Baby
-objectclass: inetOrgPerson
-
-dn: cn=Homer Simpson,ou=People,o=sevenSeas
-changetype: add
-cn: Homer Simpson
-sn: Simpson
-givenName: Homer
-uid: hsimpson
-title: Parent
-objectclass: inetOrgPerson
-
-dn: cn=Marge Simpson,ou=People,o=sevenSeas
-changetype: add
-cn: Marge Simpson
-sn: Simpson
-givenName: Marge
-uid: msimpson
-title: Parent
-objectclass: inetOrgPerson
-+-----+
-
-* Configure a POM
-
-  Add the following configuration to your project POM to load the data during test preparation:
+  Add the following configuration to your project POM to dump the data after test execution:
   
 +-----+
 <project>
@@ -101,19 +48,16 @@ objectclass: inetOrgPerson
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <phase>pre-integration-test</phase>
+            <phase>post-integration-test</phase>
             <goals>
-              <goal>load</goal>
+              <goal>dump</goal>
             </goals>
             <configuration>
               <host>localhost</host>
               <port>10389</port>
               <authDn>uid=admin,ou=system</authDn>
               <passwd>secret</passwd>
-              <continueOnError>true</continueOnError>
-              <sources>
-                <ldif>load.ldif</ldif>
-              </sources>
+              <filename>dump.ldif</filename>
             </configuration>
           </execution>
         </executions>
@@ -122,3 +66,4 @@ objectclass: inetOrgPerson
   </build>
 </project>
 +-----+
+  

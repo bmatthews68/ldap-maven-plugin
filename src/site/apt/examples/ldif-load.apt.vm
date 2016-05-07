@@ -1,9 +1,9 @@
  ------
- Dump entries to DSML file
+ Load entries from LDIF file
  ------
  Brian Matthews
  ------
- 2016-02-14
+ 2016-05-07
  ------
 
 ~~ Copyright 2008-2016 Brian Thomas Matthews
@@ -21,10 +21,10 @@
 ~~ limitations under the License.
 
 
-Dump entries to DSML file
+Load entries from LDIF file
 
-  The following example demonstrates how to use the LDAP Maven Plugin to dump directory
-  contents to DSML format after integration tests have been performed.
+  The following example demonstrates how to use the LDAP Maven Plugin to load directory
+  contents from LDIF format before integration tests are performed.
 
   * LDAP Directory Server
 
@@ -32,10 +32,63 @@ Dump entries to DSML file
   is being used and is installed locally on port 10389 with the default administration account
   (uid=admin,ou=system) and password (secret). Furthermore, we are assuming that the base DN
   has not been modified from the default (o=sevenSeas).
+  
+* Create LDIF file
 
-  * Configure a POM
+  Create a file called load.ldif with the following contents:
+  
++-----+
+dn: ou=People,o=sevenSeas
+changetype: add
+ou: People
+objectclass: organizationalUnit
 
-  Add the following configuration to your project POM to dump the data after test execution:
+dn: cn=Bart Simpson,ou=People,o=sevenSeas
+changetype: add
+cn: Bart Simpson
+sn: Simpson
+givenName: Bart
+uid: bsimpson
+objectclass: inetOrgPerson
+
+dn: cn=Lisa Simpson,ou=People,o=sevenSeas
+cn: Lisa Simpson
+sn: Simpson
+givenName: Lisa
+uid: lsimpson
+title: Kid
+objectclass: inetOrgPerson
+
+dn: cn=Maggie simpson,ou=People,o=sevenSeas
+cn: Maggie Simpson
+sn: Simpson
+givenName: Maggie
+uid: msimpson1
+title: Baby
+objectclass: inetOrgPerson
+
+dn: cn=Homer Simpson,ou=People,o=sevenSeas
+changetype: add
+cn: Homer Simpson
+sn: Simpson
+givenName: Homer
+uid: hsimpson
+title: Parent
+objectclass: inetOrgPerson
+
+dn: cn=Marge Simpson,ou=People,o=sevenSeas
+changetype: add
+cn: Marge Simpson
+sn: Simpson
+givenName: Marge
+uid: msimpson
+title: Parent
+objectclass: inetOrgPerson
++-----+
+
+* Configure a POM
+
+  Add the following configuration to your project POM to load the data during test preparation:
   
 +-----+
 <project>
@@ -48,17 +101,19 @@ Dump entries to DSML file
         <artifactId>${project.artifactId}</artifactId>
         <executions>
           <execution>
-            <phase>post-integration-test</phase>
+            <phase>pre-integration-test</phase>
             <goals>
-              <goal>dump</goal>
+              <goal>load</goal>
             </goals>
             <configuration>
               <host>localhost</host>
               <port>10389</port>
               <authDn>uid=admin,ou=system</authDn>
               <passwd>secret</passwd>
-              <filename>dump.dsml</filename>
-              <format>dsml</format>
+              <continueOnError>true</continueOnError>
+              <sources>
+                <ldif>load.ldif</ldif>
+              </sources>
             </configuration>
           </execution>
         </executions>
@@ -67,4 +122,3 @@ Dump entries to DSML file
   </build>
 </project>
 +-----+
-  

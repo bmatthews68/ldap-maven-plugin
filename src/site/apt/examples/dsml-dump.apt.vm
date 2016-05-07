@@ -1,9 +1,9 @@
  ------
- Dump entries to LDIF file
+ Dump entries to DSML file
  ------
  Brian Matthews
  ------
- 2016-02-14
+ 2016-05-07
  ------
 
 ~~ Copyright 2008-2016 Brian Thomas Matthews
@@ -21,10 +21,10 @@
 ~~ limitations under the License.
 
 
-Dump entries to LDIF file
+Dump entries to DSML file
 
   The following example demonstrates how to use the LDAP Maven Plugin to dump directory
-  contents to LDIF format after integration tests have been performed.
+  contents to DSML format after integration tests have been performed.
 
   * LDAP Directory Server
 
@@ -57,7 +57,8 @@ Dump entries to LDIF file
               <port>10389</port>
               <authDn>uid=admin,ou=system</authDn>
               <passwd>secret</passwd>
-              <filename>dump.ldif</filename>
+              <filename>dump.dsml</filename>
+              <format>dsml</format>
             </configuration>
           </execution>
         </executions>

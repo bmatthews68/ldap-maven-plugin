@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2016-02-14
+ 2016-05-07
  ------
 
 ~~ Copyright 2008-2016 Brian Thomas Matthews
@@ -57,7 +57,7 @@ Usage
 </project>
 -------------------
 
-* Configuring {Load}
+* Configuring Load
 
   When loading records to the LDAP server a list of LDAP files
   should be specified in the \<ldapFiles/\> element.
@@ -94,7 +94,7 @@ Usage
 </project>
 -------------------
 
-* Configuring {Dump}
+* Configuring Dump
 
   When dumping records from the LDAP server a target file should
   be specified using the filename element.

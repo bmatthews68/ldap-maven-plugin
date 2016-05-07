@@ -3,7 +3,7 @@
  ------
  Brian Matthews
  ------
- 2013-01-16
+ 2016-05-07
  ------
 
 ~~ Copyright 2008-2016 Brian Thomas Matthews
@@ -59,12 +59,12 @@ LDAP Maven Plugin
   To provide you with better understanding of some usages of the LDAP
   Maven Plugin, you can take a look into the following examples:
 
-  * {{{./ldap-maven-plugin/examples/ldif-load.html}Load entries from LDIF file}}
+  * {{{./examples/ldif-load.html}Load entries from LDIF file}}
   
-  * {{{./ldap-maven-plugin/examples/ldif-dump.html}Dump entries to LDIF file}}
+  * {{{./examples/ldif-dump.html}Dump entries to LDIF file}}
 
-  * {{{./ldap-maven-plugin/examples/dsml-load.html}Load entries from DSML file}}
+  * {{{./examples/dsml-load.html}Load entries from DSML file}}
   
-  * {{{./ldap-maven-plugin/examples/dsml-dump.html}Dump entries to DSML file}}
+  * {{{./examples/dsml-dump.html}Dump entries to DSML file}}
 
-  * {{{./ldap-maven-plugin/examples/integration.html}Using the embedded LDAP directory server for integration testing}}
+  * {{{./examples/integration.html}Using the embedded LDAP directory server for integration testing}}
