@@ -48,6 +48,7 @@ public class TestUtils {
      *
      * @param filename The filename.
      * @return The {@link File}.
+     * @throws URISyntaxException If the filename is invalid.
      */
     public static File getFile(final String filename) throws URISyntaxException {
         final URL url = getURL(filename);

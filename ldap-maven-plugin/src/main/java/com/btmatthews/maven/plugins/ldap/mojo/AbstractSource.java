@@ -52,9 +52,11 @@ public abstract class AbstractSource implements Source {
     }
 
     /**
-    * Method call by plexus to valorise path after contruction of the class
-    */
-    public void set(String path){
+     * Method call by plexus to inject path after construction of the class.
+     *
+     * @param path The path of the source file.
+     */
+    public void set(String path) {
         this.path = path;
     }
 
