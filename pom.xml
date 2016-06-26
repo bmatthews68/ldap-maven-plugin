@@ -21,7 +21,7 @@
     </prerequisites>
     <groupId>com.btmatthews.maven.plugins.ldap</groupId>
     <artifactId>parent</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>LDAP Maven Plugin - Parent</name>
     <description>Parse and load LDIF records to an LDAP directory server. Dump records from an LDAP directory server to
@@ -543,7 +543,7 @@
         <connection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</connection>
         <url>https://github.com/bmatthews68/ldap-maven-plugin</url>
         <developerConnection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</developerConnection>
-      <tag>ldap-maven-plugin-1.3.1</tag>
+      <tag>HEAD</tag>
   </scm>
     <distributionManagement>
         <site>
