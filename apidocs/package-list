@@ -1,2 +1,7 @@
+com.btmatthews.maven.plugins.ldap
 com.btmatthews.maven.plugins.ldap.apache
+com.btmatthews.maven.plugins.ldap.dsml
+com.btmatthews.maven.plugins.ldap.ldif
 com.btmatthews.maven.plugins.ldap.mojo
+com.btmatthews.maven.plugins.ldap.opendj
+com.btmatthews.maven.plugins.ldap.unboundid

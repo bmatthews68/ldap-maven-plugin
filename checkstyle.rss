@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
 
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
 <rss version="0.91">
   <channel>
-    <title>LDAP Maven Plugin - Checkstyle report</title>
+    <title>LDAP Maven Plugin - Parent - Checkstyle report</title>
     <link>http://ldap-maven-plugin.btmatthews.com</link>
-    <description>LDAP Maven Plugin - Checkstyle report</description>
+    <description>LDAP Maven Plugin - Parent - Checkstyle report</description>
     <language>en-us</language>
-    <copyright>&#169;2008 - 2012 Brian Matthews</copyright>
+    <copyright>&#169;2008 - 2016 Brian Matthews</copyright>
     <item>
-      <title>File: 11,
-             Errors: 8,
+      <title>File: 40,
+             Errors: 294,
              Warnings: 0,
              Infos: 0
       </title>
@@ -29,7 +46,21 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.AbstractLDAPMojo.java">com/btmatthews/maven/plugins/ldap/mojo/AbstractLDAPMojo.java</a>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.AbstractSource.java">com/btmatthews/maven/plugins/ldap/mojo/AbstractSource.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.package-info.java">com/btmatthews/maven/plugins/ldap/dsml/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -39,6 +70,20 @@
                 </td>
                 <td>
                   2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.LoadMojo.java">com/btmatthews/maven/plugins/ldap/mojo/LoadMojo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
                 </td>
               </tr>
                           <tr>
@@ -57,7 +102,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.AbstractLDAPDumperMojo.java">com/btmatthews/maven/plugins/ldap/mojo/AbstractLDAPDumperMojo.java</a>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.AddRequestMatcher.java">com/btmatthews/maven/plugins/ldap/AddRequestMatcher.java</a>
                 </td>
                 <td>
                   0
@@ -66,12 +111,110 @@
                   0
                 </td>
                 <td>
-                  0
+                  3
                 </td>
               </tr>
                           <tr>
                 <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.StopLDAPMojo.java">com/btmatthews/maven/plugins/ldap/mojo/StopLDAPMojo.java</a>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.ldif.LDIFFormatWriter.java">com/btmatthews/maven/plugins/ldap/ldif/LDIFFormatWriter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.DSMLFormatHandler.java">com/btmatthews/maven/plugins/ldap/dsml/DSMLFormatHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.Dsml.java">com/btmatthews/maven/plugins/ldap/mojo/Dsml.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.DumpMojo.java">com/btmatthews/maven/plugins/ldap/mojo/DumpMojo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.AbstractLDAPServer.java">com/btmatthews/maven/plugins/ldap/AbstractLDAPServer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.LDAPServer.java">com/btmatthews/maven/plugins/ldap/LDAPServer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.AbstractLDAPMojo.java">com/btmatthews/maven/plugins/ldap/mojo/AbstractLDAPMojo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  15
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.unboundid.package-info.java">com/btmatthews/maven/plugins/ldap/unboundid/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -99,7 +242,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.LDIFLoaderMojo.java">com/btmatthews/maven/plugins/ldap/mojo/LDIFLoaderMojo.java</a>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.opendj.package-info.java">com/btmatthews/maven/plugins/ldap/opendj/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -113,7 +256,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.package-info.java">com/btmatthews/maven/plugins/ldap/mojo/package-info.java</a>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.Source.java">com/btmatthews/maven/plugins/ldap/mojo/Source.java</a>
                 </td>
                 <td>
                   0
@@ -122,35 +265,7 @@
                   0
                 </td>
                 <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.LDIFDumperMojo.java">com/btmatthews/maven/plugins/ldap/mojo/LDIFDumperMojo.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.RunLDAPMojo.java">com/btmatthews/maven/plugins/ldap/mojo/RunLDAPMojo.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
+                  3
                 </td>
               </tr>
                           <tr>
@@ -169,7 +284,301 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.DSMLDumperMojo.java">com/btmatthews/maven/plugins/ldap/mojo/DSMLDumperMojo.java</a>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatTestUtils.java">com/btmatthews/maven/plugins/ldap/FormatTestUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.ldif.LDIFFormatReader.java">com/btmatthews/maven/plugins/ldap/ldif/LDIFFormatReader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  7
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.TestAbstractLDAPServer.java">com/btmatthews/maven/plugins/ldap/TestAbstractLDAPServer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.unboundid.UnboundIDServer.java">com/btmatthews/maven/plugins/ldap/unboundid/UnboundIDServer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.AbstractFormatHandler.java">com/btmatthews/maven/plugins/ldap/AbstractFormatHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  19
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.Ldif.java">com/btmatthews/maven/plugins/ldap/mojo/Ldif.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.IncludeServerDependenciesComponentConfigurator.java">com/btmatthews/maven/plugins/ldap/mojo/IncludeServerDependenciesComponentConfigurator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  47
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatLogger.java">com/btmatthews/maven/plugins/ldap/FormatLogger.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.ldif.LDIFFormatHandler.java">com/btmatthews/maven/plugins/ldap/ldif/LDIFFormatHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.StopLDAPMojo.java">com/btmatthews/maven/plugins/ldap/mojo/StopLDAPMojo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.opendj.OpenDJServerFactory.java">com/btmatthews/maven/plugins/ldap/opendj/OpenDJServerFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.package-info.java">com/btmatthews/maven/plugins/ldap/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.unboundid.UnboundIDServerFactory.java">com/btmatthews/maven/plugins/ldap/unboundid/UnboundIDServerFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.opendj.OpenDJServer.java">com/btmatthews/maven/plugins/ldap/opendj/OpenDJServer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.TestUtils.java">com/btmatthews/maven/plugins/ldap/TestUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.RunLDAPMojo.java">com/btmatthews/maven/plugins/ldap/mojo/RunLDAPMojo.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.DSMLFormatReader.java">com/btmatthews/maven/plugins/ldap/dsml/DSMLFormatReader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.ldif.package-info.java">com/btmatthews/maven/plugins/ldap/ldif/package-info.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatHandler.java">com/btmatthews/maven/plugins/ldap/FormatHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatWriter.java">com/btmatthews/maven/plugins/ldap/FormatWriter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.dsml.DSMLFormatWriter.java">com/btmatthews/maven/plugins/ldap/dsml/DSMLFormatWriter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.mojo.package-info.java">com/btmatthews/maven/plugins/ldap/mojo/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -179,6 +588,20 @@
                 </td>
                 <td>
                   0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://ldap-maven-plugin.btmatthews.com/checkstyle.html#com.btmatthews.maven.plugins.ldap.FormatReader.java">com/btmatthews/maven/plugins/ldap/FormatReader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
                 </td>
               </tr>
                       </tbody>
