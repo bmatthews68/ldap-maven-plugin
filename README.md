@@ -148,7 +148,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
     <executions>
         <execution>
             <id>dump</id>
@@ -262,9 +262,9 @@ are not available from [Maven Central](http://search.maven.org).
 
 ```xml
 <repository>
-  <id>maven.forgerock.org</id>
-  <name>maven.forgerock.org-releases</name>
-  <url>http://maven.forgerock.org/repo/releases</url>
+    <id>maven.forgerock.org</id>
+    <name>maven.forgerock.org-releases</name>
+    <url>http://maven.forgerock.org/repo/releases</url>
 </repository>
 ```
 
