@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<!-- 
+    Copyright 2008-2016 Brian Thomas Matthews
+	
+	Licensed under the Apache License, Version 2.0 (the "License");
+	you may not use this file except in compliance with the License.
+	You may obtain a copy of the License at
+	
+	http://www.apache.org/licenses/LICENSE-2.0
+	
+	Unless required by applicable law or agreed to in writing, software
+	distributed under the License is distributed on an "AS IS" BASIS,
+	WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+	See the License for the specific language governing permissions and
+	limitations under the License.
+-->
+<project name="${project.name}">
+    <googleAnalyticsAccountId>UA-5713196-9</googleAnalyticsAccountId>
+    <bannerLeft>
+		<name>LDAP Maven Plugin</name>
+        <src>http://ldap-maven-plugin.btmatthews.com/logo.png</src>
+		<href>http://ldap-maven-plugin.btmatthews.com</href>
+	</bannerLeft>  
+	<publishDate format="dd MMM yyyy" position="left" />  
+    <version position="left" />  
+	<body>
+		<links>
+			<item name="Maven 3" href="http://maven.apache.org/" />
+            <item name="ApacheDS" href="http://directory.apache.org/apacheds" />
+            <item name="OpenDJ" href="http://opendj.forgerock.org" />
+            <item name="UnboundID" href="https://www.unboundid.com/products/directory-server.php" />
+		</links>
+		<menu name="Overview">
+			<item name="Introduction" href="../index.html" />
+			<item name="Goals" href="plugin-info.html" />
+			<item name="Usage" href="../usage.html" />
+		</menu>
+		<menu name="Examples">
+			<item name="Loading from LDIF" href="../examples/ldif-load.html" />
+			<item name="Dumping to LDIF" href="../examples/ldif-dump.html" />
+            <item name="Loading from DSML" href="../examples/dsml-load.html" />
+            <item name="Dumping to DSML" href="../examples/dsml-dump.html" />
+            <item name="Integration testing" href="../examples/integration.html" />
+		</menu>
+		<menu name="Project Documentation">
+			<item name="Project Information">
+				<item name="Summary" href="../project-summary.html" />
+				<item name="Team" href="../team-list.html" />
+				<item name="Licenses" href="../license.html" />
+				<item name="Issue Management" href="../issue-tracking.html" />
+				<item name="Source Code Management" href="../source-repository.html" />
+				<item name="Dependency Convergence" href="../dependency-convergence.html" />
+				<item name="Dependency Management" href="../dependency-management.html" />
+				<item name="Plugins" href="../plugins.html" />
+				<item name="Plugin Management" href="../plugin-management.html" />
+			</item>
+			<item name="Project Reports">
+				<item name="JavaDocs" href="../apidocs/index.html" />
+				<item name="Source Xref" href="../xref/index.html" />
+				<item name="Checkstyle" href="../checkstyle-aggregate.html" />
+				<item name="PMD" href="../pmd.html" />
+				<item name="Surefire Report" href="../surefire-report.html" />
+			</item>
+		</menu>
+	</body>
+    <skin>
+        <groupId>org.apache.maven.skins</groupId>
+        <artifactId>maven-fluido-skin</artifactId>
+        <version>1.5</version>
+    </skin>
+    <poweredBy>
+        <logo name="Maven" href="http://maven.apache.org/" img="http://maven.apache.org/images/logos/maven-feather.png"/>
+    </poweredBy>
+</project>
