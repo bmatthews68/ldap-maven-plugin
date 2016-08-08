@@ -71,7 +71,7 @@ Usage
     ...
     <plugins>
       ...
-        <groupId>com.btmatthews</groupId>
+        <groupId>com.btmatthews.maven.plugins</groupId>
         <artifactId>ldap-maven-plugin</artifactId>
         <configuration>
           <host>localhost</host>
@@ -108,7 +108,7 @@ Usage
     ...
     <plugins>
       ...
-        <groupId>com.btmatthews</groupId>
+        <groupId>com.btmatthews.maven.plugins</groupId>
         <artifactId>ldap-maven-plugin</artifactId>
         <configuration>
           <host>localhost</host>
@@ -137,7 +137,7 @@ Usage
     ...
     <plugins>
       ...
-        <groupId>com.btmatthews</groupId>
+        <groupId>com.btmatthews.maven.plugins</groupId>
         <artifactId>ldap-maven-plugin</artifactId>
         <configuration>
           <version>3</version>
