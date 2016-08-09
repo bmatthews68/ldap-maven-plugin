@@ -176,6 +176,7 @@ public class IncludeServerDependenciesComponentConfigurator extends AbstractComp
             for (final Artifact artifact : result.getMissingArtifacts()) {
                 if (!first) {
                     builder.append(',');
+                } else {
                     first = false;
                 }
                 builder.append(artifact.getGroupId());
