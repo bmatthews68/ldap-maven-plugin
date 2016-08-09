@@ -50,7 +50,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <executions>
         <execution>
             <id>load</id>
@@ -82,7 +82,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <executions>
         <execution>
             <id>dump</id>
@@ -116,7 +116,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <executions>
         <execution>
             <id>load</id>
@@ -148,7 +148,7 @@ goal of the **LDAP Maven Plugin**.
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <executions>
         <execution>
             <id>dump</id>
@@ -194,7 +194,7 @@ the embedded LDAP directory server upon completion of the integration tests.
         <plugin>
           <groupId>com.btmatthews.maven.plugins</groupId>
           <artifactId>ldap-maven-plugin</artifactId>
-          <version>1.3.1</version>
+          <version>1.3.2</version>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -251,7 +251,7 @@ coordinates:
 <plugin>
     <groupId>com.btmatthews.maven.plugins</groupId>
     <artifactId>ldap-maven-plugin</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
 </plugin>
 ```
 
