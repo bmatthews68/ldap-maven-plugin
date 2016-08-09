@@ -14,7 +14,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <prerequisites>
         <maven>3.0.5</maven>
@@ -57,17 +58,12 @@
             <extension>
                 <groupId>org.apache.maven.scm</groupId>
                 <artifactId>maven-scm-provider-gitexe</artifactId>
-                <version>1.9.4</version>
+                <version>1.9.5</version>
             </extension>
             <extension>
                 <groupId>org.apache.maven.scm</groupId>
                 <artifactId>maven-scm-manager-plexus</artifactId>
-                <version>1.9.4</version>
-            </extension>
-            <extension>
-                <groupId>com.github.stephenc.wagon</groupId>
-                <artifactId>wagon-gitsite</artifactId>
-                <version>0.4</version>
+                <version>1.9.5</version>
             </extension>
         </extensions>
         <pluginManagement>
@@ -126,6 +122,13 @@
                 <plugin>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.5.1</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>net.trajano.wagon</groupId>
+                            <artifactId>wagon-git</artifactId>
+                            <version>2.0.0</version>
+                        </dependency>
+                    </dependencies>
                 </plugin>
                 <plugin>
                     <artifactId>maven-release-plugin</artifactId>
@@ -522,12 +525,12 @@
         <connection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</connection>
         <url>https://github.com/bmatthews68/ldap-maven-plugin</url>
         <developerConnection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</developerConnection>
-      <tag>HEAD</tag>
-  </scm>
+        <tag>HEAD</tag>
+    </scm>
     <distributionManagement>
         <site>
             <id>gh-pages</id>
-            <url>gitsite:git@github.com/bmatthews68/ldap-maven-plugin.git</url>
+            <url>git:ssh://git@github.com/bmatthews68/ldap-maven-plugin.git?gh-pages#</url>
         </site>
         <repository>
             <id>releases.sonatype</id>
