@@ -22,7 +22,7 @@
     <parent>
         <groupId>com.btmatthews.maven.plugins.ldap</groupId>
         <artifactId>parent</artifactId>
-        <version>1.3.2-SNAPSHOT</version>
+        <version>1.3.2</version>
     </parent>
     <artifactId>server-opendj</artifactId>
     <name>OpenDJ Server</name>
