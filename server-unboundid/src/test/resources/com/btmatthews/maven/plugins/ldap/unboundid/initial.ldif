@@ -40,3 +40,4 @@ givenName: Carl
 uid: ccarlson
 title: Worker
 objectclass: inetOrgPerson
+newattribute: test

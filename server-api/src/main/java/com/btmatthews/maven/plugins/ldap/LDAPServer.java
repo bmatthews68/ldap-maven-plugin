@@ -56,6 +56,10 @@ public interface LDAPServer extends Server {
      * The name of the parameter that specifies the port on which the LDAP service will listen for traffic.
      */
     String LDAP_PORT = "ldapPort";
+    /**
+     * The name of the parameter that specifies whether the server should validate entries against schema.
+     */
+    String USE_SCHEMA = "useSchema";
 
     /**
      * Get the configured directory root.
@@ -98,4 +102,11 @@ public interface LDAPServer extends Server {
      * @return The port.
      */
     int getServerPort();
+    
+    /**
+     * Get the flag indicating if entries will be validated against schema.
+     *
+     * @return The use schema flag.
+     */
+    boolean getUseSchema();
 }
