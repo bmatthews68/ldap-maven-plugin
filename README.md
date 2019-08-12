@@ -15,8 +15,6 @@ can:
 
   * [ApacheDS](http://directory.apache.org/apacheds/)
 
-  * [OpenDJ](http://opendj.forgerock.org/)
-
   * [UnboundID](https://www.unboundid.com/products/ldap-sdk/)
 
 Importing or exporting data

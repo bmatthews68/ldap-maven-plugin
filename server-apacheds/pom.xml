@@ -22,7 +22,7 @@
     <parent>
         <groupId>com.btmatthews.maven.plugins.ldap</groupId>
         <artifactId>parent</artifactId>
-        <version>1.3.3-SNAPSHOT</version>
+        <version>1.3.3-M01</version>
     </parent>
     <artifactId>server-apacheds</artifactId>
     <name>ApacheDS Server</name>
@@ -36,30 +36,29 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core</artifactId>
+            <artifactId>apacheds-all</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.directory.server</groupId>
+            <artifactId>apacheds-server-integ</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-core-entry</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-ldap</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.directory.server</groupId>
-            <artifactId>apacheds-protocol-shared</artifactId>
+            <artifactId>apacheds-core-integ</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.directory.server</groupId>
             <artifactId>apacheds-server-jndi</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.apache.directory.shared</groupId>
-            <artifactId>shared-ldap</artifactId>
+            <groupId>org.apache.directory.jdbm</groupId>
+            <artifactId>apacheds-jdbm1</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.btmatthews.utils</groupId>
             <artifactId>monitor</artifactId>

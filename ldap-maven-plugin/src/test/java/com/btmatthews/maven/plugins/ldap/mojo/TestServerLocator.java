@@ -17,7 +17,6 @@
 package com.btmatthews.maven.plugins.ldap.mojo;
 
 import com.btmatthews.maven.plugins.ldap.apache.ApacheDSServerFactory;
-import com.btmatthews.maven.plugins.ldap.opendj.OpenDJServerFactory;
 import com.btmatthews.maven.plugins.ldap.unboundid.UnboundIDServerFactory;
 import com.btmatthews.utils.monitor.Logger;
 import com.btmatthews.utils.monitor.ServerFactory;
@@ -76,16 +75,6 @@ public class TestServerLocator {
         assertNotNull(factory);
         assertTrue(factory instanceof ApacheDSServerFactory);
 
-    }
-
-    /**
-     * Verify that the server factory locator can locate the OpenDJ server factory.
-     */
-    @Test
-    public void canLocateOpenDJServerFactory() {
-        final ServerFactory factory = locator.getFactory("opendj");
-        assertNotNull(factory);
-        assertTrue(factory instanceof OpenDJServerFactory);
     }
 
     /**
