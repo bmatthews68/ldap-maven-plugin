@@ -137,11 +137,6 @@
             <artifactId>server-apacheds</artifactId>
             <scope>test</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.btmatthews.maven.plugins.ldap</groupId>-->
-        <!--            <artifactId>server-opendj</artifactId>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
         <dependency>
             <groupId>com.btmatthews.maven.plugins.ldap</groupId>
             <artifactId>server-unboundid</artifactId>
