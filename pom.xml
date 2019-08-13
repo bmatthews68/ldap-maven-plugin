@@ -567,15 +567,15 @@
         <system>GitHub</system>
     </issueManagement>
     <scm>
-        <connection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</connection>
+        <connection>scm:git:git@github.com:atlassian/ldap-maven-plugin.git</connection>
         <url>https://github.com/bmatthews68/ldap-maven-plugin</url>
-        <developerConnection>scm:git:git@github.com:bmatthews68/ldap-maven-plugin.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:atlassian/ldap-maven-plugin.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
     <distributionManagement>
         <site>
             <id>gh-pages</id>
-            <url>git:ssh://git@github.com/bmatthews68/ldap-maven-plugin.git?gh-pages#</url>
+            <url>git:ssh://git@github.com/atlassian/ldap-maven-plugin.git?gh-pages#</url>
         </site>
         <repository>
             <id>releases.sonatype</id>
