@@ -89,7 +89,7 @@ public abstract class AbstractLDAPMojo extends AbstractMojo implements FormatLog
         while (i < connectionRetries) {
             long start = System.currentTimeMillis();
             try {
-                this.getLog().info("Attempting to connect ot LDAP directory server (" + host + ":" + port + ")");
+                this.getLog().info("Attempting to connect to LDAP directory server (" + host + ":" + port + ")");
                 connection.connect(host, port, connectionTimeout);
                 break;
             } catch (final LDAPException e) {
