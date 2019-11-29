@@ -49,6 +49,7 @@ public class TestUnboundIDServer {
         server.configure("authDn", "uid=admin,ou=system", logger);
         server.configure("passwd", "secret", logger);
         server.configure("ldapPort", port, logger);
+        server.configure("useSchema", false, logger);
         server.configure("ldifFile", new File("target/test-classes/com/btmatthews/maven/plugins/ldap/unboundid/initial.ldif"), logger);
         server.configure("workingDirectory", folder.newFolder(), logger);
         server.start(logger);
