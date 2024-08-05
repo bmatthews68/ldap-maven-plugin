@@ -57,6 +57,10 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
      * The TCP port on which the server is listening for LDAP traffic.
      */
     private int serverPort;
+    /**
+     * The flag indicating if entries should be validated against schema.
+     */
+    private boolean useSchema;
 
     /**
      * Used to configure the root DN of the LDAP directory, the working directory used by the directory service to
@@ -103,6 +107,11 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
             if (value instanceof Integer) {
                 serverPort = (Integer) value;
                 logger.logInfo("Configured TCP port for directory server: " + serverPort);
+            }
+        } else if (USE_SCHEMA.equals(name)) {
+            if (value instanceof Integer) {
+                useSchema = (Boolean) value;
+                logger.logInfo("Validate against schema: " + useSchema);
             }
         }
     }
@@ -168,5 +177,14 @@ public abstract class AbstractLDAPServer extends AbstractServer implements LDAPS
      */
     public final int getServerPort() {
         return serverPort;
+    }
+    
+    /**
+     * Get the flag indicating if entries will be validated against schema.
+     *
+     * @return The port.
+     */
+    public final boolean getUseSchema() {
+        return useSchema;
     }
 }

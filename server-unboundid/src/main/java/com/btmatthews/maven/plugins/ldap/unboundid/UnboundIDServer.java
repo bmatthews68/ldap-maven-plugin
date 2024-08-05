@@ -62,6 +62,9 @@ public final class UnboundIDServer extends AbstractLDAPServer {
             final InMemoryListenerConfig listenerConfig = InMemoryListenerConfig.createLDAPConfig("default", getServerPort());
             final InMemoryDirectoryServerConfig config = new InMemoryDirectoryServerConfig(new DN(getRoot()));
             config.setListenerConfigs(listenerConfig);
+            if( !getUseSchema()) {
+            	config.setSchema(null);
+            }
             if (getAuthDn() != null) {
                 config.addAdditionalBindCredentials(getAuthDn(), getPasswd());
             }
